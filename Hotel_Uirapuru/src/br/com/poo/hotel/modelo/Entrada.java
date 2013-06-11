@@ -1,6 +1,7 @@
 package br.com.poo.hotel.modelo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Entrada {
 
@@ -11,12 +12,12 @@ public class Entrada {
 	private int numeroAcomadacoes;
 	private double valorDiaria;
 	private Hospede hospedePrincipal;
-	private Acompanhante acompanhante;
+	private List<Acompanhante> acompanhantes;
+	private Funcionario funcionarioResponsavel;
 	
 	public Entrada(Date dataChegada, Date horaChegada, Date dataSaida,
 			Date horaSaida, int numeroAcomadacoes, double valorDiaria,
-			Hospede hospedePrincipal, Acompanhante acompanhante) {
-		super();
+			Hospede hospedePrincipal, List<Acompanhante> acompanhantes, Funcionario funcionarioResponsavel) {
 		this.dataChegada = dataChegada;
 		this.horaChegada = horaChegada;
 		this.dataSaida = dataSaida;
@@ -24,7 +25,8 @@ public class Entrada {
 		this.numeroAcomadacoes = numeroAcomadacoes;
 		this.valorDiaria = valorDiaria;
 		this.hospedePrincipal = hospedePrincipal;
-		this.acompanhante = acompanhante;
+		this.acompanhantes = acompanhantes;
+		this.funcionarioResponsavel = funcionarioResponsavel;
 	}
 
 	public Date getDataChegada() {
@@ -83,12 +85,20 @@ public class Entrada {
 		this.hospedePrincipal = hospedePrincipal;
 	}
 
-	public Acompanhante getAcompanhante() {
-		return acompanhante;
+	public List<Acompanhante> getAcompanhantes() {
+		return acompanhantes;
 	}
 
-	public void setAcompanhante(Acompanhante acompanhante) {
-		this.acompanhante = acompanhante;
+	public void setAcompanhante(List<Acompanhante> acompanhantes) {
+		this.acompanhantes = acompanhantes;
+	}
+
+	public Funcionario getFuncionarioResponsavel() {
+		return funcionarioResponsavel;
+	}
+
+	public void setFuncionarioResponsavel(Funcionario funcionarioResponsavel) {
+		this.funcionarioResponsavel = funcionarioResponsavel;
 	}
 	
 }

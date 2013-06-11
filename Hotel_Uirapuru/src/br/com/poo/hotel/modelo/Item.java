@@ -9,7 +9,6 @@ public class Item {
 	
 	public Item(int codigo, String descricao, double precoVenda,
 			Categoria categoria) {
-		super();
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.precoVenda = precoVenda;

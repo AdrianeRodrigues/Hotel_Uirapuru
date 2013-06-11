@@ -5,6 +5,14 @@ import java.util.List;
 import br.com.poo.hotel.dao.DAO;
 import br.com.poo.hotel.modelo.Acomodacao;
 
+/**
+ * 
+ * @author guilherme
+ * @version 1.0.0
+ * @see Acomodacao
+ * @see DAO
+ */
+
 public class AcomodacaoDAO implements DAO<Acomodacao> {
 
 	@Override

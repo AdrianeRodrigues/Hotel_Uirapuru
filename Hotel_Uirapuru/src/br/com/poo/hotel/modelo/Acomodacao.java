@@ -7,7 +7,6 @@ public class Acomodacao {
 	private TipoAcomodacao tipoAcomodacao;
 	
 	public Acomodacao(int andar, int numero, TipoAcomodacao tipoAcomodacao) {
-		super();
 		this.andar = andar;
 		this.numero = numero;
 		this.tipoAcomodacao = tipoAcomodacao;

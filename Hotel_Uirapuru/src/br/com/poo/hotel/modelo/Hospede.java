@@ -13,11 +13,12 @@ public class Hospede extends Pessoa {
 	private String nomeMae;
 	private List<CartaoCredito> cartaoCredito;
 	private Consumo consumo;
+	private Acomodacao acomodacao;
 	
 	public Hospede(String nome, Date dataNascimento, Endereco endereco,
 			Telefone telefone, String email, String RG, String CPF,
 			String passaporte, String nomePai, String nomeMae,
-			List<CartaoCredito> cartaoCredito, Consumo consumo) {
+			List<CartaoCredito> cartaoCredito, Consumo consumo, Acomodacao acomodacao) {
 		super(nome, dataNascimento, endereco, telefone);
 		this.email = email;
 		this.RG = RG;
@@ -27,6 +28,7 @@ public class Hospede extends Pessoa {
 		this.nomeMae = nomeMae;
 		this.cartaoCredito = cartaoCredito;
 		this.consumo = consumo;
+		this.acomodacao = acomodacao;
 	}
 
 	public String getEmail() {
@@ -91,6 +93,14 @@ public class Hospede extends Pessoa {
 
 	public void setConsumo(Consumo consumo) {
 		this.consumo = consumo;
+	}
+
+	public Acomodacao getAcomodacao() {
+		return acomodacao;
+	}
+
+	public void setAcomodacao(Acomodacao acomodacao) {
+		this.acomodacao = acomodacao;
 	}
 	
 }
