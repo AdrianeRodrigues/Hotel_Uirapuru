@@ -6,9 +6,8 @@ public class Acompanhante {
 	private int idade;
 	
 	public Acompanhante(String nome, int idade) {
-		super();
 		this.nome = nome;
-		this.idade = idade;
+		setIdade(idade);
 	}
 
 	public String getNome() {
@@ -23,8 +22,12 @@ public class Acompanhante {
 		return idade;
 	}
 
-	public void setIdade(int idade) {
-		this.idade = idade;
+	public boolean setIdade(int idade) {
+		if (idade > 0) {
+			this.idade = idade;
+			return true;
+		} else
+			return false;
 	}
 	
 }

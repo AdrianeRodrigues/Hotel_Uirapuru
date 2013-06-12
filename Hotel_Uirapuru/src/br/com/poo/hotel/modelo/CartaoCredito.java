@@ -4,27 +4,34 @@ public class CartaoCredito {
 
 	private int agencia;
 	private int numero;
-	
+
 	public CartaoCredito(int agencia, int numero) {
-		super();
-		this.agencia = agencia;
-		this.numero = numero;
+		setAgencia(agencia);
+		setNumero(numero);
 	}
-	
+
 	public int getAgencia() {
 		return agencia;
 	}
-	
-	public void setAgencia(int agencia) {
-		this.agencia = agencia;
+
+	public boolean setAgencia(int agencia) {
+		if (agencia > 0) {
+			this.agencia = agencia;
+			return true;
+		} else
+			return false;
 	}
-	
+
 	public int getNumero() {
 		return numero;
 	}
-	
-	public void setNumero(int numero) {
-		this.numero = numero;
+
+	public boolean setNumero(int numero) {
+		if (numero > 0) {
+			this.numero = numero;
+			return true;
+		} else
+			return false;
 	}
-	
+
 }

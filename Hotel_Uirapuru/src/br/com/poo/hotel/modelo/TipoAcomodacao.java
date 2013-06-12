@@ -11,7 +11,6 @@ public class TipoAcomodacao {
 	
 	public TipoAcomodacao(int codigo, String descricao, int quantidade,
 			double precoDiaria, int numeroAdultos, int numeroCriancas) {
-		super();
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.quantidade = quantidade;

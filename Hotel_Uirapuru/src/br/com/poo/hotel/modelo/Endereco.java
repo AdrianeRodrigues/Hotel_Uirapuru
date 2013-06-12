@@ -12,14 +12,13 @@ public class Endereco {
 	
 	public Endereco(String logradouro, String bairro, String cidade,
 			String numero, String complemento, String estado, String pais) {
-		super();
-		this.logradouro = logradouro;
-		this.bairro = bairro;
-		this.cidade = cidade;
-		this.numero = numero;
-		this.complemento = complemento;
-		this.estado = estado;
-		this.pais = pais;
+		setLogradouro(logradouro);
+		setBairro(bairro);
+		setCidade(cidade);
+		setNumero(numero);
+		setComplemento(complemento);
+		setEstado(estado);
+		setPais(pais);
 	}
 
 	public String getLogradouro() {
@@ -66,8 +65,12 @@ public class Endereco {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public boolean setEstado(String estado) {
+		if (estado.length() == 2) {
+			this.estado = estado.toUpperCase();
+			return true;
+		} else
+			return false;
 	}
 
 	public String getPais() {

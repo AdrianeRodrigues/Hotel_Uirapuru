@@ -7,33 +7,45 @@ public class Acomodacao {
 	private TipoAcomodacao tipoAcomodacao;
 	
 	public Acomodacao(int andar, int numero, TipoAcomodacao tipoAcomodacao) {
-		this.andar = andar;
-		this.numero = numero;
-		this.tipoAcomodacao = tipoAcomodacao;
+		setAndar(andar);
+		setNumero(numero);
+		setTipoAcomodacao(tipoAcomodacao);
 	}
 
 	public int getAndar() {
 		return andar;
 	}
-
-	public void setAndar(int andar) {
-		this.andar = andar;
+	
+	public boolean setAndar(int andar) {
+		if (andar > 0) {
+			this.andar = andar;
+			return true;
+		} else
+			return false;
 	}
 
 	public int getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public boolean setNumero(int numero) {
+		if (numero > 0) {
+			this.numero = numero;
+			return true;
+		} else
+			return false;
 	}
 
 	public TipoAcomodacao getTipoAcomodacao() {
 		return tipoAcomodacao;
 	}
 
-	public void setTipoAcomodacao(TipoAcomodacao tipoAcomodacao) {
-		this.tipoAcomodacao = tipoAcomodacao;
+	public boolean setTipoAcomodacao(TipoAcomodacao tipoAcomodacao) {
+		if (tipoAcomodacao != null) {
+			this.tipoAcomodacao = tipoAcomodacao;
+			return true;
+		} else
+			return false;
 	}
 	
 }

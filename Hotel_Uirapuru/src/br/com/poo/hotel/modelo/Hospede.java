@@ -3,6 +3,8 @@ package br.com.poo.hotel.modelo;
 import java.util.Date;
 import java.util.List;
 
+import br.com.poo.hotel.utilitarios.Verificador;
+
 public class Hospede extends Pessoa {
 	
 	private String email;
@@ -35,24 +37,28 @@ public class Hospede extends Pessoa {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public boolean setEmail(String email) {
+		if (Verificador.validarEmail(email)) {
+			this.email = email;
+			return true;
+		} else
+			return false;
 	}
 
 	public String getRG() {
 		return RG;
 	}
 
-	public void setRG(String rG) {
-		RG = rG;
+	public void setRG(String RG) {
+		this.RG = RG;
 	}
 
 	public String getCPF() {
 		return CPF;
 	}
 
-	public void setCPF(String cPF) {
-		CPF = cPF;
+	public void setCPF(String CPF) {
+		this.CPF = CPF;
 	}
 
 	public String getPassaporte() {
