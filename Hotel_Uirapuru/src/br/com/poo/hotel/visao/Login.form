@@ -31,16 +31,14 @@
                   <Component id="labelSenha" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="btnEnter" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="btnEnter" min="-2" pref="81" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtUser" max="32767" attributes="0"/>
-                      <Component id="txtSenha" pref="190" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="txtUser" alignment="1" pref="190" max="32767" attributes="0"/>
+                  <Component id="pssdSenha" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="76" max="32767" attributes="0"/>
           </Group>
@@ -57,14 +55,14 @@
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelSenha" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="pssdSenha" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnEnter" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <EmptySpace pref="34" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -82,8 +80,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtUser">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtSenha">
-    </Component>
     <Component class="javax.swing.JButton" name="btnEnter">
       <Properties>
         <Property name="text" type="java.lang.String" value="Entrar"/>
@@ -99,6 +95,11 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="pssdSenha">
     </Component>
   </SubComponents>
 </Form>
