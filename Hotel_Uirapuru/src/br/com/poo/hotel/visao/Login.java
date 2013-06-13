@@ -6,15 +6,13 @@ import javax.swing.JOptionPane;
  *
  * @author adriane
  */
-public class Login extends javax.swing.JInternalFrame {
+public class Login extends javax.swing.JFrame {
 
-    private boolean status;//indicar se o login foi efetuado com sucesso
-    CadastroHospede teste;
-    Principal add;
+    private Principal tela;
     
-    public Login(Principal add) {
-        this.status = false;
-        this.add = add;
+    
+    public Login() {
+        //this.status = false;
         initComponents();
     }
 
@@ -34,8 +32,6 @@ public class Login extends javax.swing.JInternalFrame {
         btnCancel = new javax.swing.JButton();
         pssdSenha = new javax.swing.JPasswordField();
 
-        setClosable(true);
-        setIconifiable(true);
         setTitle("Login");
 
         labelUser.setText("usuario:");
@@ -62,7 +58,7 @@ public class Login extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelUser)
                     .addComponent(labelSenha))
@@ -74,12 +70,12 @@ public class Login extends javax.swing.JInternalFrame {
                         .addComponent(btnCancel))
                     .addComponent(txtUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                     .addComponent(pssdSenha))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelUser)
                     .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -91,7 +87,7 @@ public class Login extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEnter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -100,9 +96,9 @@ public class Login extends javax.swing.JInternalFrame {
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
         if(!txtUser.getText().isEmpty() && !pssdSenha.getPassword().toString().isEmpty()){
             JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
-            teste = new CadastroHospede();
-            add.addDesktop(teste);
-            
+            tela = new Principal();
+            tela.setVisible(true);
+            this.dispose();
         }else{
             JOptionPane.showMessageDialog(null, "Favor preencher todos os campos!");
             
