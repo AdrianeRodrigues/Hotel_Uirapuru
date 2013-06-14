@@ -1,5 +1,6 @@
 package br.com.poo.hotel.visao;
 
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 /**
@@ -10,6 +11,7 @@ public class Principal extends javax.swing.JFrame {
 
     public Principal() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -23,18 +25,32 @@ public class Principal extends javax.swing.JFrame {
 
         desktopPrin = new javax.swing.JDesktopPane();
         nenuBarPrin = new javax.swing.JMenuBar();
-        menuLogin = new javax.swing.JMenu();
+        menuCadastro = new javax.swing.JMenu();
+        itemCadastroHospede = new javax.swing.JMenuItem();
+        itemCadastrarItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Principal");
 
-        menuLogin.setText("Login");
-        menuLogin.addActionListener(new java.awt.event.ActionListener() {
+        menuCadastro.setText("Cadastro");
+
+        itemCadastroHospede.setText("Cadastrar hospede");
+        itemCadastroHospede.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuLoginActionPerformed(evt);
+                itemCadastroHospedeActionPerformed(evt);
             }
         });
-        nenuBarPrin.add(menuLogin);
+        menuCadastro.add(itemCadastroHospede);
+
+        itemCadastrarItem.setText("Cadastrar item");
+        itemCadastrarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCadastrarItemActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(itemCadastrarItem);
+
+        nenuBarPrin.add(menuCadastro);
 
         setJMenuBar(nenuBarPrin);
 
@@ -52,10 +68,15 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLoginActionPerformed
-        Login telaLogin = new Login();
-        addDesktop(telaLogin);
-    }//GEN-LAST:event_menuLoginActionPerformed
+    private void itemCadastroHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroHospedeActionPerformed
+        CadastroHospede cadastroH = new CadastroHospede();
+        addDesktop(cadastroH);
+    }//GEN-LAST:event_itemCadastroHospedeActionPerformed
+
+    private void itemCadastrarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastrarItemActionPerformed
+        CadastroItem cadastroI = new CadastroItem();
+        addDesktop(cadastroI);
+    }//GEN-LAST:event_itemCadastrarItemActionPerformed
     
     public void addDesktop(JInternalFrame frame){
         desktopPrin.add(frame);
@@ -64,7 +85,9 @@ public class Principal extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPrin;
-    private javax.swing.JMenu menuLogin;
+    private javax.swing.JMenuItem itemCadastrarItem;
+    private javax.swing.JMenuItem itemCadastroHospede;
+    private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenuBar nenuBarPrin;
     // End of variables declaration//GEN-END:variables
 }
