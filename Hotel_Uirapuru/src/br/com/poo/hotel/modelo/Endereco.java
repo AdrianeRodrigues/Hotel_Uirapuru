@@ -9,7 +9,7 @@ public class Endereco {
 	private String complemento;
 	private String estado;
 	private String pais;
-	
+
 	public Endereco(String logradouro, String bairro, String cidade,
 			String numero, String complemento, String estado, String pais) {
 		setLogradouro(logradouro);
@@ -65,12 +65,8 @@ public class Endereco {
 		return estado;
 	}
 
-	public boolean setEstado(String estado) {
-		if (estado.length() == 2) {
-			this.estado = estado.toUpperCase();
-			return true;
-		} else
-			return false;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public String getPais() {
@@ -80,5 +76,5 @@ public class Endereco {
 	public void setPais(String pais) {
 		this.pais = pais;
 	}
-	
+
 }

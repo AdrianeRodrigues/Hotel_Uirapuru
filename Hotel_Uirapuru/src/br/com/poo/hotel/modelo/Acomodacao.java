@@ -4,24 +4,26 @@ public class Acomodacao {
 
 	private int andar;
 	private int numero;
+	private boolean ocupado;
 	private TipoAcomodacao tipoAcomodacao;
-	
+
 	public Acomodacao(int andar, int numero, TipoAcomodacao tipoAcomodacao) {
 		setAndar(andar);
 		setNumero(numero);
 		setTipoAcomodacao(tipoAcomodacao);
+		ocupado = true;
 	}
 
 	public int getAndar() {
 		return andar;
 	}
-	
+
 	public boolean setAndar(int andar) {
 		if (andar > 0) {
 			this.andar = andar;
 			return true;
-		} else
-			return false;
+		}
+		return false;
 	}
 
 	public int getNumero() {
@@ -32,8 +34,8 @@ public class Acomodacao {
 		if (numero > 0) {
 			this.numero = numero;
 			return true;
-		} else
-			return false;
+		}
+		return false;
 	}
 
 	public TipoAcomodacao getTipoAcomodacao() {
@@ -44,8 +46,16 @@ public class Acomodacao {
 		if (tipoAcomodacao != null) {
 			this.tipoAcomodacao = tipoAcomodacao;
 			return true;
-		} else
-			return false;
+		}
+		return false;
 	}
-	
+
+	public boolean isOcupado() {
+		return ocupado;
+	}
+
+	public void setOcupado(boolean ocupado) {
+		this.ocupado = ocupado;
+	}
+
 }

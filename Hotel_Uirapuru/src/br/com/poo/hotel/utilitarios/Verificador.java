@@ -12,6 +12,6 @@ public class Verificador {
 	}
 	
 	public static boolean validarCPF(String cpf) {
-		return cpf.matches("[0-9]{2,3}?\.[0-9]{3}?\.[0-9]{3}?\-[0-9]{2}?");
+		return cpf.matches("[0-9]{2,3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}");
 	}
 }

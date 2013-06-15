@@ -8,23 +8,27 @@ public class TipoAcomodacao {
 	private double precoDiaria;
 	private int numeroAdultos;
 	private int numeroCriancas;
-	
+
 	public TipoAcomodacao(int codigo, String descricao, int quantidade,
 			double precoDiaria, int numeroAdultos, int numeroCriancas) {
-		this.codigo = codigo;
-		this.descricao = descricao;
-		this.quantidade = quantidade;
-		this.precoDiaria = precoDiaria;
-		this.numeroAdultos = numeroAdultos;
-		this.numeroCriancas = numeroCriancas;
+		setCodigo(codigo);
+		setDescricao(descricao);
+		setQuantidade(quantidade);
+		setPrecoDiaria(precoDiaria);
+		setNumeroAdultos(numeroAdultos);
+		setNumeroCriancas(numeroCriancas);
 	}
 
 	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public boolean setCodigo(int codigo) {
+		if (codigo >= 0) {
+			this.codigo = codigo;
+			return true;
+		}
+		return false;
 	}
 
 	public String getDescricao() {
@@ -39,32 +43,48 @@ public class TipoAcomodacao {
 		return quantidade;
 	}
 
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
+	public boolean setQuantidade(int quantidade) {
+		if (quantidade >= 0) {
+			this.quantidade = quantidade;
+			return true;
+		}
+		return false;
 	}
 
 	public double getPrecoDiaria() {
 		return precoDiaria;
 	}
 
-	public void setPrecoDiaria(double precoDiaria) {
-		this.precoDiaria = precoDiaria;
+	public boolean setPrecoDiaria(double precoDiaria) {
+		if (precoDiaria >= 0) {
+			this.precoDiaria = precoDiaria;
+			return true;
+		}
+		return false;
 	}
 
 	public int getNumeroAdultos() {
 		return numeroAdultos;
 	}
 
-	public void setNumeroAdultos(int numeroAdultos) {
-		this.numeroAdultos = numeroAdultos;
+	public boolean setNumeroAdultos(int numeroAdultos) {
+		if (numeroAdultos >= 0) {
+			this.numeroAdultos = numeroAdultos;
+			return true;
+		}
+		return false;
 	}
 
 	public int getNumeroCriancas() {
 		return numeroCriancas;
 	}
 
-	public void setNumeroCriancas(int numeroCriancas) {
-		this.numeroCriancas = numeroCriancas;
+	public boolean setNumeroCriancas(int numeroCriancas) {
+		if (numeroCriancas >= 0) {
+			this.numeroCriancas = numeroCriancas;
+			return true;
+		}
+		return false;
 	}
-	
+
 }

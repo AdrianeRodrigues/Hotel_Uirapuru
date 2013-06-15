@@ -1,7 +1,6 @@
 package br.com.poo.hotel.modelo;
 
 public class CartaoCredito {
-
 	private int agencia;
 	private int numero;
 
@@ -18,8 +17,8 @@ public class CartaoCredito {
 		if (agencia > 0) {
 			this.agencia = agencia;
 			return true;
-		} else
-			return false;
+		}
+		return false;
 	}
 
 	public int getNumero() {
@@ -30,8 +29,8 @@ public class CartaoCredito {
 		if (numero > 0) {
 			this.numero = numero;
 			return true;
-		} else
-			return false;
+		}
+		return false;
 	}
 
 }

@@ -13,12 +13,11 @@ public class Reserva {
 	private TipoAcomodacao tipoAcomodacao;
 	private Acompanhante acompanhante;
 	private Hospede hospedePrincipal;
-	
+
 	public Reserva(Date dataChegada, Date horaChegada, Date dataSaida,
 			Date horaSaida, double taxaMulta, double desconto,
 			TipoAcomodacao tipoAcomodacao, Acompanhante acompanhante,
 			Hospede hospedePrincipal) {
-		super();
 		this.dataChegada = dataChegada;
 		this.horaChegada = horaChegada;
 		this.dataSaida = dataSaida;
@@ -34,8 +33,12 @@ public class Reserva {
 		return dataChegada;
 	}
 
-	public void setDataChegada(Date dataChegada) {
-		this.dataChegada = dataChegada;
+	public boolean setDataChegada(Date dataChegada) {
+		if (dataChegada != null) {
+			this.dataChegada = dataChegada;
+			return true;
+		}
+		return false;
 	}
 
 	public Date getHoraChegada() {
@@ -101,5 +104,5 @@ public class Reserva {
 	public void setHospedePrincipal(Hospede hospedePrincipal) {
 		this.hospedePrincipal = hospedePrincipal;
 	}
-	
+
 }

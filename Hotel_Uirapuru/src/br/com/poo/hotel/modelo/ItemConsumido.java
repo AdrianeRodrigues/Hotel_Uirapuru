@@ -27,4 +27,7 @@ public class ItemConsumido {
 		this.item = item;
 	}
 	
+	public double totalItem() {
+		return item.getPrecoVenda() * quantidade;
+	}
 }

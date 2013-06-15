@@ -1,10 +1,9 @@
 package br.com.poo.hotel.modelo;
 
 public class Acompanhante {
-
 	private String nome;
 	private int idade;
-	
+
 	public Acompanhante(String nome, int idade) {
 		this.nome = nome;
 		setIdade(idade);
@@ -26,8 +25,8 @@ public class Acompanhante {
 		if (idade > 0) {
 			this.idade = idade;
 			return true;
-		} else
-			return false;
+		}
+		return false;
 	}
-	
+
 }
