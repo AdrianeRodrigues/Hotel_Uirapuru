@@ -1,52 +1,36 @@
 package br.com.poo.hotel.modelo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Reserva {
 
 	private Date dataChegada;
-	private Date horaChegada;
 	private Date dataSaida;
-	private Date horaSaida;
 	private double taxaMulta;
 	private double desconto;
 	private TipoAcomodacao tipoAcomodacao;
-	private Acompanhante acompanhante;
-	private Hospede hospedePrincipal;
+	private List<Acompanhante> acompanhantes;
+	private Hospede hospede;
 
-	public Reserva(Date dataChegada, Date horaChegada, Date dataSaida,
-			Date horaSaida, double taxaMulta, double desconto,
-			TipoAcomodacao tipoAcomodacao, Acompanhante acompanhante,
-			Hospede hospedePrincipal) {
-		this.dataChegada = dataChegada;
-		this.horaChegada = horaChegada;
-		this.dataSaida = dataSaida;
-		this.horaSaida = horaSaida;
-		this.taxaMulta = taxaMulta;
-		this.desconto = desconto;
-		this.tipoAcomodacao = tipoAcomodacao;
-		this.acompanhante = acompanhante;
-		this.hospedePrincipal = hospedePrincipal;
+	public Reserva(Date dataChegada, Date dataSaida, double taxaMulta,
+			double desconto, TipoAcomodacao tipoAcomodacao,
+			List<Acompanhante> acompanhantes, Hospede hospede) {
+		setAcompanhantes(acompanhantes);
+		setDataChegada(dataChegada);
+		setDataSaida(dataSaida);
+		setDesconto(desconto);
+		setHospede(hospede);
+		setTaxaMulta(taxaMulta);
+		setTipoAcomodacao(tipoAcomodacao);
 	}
 
 	public Date getDataChegada() {
 		return dataChegada;
 	}
 
-	public boolean setDataChegada(Date dataChegada) {
-		if (dataChegada != null) {
-			this.dataChegada = dataChegada;
-			return true;
-		}
-		return false;
-	}
-
-	public Date getHoraChegada() {
-		return horaChegada;
-	}
-
-	public void setHoraChegada(Date horaChegada) {
-		this.horaChegada = horaChegada;
+	public void setDataChegada(Date dataChegada) {
+		this.dataChegada = dataChegada;
 	}
 
 	public Date getDataSaida() {
@@ -57,28 +41,28 @@ public class Reserva {
 		this.dataSaida = dataSaida;
 	}
 
-	public Date getHoraSaida() {
-		return horaSaida;
-	}
-
-	public void setHoraSaida(Date horaSaida) {
-		this.horaSaida = horaSaida;
-	}
-
 	public double getTaxaMulta() {
 		return taxaMulta;
 	}
 
-	public void setTaxaMulta(double taxaMulta) {
-		this.taxaMulta = taxaMulta;
+	public boolean setTaxaMulta(double taxaMulta) {
+		if (taxaMulta >= 0) {
+			this.taxaMulta = taxaMulta;
+			return true;
+		}
+		return false;
 	}
 
 	public double getDesconto() {
 		return desconto;
 	}
 
-	public void setDesconto(double desconto) {
-		this.desconto = desconto;
+	public boolean setDesconto(double desconto) {
+		if (desconto >= 0) {
+			this.desconto = desconto;
+			return true;
+		}
+		return false;
 	}
 
 	public TipoAcomodacao getTipoAcomodacao() {
@@ -89,20 +73,20 @@ public class Reserva {
 		this.tipoAcomodacao = tipoAcomodacao;
 	}
 
-	public Acompanhante getAcompanhante() {
-		return acompanhante;
+	public List<Acompanhante> getAcompanhantes() {
+		return acompanhantes;
 	}
 
-	public void setAcompanhante(Acompanhante acompanhante) {
-		this.acompanhante = acompanhante;
+	public void setAcompanhantes(List<Acompanhante> acompanhantes) {
+		this.acompanhantes = acompanhantes;
 	}
 
-	public Hospede getHospedePrincipal() {
-		return hospedePrincipal;
+	public Hospede getHospede() {
+		return hospede;
 	}
 
-	public void setHospedePrincipal(Hospede hospedePrincipal) {
-		this.hospedePrincipal = hospedePrincipal;
+	public void setHospede(Hospede hospede) {
+		this.hospede = hospede;
 	}
 
 }

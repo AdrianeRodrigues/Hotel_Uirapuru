@@ -4,19 +4,22 @@ public class ItemConsumido {
 
 	private double quantidade;
 	private Item item;
-	
+
 	public ItemConsumido(double quantidade, Item item) {
-		super();
-		this.quantidade = quantidade;
-		this.item = item;
+		setQuantidade(quantidade);
+		setItem(item);
 	}
 
 	public double getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(double quantidade) {
-		this.quantidade = quantidade;
+	public boolean setQuantidade(double quantidade) {
+		if (quantidade > 0) {
+			this.quantidade = quantidade;
+			return true;
+		}
+		return false;
 	}
 
 	public Item getItem() {
@@ -26,7 +29,7 @@ public class ItemConsumido {
 	public void setItem(Item item) {
 		this.item = item;
 	}
-	
+
 	public double totalItem() {
 		return item.getPrecoVenda() * quantidade;
 	}

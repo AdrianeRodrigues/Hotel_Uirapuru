@@ -6,8 +6,18 @@ import java.sql.SQLException;
 
 public class FabricaDeConexao {
 	
-	public static Connection getConexao(String usuario, String senha) throws SQLException {
+	private static String usuario = "root";
+	private static String senha = "root";
 		
-		return DriverManager.getConnection("jdbc:mysql://localhost/nomebanco", usuario, senha);
+	public void setUsuario(String usuario) {
+		FabricaDeConexao.usuario = usuario;
+	}
+
+	public void setSenha(String senha) {
+		FabricaDeConexao.senha = senha;
+	}
+
+	public static Connection getConexao() throws SQLException {
+		return DriverManager.getConnection("jdbc:mysql://localhost/hotel_uirapuru", usuario, senha);
 	}
 }

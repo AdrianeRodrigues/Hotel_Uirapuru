@@ -6,31 +6,30 @@ import java.util.List;
 import br.com.poo.hotel.utilitarios.Verificador;
 
 public class Hospede extends Pessoa {
-	
+
 	private String email;
-	private String RG;
-	private String CPF;
+	private String rg;
+	private String cpf;
 	private String passaporte;
 	private String nomePai;
 	private String nomeMae;
-	private List<CartaoCredito> cartaoCredito;
-	private Consumo consumo;
-	private Acomodacao acomodacao;
-	
-	public Hospede(String nome, Date dataNascimento, Endereco endereco,
-			Telefone telefone, String email, String RG, String CPF,
+	private List<CartaoCredito> cartoesCredito;
+	private List<Estadia> estadias;
+
+	public Hospede(String nome, String login, String senha,
+			Date dataNascimento, Endereco endereco, Telefone telefone,
+			Permissao permissao, String email, String rg, String cpf,
 			String passaporte, String nomePai, String nomeMae,
-			List<CartaoCredito> cartaoCredito, Consumo consumo, Acomodacao acomodacao) {
-		super(nome, dataNascimento, endereco, telefone);
-		this.email = email;
-		this.RG = RG;
-		this.CPF = CPF;
-		this.passaporte = passaporte;
-		this.nomePai = nomePai;
-		this.nomeMae = nomeMae;
-		this.cartaoCredito = cartaoCredito;
-		this.consumo = consumo;
-		this.acomodacao = acomodacao;
+			List<CartaoCredito> cartoesCredito, List<Estadia> estadias) {
+		super(nome, login, senha, dataNascimento, endereco, telefone, permissao);
+		setEmail(email);
+		setRg(rg);
+		setCpf(cpf);
+		setPassaporte(passaporte);
+		setNomePai(nomePai);
+		setNomeMae(nomeMae);
+		setCartoesCredito(cartoesCredito);
+		setEstadias(estadias);
 	}
 
 	public String getEmail() {
@@ -41,24 +40,28 @@ public class Hospede extends Pessoa {
 		if (Verificador.validarEmail(email)) {
 			this.email = email;
 			return true;
-		} else
-			return false;
+		}
+		return false;
 	}
 
-	public String getRG() {
-		return RG;
+	public String getRg() {
+		return rg;
 	}
 
-	public void setRG(String RG) {
-		this.RG = RG;
+	public void setRg(String rg) {
+		this.rg = rg;
 	}
 
-	public String getCPF() {
-		return CPF;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setCPF(String CPF) {
-		this.CPF = CPF;
+	public boolean setCpf(String cpf) {
+		if (Verificador.validarCPF(cpf)) {
+			this.cpf = cpf;
+			return true;
+		}
+		return false;
 	}
 
 	public String getPassaporte() {
@@ -85,28 +88,24 @@ public class Hospede extends Pessoa {
 		this.nomeMae = nomeMae;
 	}
 
-	public List<CartaoCredito> getCartaoCredito() {
-		return cartaoCredito;
+	public List<CartaoCredito> getCartoesCredito() {
+		return cartoesCredito;
 	}
 
-	public void setCartaoCredito(List<CartaoCredito> cartaoCredito) {
-		this.cartaoCredito = cartaoCredito;
+	public void setCartoesCredito(List<CartaoCredito> cartoesCredito) {
+		this.cartoesCredito = cartoesCredito;
 	}
 
-	public Consumo getConsumo() {
-		return consumo;
+	public List<Estadia> getEstadias() {
+		return estadias;
 	}
 
-	public void setConsumo(Consumo consumo) {
-		this.consumo = consumo;
-	}
-
-	public Acomodacao getAcomodacao() {
-		return acomodacao;
-	}
-
-	public void setAcomodacao(Acomodacao acomodacao) {
-		this.acomodacao = acomodacao;
+	public void setEstadias(List<Estadia> estadias) {
+		this.estadias = estadias;
 	}
 	
+	public boolean adicionarEstadia(Estadia estadia) {
+		return estadias.add(estadia);
+	}
+
 }

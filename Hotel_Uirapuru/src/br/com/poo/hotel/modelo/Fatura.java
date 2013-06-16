@@ -2,68 +2,58 @@ package br.com.poo.hotel.modelo;
 
 import java.util.Date;
 
-import br.com.poo.hotel.utilitarios.Verificador;
-
 public class Fatura {
-
 	private String numero;
-	private Date dataNascimento;
+	private Date dataVencimento;
 	private double total;
-	private Saida saida;
+	private Estadia estadia;
 
-	public Fatura(String numero, Date dataNascimento, double total, Saida saida) {
+	public Fatura(String numero, Date dataVencimento, double total,
+			Estadia estadia) {
 		setNumero(numero);
-		setDataNascimento(dataNascimento);
+		setDataVencimento(dataVencimento);
 		setTotal(total);
-		setSaida(saida);
+		setEstadia(estadia);
 	}
 
 	public String getNumero() {
 		return numero;
 	}
 
-	public boolean setNumero(String numero) {
-		if (Verificador.isNumero(numero)) {
-			this.numero = numero;
-			return true;
-		} else
-			return false;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 	public Date getDataNascimento() {
-		return dataNascimento;
+		return dataVencimento;
 	}
 
-	public boolean setDataNascimento(Date dataNascimento) {
-		if (dataNascimento != null) {
-			this.dataNascimento = dataNascimento;
+	public boolean setDataVencimento(Date dataVencimento) {
+		if (dataVencimento != null) {
+			this.dataVencimento = dataVencimento;
 			return true;
-		} else
-			return false;
+		}
+		return false;
 	}
 
 	public double getTotal() {
 		return total;
 	}
 
-	public boolean setTotal(double total) {
-		if (total >= 0) {
-			this.total = total;
-			return true;
-		} else
-			return false;
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
-	public Saida getSaida() {
-		return saida;
+	public Estadia getEstadia() {
+		return estadia;
 	}
 
-	public boolean setSaida(Saida saida) {
-		if (saida != null) {
-			this.saida = saida;
+	public boolean setEstadia(Estadia estadia) {
+		if (estadia != null) {
+			this.estadia = estadia;
 			return true;
-		} else
-			return false;
+		}
+		return false;
 	}
 
 }

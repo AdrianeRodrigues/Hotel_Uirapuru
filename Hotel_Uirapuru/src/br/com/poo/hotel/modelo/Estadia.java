@@ -263,6 +263,7 @@ public class Estadia {
 	 * @return O valor gasto pelo hospede em sua estadia.
 	 */
 	public double calcularValorTotal() {
+		valorTotal = 0;
 		for (Double valor : calcularValorTotalPorCategoria().values()) {
 			valorTotal += valor; 
 		}

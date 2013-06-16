@@ -6,21 +6,25 @@ public class Item {
 	private String descricao;
 	private double precoVenda;
 	private Categoria categoria;
-	
+
 	public Item(int codigo, String descricao, double precoVenda,
 			Categoria categoria) {
-		this.codigo = codigo;
-		this.descricao = descricao;
-		this.precoVenda = precoVenda;
-		this.categoria = categoria;
+		setCategoria(categoria);
+		setCodigo(codigo);
+		setDescricao(descricao);
+		setPrecoVenda(precoVenda);
 	}
 
 	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public boolean setCodigo(int codigo) {
+		if (codigo >= 0) {
+			this.codigo = codigo;
+			return true;
+		}
+		return false;
 	}
 
 	public String getDescricao() {
@@ -35,8 +39,12 @@ public class Item {
 		return precoVenda;
 	}
 
-	public void setPrecoVenda(double precoVenda) {
-		this.precoVenda = precoVenda;
+	public boolean setPrecoVenda(double precoVenda) {
+		if (precoVenda > 0) {
+			this.precoVenda = precoVenda;
+			return true;
+		}
+		return false;
 	}
 
 	public Categoria getCategoria() {
@@ -46,5 +54,5 @@ public class Item {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
+
 }

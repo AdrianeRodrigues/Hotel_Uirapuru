@@ -54,9 +54,9 @@ public class ReservaDAO implements DAO<Reserva> {
 		for (Reserva r : listar()) {
 		
 			str.append("\nHospede principal\n");
-			str.append(r.getHospedePrincipal().getNome());
+			str.append(r.getHospede().getNome());
 			str.append("\nTelefone para contato\n");
-			str.append(r.getHospedePrincipal().getTelefone().toString());
+			str.append(r.getHospede().getTelefone().toString());
 			
 		}
 		
