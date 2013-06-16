@@ -50,26 +50,34 @@ public class HospedeDAO implements DAO<Hospede> {
 	}
 
 	@Override
-	public boolean remover(int codigo) {
-		// TODO Auto-generated method stub
+	public boolean remover(Object cpf) {
+		
+		String comandoSql = "DELETE FROM Hospede WHERE cpf = ?";
+		
+		try (Connection c = FabricaDeConexao.getConexao();
+				PreparedStatement p = c.prepareStatement(comandoSql)) {
+			
+			p.setString(1, cpf.toString());
+			
+			return p.execute();
+			
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean alterar(Hospede arg, Object cpf) {
 		return false;
 	}
 
 	@Override
-	public boolean alterar(Hospede arg, int codigo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Hospede buscar(int codigo) {
-		// TODO Auto-generated method stub
+	public Hospede buscar(Object cpf) {
 		return null;
 	}
 
 	@Override
 	public List<Hospede> listar() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
