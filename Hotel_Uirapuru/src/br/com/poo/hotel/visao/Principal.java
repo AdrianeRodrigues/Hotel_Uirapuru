@@ -69,12 +69,12 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemCadastroHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroHospedeActionPerformed
-        CadastroHospede cadastroH = new CadastroHospede();
+        TelaHospede cadastroH = new TelaHospede();
         addDesktop(cadastroH);
     }//GEN-LAST:event_itemCadastroHospedeActionPerformed
 
     private void itemCadastrarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastrarItemActionPerformed
-        CadastroItem cadastroI = new CadastroItem();
+        TelaItem cadastroI = new TelaItem();
         addDesktop(cadastroI);
     }//GEN-LAST:event_itemCadastrarItemActionPerformed
     
