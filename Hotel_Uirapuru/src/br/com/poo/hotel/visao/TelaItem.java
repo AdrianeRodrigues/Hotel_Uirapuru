@@ -114,6 +114,11 @@ public class TelaItem extends javax.swing.JInternalFrame {
         });
 
         btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         labelCodigo.setText("Digite o codigo:");
 
@@ -163,7 +168,7 @@ public class TelaItem extends javax.swing.JInternalFrame {
                     .addComponent(btnSalvar)
                     .addComponent(btnCancel)
                     .addComponent(btnRemover))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -203,12 +208,7 @@ public class TelaItem extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        txtBuscarCodigo.setText("");
-        txtDescricao.setText("");
-        txtPreco.setText("");
-        txtDescricao.setEditable(false);
-        txtPreco.setEditable(false);
-        boxCategoria.setEnabled(false);
+        
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -224,6 +224,16 @@ public class TelaItem extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        boolean resp = dao.remover(Integer.parseInt(txtBuscarCodigo.getText()));
+        if(resp){
+            limpar();
+            JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
+        }else{
+            JOptionPane.showMessageDialog(null, "Item não removido!");
+        }
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
     public void salvarItem(){
         dao = new ItemDAO();
         boolean resposta = dao.inserir(item);
@@ -234,6 +244,15 @@ public class TelaItem extends javax.swing.JInternalFrame {
         }else{
             JOptionPane.showMessageDialog(null, "Item não cadastrado!");                       
         }
+    }
+    
+    public void limpar(){
+        txtBuscarCodigo.setText("");
+        txtDescricao.setText("");
+        txtPreco.setText("");
+        txtDescricao.setEditable(false);
+        txtPreco.setEditable(false);
+        boxCategoria.setEnabled(false);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

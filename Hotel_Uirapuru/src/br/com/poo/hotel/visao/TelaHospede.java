@@ -316,6 +316,11 @@ public class TelaHospede extends javax.swing.JInternalFrame {
         });
 
         btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -358,7 +363,7 @@ public class TelaHospede extends javax.swing.JInternalFrame {
                 .addComponent(panelDadoPessoal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancel)
@@ -384,8 +389,10 @@ public class TelaHospede extends javax.swing.JInternalFrame {
                                     txtNro.getText(), txtComp.getText(), txtEstado.getText(), txtPais.getText());
 
                 tel = new Telefone(txtCodArea.getText(), txtPrefixo.getText(), txtTel.getText());
-                String login = "";
-                String senha = "";
+                
+                String login = txtCPF.getText();
+                String senha = "senha";
+                
                 hospede = new Hospede(txtNome.getText(),login, senha, dateData.getDate(), end, tel, Permissao.USUARIO, txtEmail.getText(), txtRG.getText(), 
                         txtBuscaCPF.getText(), txtPassaporte.getText(), txtNomePai.getText(), txtNomeMae.getText(), null, null);
 
@@ -413,6 +420,7 @@ public class TelaHospede extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ckBxEstrangeiroItemStateChanged
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        limparCampos();
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
@@ -430,6 +438,16 @@ public class TelaHospede extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        boolean resp = dao.remover(Integer.parseInt(txtBuscaCPF.getText()));
+        if (resp){
+            new TelaHospede().limparCampos();
+            JOptionPane.showMessageDialog(null, "Hospede removido!");
+        }else{
+            JOptionPane.showMessageDialog(null, "Hospede não removido!");
+        }
+    }//GEN-LAST:event_btnRemoverActionPerformed
 
     public void limparCampos(){
         txtBairro.setText("");
