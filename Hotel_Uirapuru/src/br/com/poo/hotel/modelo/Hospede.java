@@ -31,6 +31,20 @@ public class Hospede extends Pessoa {
 		setCartoesCredito(cartoesCredito);
 		setEstadias(estadias);
 	}
+	
+	public Hospede(String nome, String login, String senha,
+			Date dataNascimento, Endereco endereco, Telefone telefone,
+			Permissao permissao, String email, String rg, String cpf,
+			String passaporte, String nomePai, String nomeMae, List<Estadia> estadias) {
+		super(nome, login, senha, dataNascimento, endereco, telefone, permissao);
+		setEmail(email);
+		setRg(rg);
+		setCpf(cpf);
+		setPassaporte(passaporte);
+		setNomePai(nomePai);
+		setNomeMae(nomeMae);
+		setEstadias(estadias);
+	}
 
 	public String getEmail() {
 		return email;
@@ -108,4 +122,8 @@ public class Hospede extends Pessoa {
 		return estadias.add(estadia);
 	}
 
+	public boolean adicionarCartao(CartaoCredito cartaoCredito) {
+		return cartoesCredito.add(cartaoCredito);
+	}
+	
 }

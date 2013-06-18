@@ -17,6 +17,10 @@ public class FabricaDeConexao {
 		FabricaDeConexao.senha = senha;
 	}
 
+	public static Connection getConexao(String usuario, String senha) throws SQLException {
+		return DriverManager.getConnection("jdbc:mysql://localhost/hotel_uirapuru", usuario, senha);
+	}
+	
 	public static Connection getConexao() throws SQLException {
 		return DriverManager.getConnection("jdbc:mysql://localhost/hotel_uirapuru", usuario, senha);
 	}
