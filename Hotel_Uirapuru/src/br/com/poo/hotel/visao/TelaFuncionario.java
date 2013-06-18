@@ -321,8 +321,8 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
 
              tel = new Telefone(txtCodArea.getText(), txtPrefixo.getText(), txtTel.getText());
              
-             String login = txtBuscaCPF.getText();
-             String senha = "senha";
+             String login = "";
+             String senha = "";
              
              funcionario = new Funcionario(txtNome.getText(),login, senha, dateData.getDate(), end, tel, Permissao.ADMINISTRADOR);
              

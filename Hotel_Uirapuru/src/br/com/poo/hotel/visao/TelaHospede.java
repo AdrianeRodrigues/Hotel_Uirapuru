@@ -20,6 +20,7 @@ public class TelaHospede extends javax.swing.JInternalFrame {
             
     public TelaHospede() {
         initComponents();
+        dao = new HospedeDAO();
         
     }
 
@@ -390,13 +391,13 @@ public class TelaHospede extends javax.swing.JInternalFrame {
 
                 tel = new Telefone(txtCodArea.getText(), txtPrefixo.getText(), txtTel.getText());
                 
-                String login = txtCPF.getText();
-                String senha = "senha";
+                String login = "";
+                String senha = "";
                 
                 hospede = new Hospede(txtNome.getText(),login, senha, dateData.getDate(), end, tel, Permissao.USUARIO, txtEmail.getText(), txtRG.getText(), 
                         txtBuscaCPF.getText(), txtPassaporte.getText(), txtNomePai.getText(), txtNomeMae.getText(), null, null);
 
-                dao = new HospedeDAO();
+                
                 boolean resposta = dao.inserir(hospede);
 
                 if (resposta){
