@@ -9,26 +9,21 @@ public class ConsumoDAO implements DAO<Consumo> {
 
 	@Override
 	public boolean inserir(Consumo arg) {
+		
+		String comandoSql = "INSERT INTO ";
+		
+	}
+
+	@Override
+	public boolean remover(Consumo arg) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean remover(int codigo) {
+	public boolean alterar(Consumo arg) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public boolean alterar(Consumo arg, int codigo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Consumo buscar(int codigo) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -36,5 +31,5 @@ public class ConsumoDAO implements DAO<Consumo> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

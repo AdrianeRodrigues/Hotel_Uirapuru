@@ -9,12 +9,26 @@ public class Reserva {
 	private Date dataSaida;
 	private double taxaMulta;
 	private double desconto;
-	private TipoAcomodacao tipoAcomodacao;
+	private Acomodacao acomodacao;
 	private List<Acompanhante> acompanhantes;
 	private Hospede hospede;
+	private int codigo;
 
 	public Reserva(Date dataChegada, Date dataSaida, double taxaMulta,
-			double desconto, TipoAcomodacao tipoAcomodacao,
+			double desconto, Acomodacao acomodacao,
+			List<Acompanhante> acompanhantes, Hospede hospede, int codigo) {
+		setAcompanhantes(acompanhantes);
+		setDataChegada(dataChegada);
+		setDataSaida(dataSaida);
+		setDesconto(desconto);
+		setHospede(hospede);
+		setTaxaMulta(taxaMulta);
+		setAcomodacao(acomodacao);
+		setCodigo(codigo);
+	}
+	
+	public Reserva(Date dataChegada, Date dataSaida, double taxaMulta,
+			double desconto,Acomodacao acomodacao,
 			List<Acompanhante> acompanhantes, Hospede hospede) {
 		setAcompanhantes(acompanhantes);
 		setDataChegada(dataChegada);
@@ -22,7 +36,7 @@ public class Reserva {
 		setDesconto(desconto);
 		setHospede(hospede);
 		setTaxaMulta(taxaMulta);
-		setTipoAcomodacao(tipoAcomodacao);
+		setAcomodacao(acomodacao);
 	}
 
 	public Date getDataChegada() {
@@ -65,14 +79,6 @@ public class Reserva {
 		return false;
 	}
 
-	public TipoAcomodacao getTipoAcomodacao() {
-		return tipoAcomodacao;
-	}
-
-	public void setTipoAcomodacao(TipoAcomodacao tipoAcomodacao) {
-		this.tipoAcomodacao = tipoAcomodacao;
-	}
-
 	public List<Acompanhante> getAcompanhantes() {
 		return acompanhantes;
 	}
@@ -87,6 +93,22 @@ public class Reserva {
 
 	public void setHospede(Hospede hospede) {
 		this.hospede = hospede;
+	}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	public Acomodacao getAcomodacao() {
+		return acomodacao;
+	}
+
+	public void setAcomodacao(Acomodacao acomodacao) {
+		this.acomodacao = acomodacao;
 	}
 
 }

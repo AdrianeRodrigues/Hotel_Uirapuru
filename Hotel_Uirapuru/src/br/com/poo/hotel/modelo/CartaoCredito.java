@@ -3,10 +3,12 @@ package br.com.poo.hotel.modelo;
 public class CartaoCredito {
 	private int agencia;
 	private int numero;
+	private Hospede hospede;
 
-	public CartaoCredito(int agencia, int numero) {
+	public CartaoCredito(int agencia, int numero, Hospede hospede) {
 		setAgencia(agencia);
 		setNumero(numero);
+		setHospede(hospede);
 	}
 
 	public int getAgencia() {
@@ -31,6 +33,14 @@ public class CartaoCredito {
 			return true;
 		}
 		return false;
+	}
+
+	public Hospede getHospede() {
+		return hospede;
+	}
+
+	public void setHospede(Hospede hospede) {
+		this.hospede = hospede;
 	}
 
 }
