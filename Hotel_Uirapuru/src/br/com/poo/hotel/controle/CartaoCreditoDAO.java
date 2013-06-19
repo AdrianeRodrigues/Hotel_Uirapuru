@@ -77,7 +77,7 @@ public class CartaoCreditoDAO implements DAO<CartaoCredito> {
 
 			ResultSet r = p.executeQuery();
 			
-			Hospede hospede = new HospedeDAO().buscar(r.getString("cpf")); 
+			Hospede hospede = new HospedeDAO().buscarID(r.getString("cpf")); 
 					
 			while (r.next()) {
 				cartaoCreditos.add(new CartaoCredito(r.getInt("agencia"), r.getInt("senha"), 
@@ -88,5 +88,16 @@ public class CartaoCreditoDAO implements DAO<CartaoCredito> {
 			return cartaoCreditos;
 		}
 		return cartaoCreditos;
+	}
+	
+	public List<CartaoCredito> buscarCartaoCliente(String cpf) {
+		
+		List<CartaoCredito> cartoes = new ArrayList<>();
+		
+		for (CartaoCredito cartao : listar()) {
+			if (cartao.getHospede().getCpf().equals(cpf))
+				cartoes.add(cartao);
+		}
+		return cartoes;
 	}
 }
