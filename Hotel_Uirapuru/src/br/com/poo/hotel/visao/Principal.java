@@ -25,32 +25,146 @@ public class Principal extends javax.swing.JFrame {
 
         desktopPrin = new javax.swing.JDesktopPane();
         nenuBarPrin = new javax.swing.JMenuBar();
-        menuCadastro = new javax.swing.JMenu();
-        itemCadastroHospede = new javax.swing.JMenuItem();
-        itemCadastrarItem = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        itemCadastroFuncionario = new javax.swing.JMenuItem();
+        menuEntrada = new javax.swing.JMenu();
+        itemRegistrarEntrada = new javax.swing.JMenuItem();
+        itemItemConsumido = new javax.swing.JMenuItem();
+        menuSaida = new javax.swing.JMenu();
+        itemRegistrarSaida = new javax.swing.JMenuItem();
+        menuRelatorios = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        menuReservas = new javax.swing.JMenu();
+        itemListarReservas = new javax.swing.JMenuItem();
+        itemCadastroHospede1 = new javax.swing.JMenuItem();
+        itemReserva = new javax.swing.JMenuItem();
+        itemListarHospedes = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        itemCadastrarItem1 = new javax.swing.JMenuItem();
+        menuCadastro1 = new javax.swing.JMenu();
+        itemCadastroTipo = new javax.swing.JMenuItem();
+        itemCadastroAcomodacao = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Principal");
 
-        menuCadastro.setText("Cadastro");
+        jMenu2.setText("Funcionário");
 
-        itemCadastroHospede.setText("Cadastrar hospede");
-        itemCadastroHospede.addActionListener(new java.awt.event.ActionListener() {
+        itemCadastroFuncionario.setText("Cadastrar/Alterar funcionario");
+        itemCadastroFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemCadastroHospedeActionPerformed(evt);
+                itemCadastroFuncionarioActionPerformed(evt);
             }
         });
-        menuCadastro.add(itemCadastroHospede);
+        jMenu2.add(itemCadastroFuncionario);
 
-        itemCadastrarItem.setText("Cadastrar item");
-        itemCadastrarItem.addActionListener(new java.awt.event.ActionListener() {
+        nenuBarPrin.add(jMenu2);
+
+        menuEntrada.setText("Entrada");
+
+        itemRegistrarEntrada.setText("Registrar Entrada");
+        itemRegistrarEntrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemCadastrarItemActionPerformed(evt);
+                itemRegistrarEntradaActionPerformed(evt);
             }
         });
-        menuCadastro.add(itemCadastrarItem);
+        menuEntrada.add(itemRegistrarEntrada);
 
-        nenuBarPrin.add(menuCadastro);
+        itemItemConsumido.setText("Adicionar item consumido");
+        itemItemConsumido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemItemConsumidoActionPerformed(evt);
+            }
+        });
+        menuEntrada.add(itemItemConsumido);
+
+        nenuBarPrin.add(menuEntrada);
+
+        menuSaida.setText("Saida");
+
+        itemRegistrarSaida.setText("Registrar saida");
+        itemRegistrarSaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemRegistrarSaidaActionPerformed(evt);
+            }
+        });
+        menuSaida.add(itemRegistrarSaida);
+
+        nenuBarPrin.add(menuSaida);
+
+        menuRelatorios.setText("Relatórios");
+
+        jMenuItem1.setText("Faturamento por período");
+        menuRelatorios.add(jMenuItem1);
+
+        jMenuItem2.setText("Faturas em atraso");
+        menuRelatorios.add(jMenuItem2);
+
+        nenuBarPrin.add(menuRelatorios);
+
+        menuReservas.setText("Hospedes");
+
+        itemListarReservas.setText("Listar reservas");
+        itemListarReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemListarReservasActionPerformed(evt);
+            }
+        });
+        menuReservas.add(itemListarReservas);
+
+        itemCadastroHospede1.setText("Cadastrar/Alterar hospede");
+        itemCadastroHospede1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCadastroHospede1ActionPerformed(evt);
+            }
+        });
+        menuReservas.add(itemCadastroHospede1);
+
+        itemReserva.setText("Fazer reserva");
+        itemReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemReservaActionPerformed(evt);
+            }
+        });
+        menuReservas.add(itemReserva);
+
+        itemListarHospedes.setText("Listar hospedes");
+        menuReservas.add(itemListarHospedes);
+
+        nenuBarPrin.add(menuReservas);
+
+        jMenu1.setText("Item");
+
+        itemCadastrarItem1.setText("Cadastrar/Alterar item");
+        itemCadastrarItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCadastrarItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itemCadastrarItem1);
+
+        nenuBarPrin.add(jMenu1);
+
+        menuCadastro1.setText("Acomodação");
+
+        itemCadastroTipo.setText("Cadastrar tipo de acomodação");
+        itemCadastroTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCadastroTipoActionPerformed(evt);
+            }
+        });
+        menuCadastro1.add(itemCadastroTipo);
+
+        itemCadastroAcomodacao.setText("Cadastrar acomodação");
+        itemCadastroAcomodacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCadastroAcomodacaoActionPerformed(evt);
+            }
+        });
+        menuCadastro1.add(itemCadastroAcomodacao);
+
+        nenuBarPrin.add(menuCadastro1);
 
         setJMenuBar(nenuBarPrin);
 
@@ -68,15 +182,52 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void itemCadastroHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroHospedeActionPerformed
+    private void itemCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroFuncionarioActionPerformed
+        TelaFuncionario cadastroF = new TelaFuncionario();
+        addDesktop(cadastroF);
+    }//GEN-LAST:event_itemCadastroFuncionarioActionPerformed
+
+    private void itemRegistrarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistrarEntradaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemRegistrarEntradaActionPerformed
+
+    private void itemRegistrarSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistrarSaidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemRegistrarSaidaActionPerformed
+
+    private void itemListarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemListarReservasActionPerformed
+        //TODO
+    }//GEN-LAST:event_itemListarReservasActionPerformed
+
+    private void itemCadastroHospede1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroHospede1ActionPerformed
         TelaHospede cadastroH = new TelaHospede();
         addDesktop(cadastroH);
-    }//GEN-LAST:event_itemCadastroHospedeActionPerformed
+    }//GEN-LAST:event_itemCadastroHospede1ActionPerformed
 
-    private void itemCadastrarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastrarItemActionPerformed
-        TelaItem cadastroI = new TelaItem();
+    private void itemReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemReservaActionPerformed
+        TelaReserva reservaA = new TelaReserva();
+        addDesktop(reservaA);
+    }//GEN-LAST:event_itemReservaActionPerformed
+
+    private void itemCadastrarItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastrarItem1ActionPerformed
+        TelaItemConsumo cadastroI = new TelaItemConsumo();
         addDesktop(cadastroI);
-    }//GEN-LAST:event_itemCadastrarItemActionPerformed
+    }//GEN-LAST:event_itemCadastrarItem1ActionPerformed
+
+    private void itemCadastroTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroTipoActionPerformed
+        TelaTipoAcomodacao cadastroT = new TelaTipoAcomodacao();
+        addDesktop(cadastroT);
+    }//GEN-LAST:event_itemCadastroTipoActionPerformed
+
+    private void itemCadastroAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroAcomodacaoActionPerformed
+        TelaAcomodacao cadastroA = new TelaAcomodacao();
+        addDesktop(cadastroA);
+    }//GEN-LAST:event_itemCadastroAcomodacaoActionPerformed
+
+    private void itemItemConsumidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemItemConsumidoActionPerformed
+        TelaConsumacao consumo = new TelaConsumacao();
+        addDesktop(consumo);
+    }//GEN-LAST:event_itemItemConsumidoActionPerformed
     
     public void addDesktop(JInternalFrame frame){
         desktopPrin.add(frame);
@@ -85,9 +236,26 @@ public class Principal extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPrin;
-    private javax.swing.JMenuItem itemCadastrarItem;
-    private javax.swing.JMenuItem itemCadastroHospede;
-    private javax.swing.JMenu menuCadastro;
+    private javax.swing.JMenuItem itemCadastrarItem1;
+    private javax.swing.JMenuItem itemCadastroAcomodacao;
+    private javax.swing.JMenuItem itemCadastroFuncionario;
+    private javax.swing.JMenuItem itemCadastroHospede1;
+    private javax.swing.JMenuItem itemCadastroTipo;
+    private javax.swing.JMenuItem itemItemConsumido;
+    private javax.swing.JMenuItem itemListarHospedes;
+    private javax.swing.JMenuItem itemListarReservas;
+    private javax.swing.JMenuItem itemRegistrarEntrada;
+    private javax.swing.JMenuItem itemRegistrarSaida;
+    private javax.swing.JMenuItem itemReserva;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenu menuCadastro1;
+    private javax.swing.JMenu menuEntrada;
+    private javax.swing.JMenu menuRelatorios;
+    private javax.swing.JMenu menuReservas;
+    private javax.swing.JMenu menuSaida;
     private javax.swing.JMenuBar nenuBarPrin;
     // End of variables declaration//GEN-END:variables
 }
