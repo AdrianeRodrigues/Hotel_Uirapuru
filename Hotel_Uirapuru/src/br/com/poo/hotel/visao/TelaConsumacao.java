@@ -11,9 +11,11 @@ public class TelaConsumacao extends javax.swing.JInternalFrame {
 
     private Hospede hospede;
     private Item item;
+    private Principal add;
     
-    public TelaConsumacao() {
+    public TelaConsumacao(Principal add) {
         initComponents();
+        this.add = add;
     }
 
     /**
@@ -94,24 +96,24 @@ public class TelaConsumacao extends javax.swing.JInternalFrame {
                                 .addGap(37, 37, 37)
                                 .addComponent(txtNomeFunci))
                             .addGroup(lanelDadosConsumoLayout.createSequentialGroup()
-                                .addComponent(txtCodItem, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(btnBuscarItem)
-                                .addGap(0, 17, Short.MAX_VALUE))
-                            .addGroup(lanelDadosConsumoLayout.createSequentialGroup()
-                                .addGroup(lanelDadosConsumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelQuantidade)
-                                    .addComponent(spinnerQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(lanelDadosConsumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelValorUni)
-                                    .addComponent(ftxtValorUni, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
                                 .addGroup(lanelDadosConsumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(lanelDadosConsumoLayout.createSequentialGroup()
-                                        .addComponent(labelData)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(dateData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addComponent(txtCodItem, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(38, 38, 38)
+                                        .addComponent(btnBuscarItem))
+                                    .addGroup(lanelDadosConsumoLayout.createSequentialGroup()
+                                        .addGroup(lanelDadosConsumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(labelQuantidade)
+                                            .addComponent(spinnerQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(lanelDadosConsumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(labelValorUni)
+                                            .addComponent(ftxtValorUni, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(lanelDadosConsumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(labelData)
+                                            .addComponent(dateData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 17, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(lanelDadosConsumoLayout.createSequentialGroup()
                         .addGroup(lanelDadosConsumoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,8 +178,8 @@ public class TelaConsumacao extends javax.swing.JInternalFrame {
                     .addComponent(labelIDhospede1)
                     .addGroup(panelDadosHospede1Layout.createSequentialGroup()
                         .addComponent(ftxtIDhodpede, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnBuscaClt, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscaClt, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -233,11 +235,11 @@ public class TelaConsumacao extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelDadosHospede1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lanelDadosConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
                     .addComponent(btnCancel)
@@ -258,17 +260,21 @@ public class TelaConsumacao extends javax.swing.JInternalFrame {
 
     private void btnBuscaCltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaCltActionPerformed
         TelaPesquisa pesquisa = new TelaPesquisa(this, 1);
-        ftxtIDhodpede.setText(hospede.getCpf());
-        txtHospede.setText(hospede.getNome());               
+        add.addDesktop(pesquisa);
+      
     }//GEN-LAST:event_btnBuscaCltActionPerformed
 
     private void btnBuscarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarItemActionPerformed
         TelaPesquisa window = new TelaPesquisa(this, 2);
+        add.addDesktop(window);
         txtCodItem.setText(String.valueOf(item.getCodigo())+" - "+item.getDescricao());
         ftxtValorUni.setText(String.valueOf(item.getPrecoVenda()));
-        
     }//GEN-LAST:event_btnBuscarItemActionPerformed
 
+    public void trocar(){
+         ftxtIDhodpede.setText(hospede.getCpf());
+        txtHospede.setText(hospede.getNome());  
+    }
     public Hospede getHospede(){
         return hospede;
     }

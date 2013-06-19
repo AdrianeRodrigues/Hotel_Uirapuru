@@ -73,6 +73,7 @@ public class HospedeDAO implements DAO<Hospede> {
 			return p.execute();
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -140,7 +141,8 @@ public class HospedeDAO implements DAO<Hospede> {
 				Telefone telefone = new Telefone(r.getString("codigo_area"), r.getString("prefixo"), 
 						r.getString("numero_linha"));
 
-				List<CartaoCredito> cartoesCredito = null; //chamar método da classe CartaCreditoDAO
+				List<CartaoCredito> cartoesCredito = 
+						new CartaoCreditoDAO().buscarCartaoCliente(r.getString("cpf")); //chamar método da classe CartaCreditoDAO
 				List<Estadia> estadias = null; //chamar método da classe EstadiaDAO
 
 				Permissao permissao = r.getString("permissao").equalsIgnoreCase("usuario") ? 
@@ -154,6 +156,7 @@ public class HospedeDAO implements DAO<Hospede> {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return null;
 		}
 		return h;
@@ -202,16 +205,19 @@ public class HospedeDAO implements DAO<Hospede> {
 
 	@Override
 	public List<Hospede> listar() {
-	
-            String comandoSql = "SELECT * FROM Hospede";
 
+//=======
+		
+		String comandoSql = "SELECT * FROM Hospede";
+		
 		List<Hospede> hospedes = new ArrayList<>();
-
+		
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
-
+			
 			ResultSet r = p.executeQuery();
-
+			
+//>>>>>>> b4e2b4735f2785dc9aac5eaa92418a49e2b47acb
 			while (r.next()) {
 				Endereco endereco = new Endereco(r.getString("logradouro"), r.getString("bairro"), 
 						r.getString("cidade"), r.getString("numero_endereco"),
@@ -239,5 +245,5 @@ public class HospedeDAO implements DAO<Hospede> {
 		}
 		return hospedes;
 	}
-
+        
 }

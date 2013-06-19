@@ -4,8 +4,10 @@
  */
 package br.com.poo.hotel.visao;
 
+import br.com.poo.hotel.modelo.Hospede;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -18,15 +20,20 @@ public class TableModelHospede extends AbstractTableModel{
 
     private Class[] classeColuna = new Class[]{String.class, String.class};
 
-    private List linhas;
+    private List<Hospede> linhas;
 
     public TableModelHospede() {
-        linhas = new ArrayList<Object>();
+        linhas = new ArrayList<Hospede>();
     }
 
-    public TableModelHospede(List itens) {
+    public TableModelHospede(List<Hospede> itens) {
         this();
-        linhas.addAll(itens);
+        if(itens != null){
+            for(Hospede objLista: itens){
+                linhas.add(objLista);
+                
+            }
+        }
     }
 
     @Override
@@ -55,8 +62,16 @@ public class TableModelHospede extends AbstractTableModel{
     }
 
     @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {//Retorna o valor contido da célula
-        return null;
+    public String getValueAt(int rowIndex, int columnIndex) {//Retorna o valor contido da célula
+        Hospede hospede = linhas.get(rowIndex);
+        switch(columnIndex) {
+            case 0: 
+                return hospede.getCpf();
+            case 1:
+                return hospede.getNome();
+            default:
+                return "";
+        }
     }
 
     @Override

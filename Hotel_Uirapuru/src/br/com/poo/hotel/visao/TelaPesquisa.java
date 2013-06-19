@@ -2,6 +2,8 @@ package br.com.poo.hotel.visao;
 
 import br.com.poo.hotel.controle.HospedeDAO;
 import br.com.poo.hotel.controle.ItemDAO;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
                    
 /**
  *
@@ -11,6 +13,7 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
     
     private Object tela;
     private int tipo;
+    private TableModel model;
     
     
     /**
@@ -35,21 +38,15 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jtPesquisa = new javax.swing.JTable();
         lblFiltro = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtFiltro = new javax.swing.JTextField();
         btnSelecionar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnFiltrar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
-        jtPesquisa.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
+        setClosable(true);
+        setIconifiable(true);
 
-            }
-        ));
+        jtPesquisa.setModel(model);
         jScrollPane2.setViewportView(jtPesquisa);
 
         lblFiltro.setText("Filtro:");
@@ -61,7 +58,19 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("jButton1");
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
+
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,13 +81,18 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(lblFiltro)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(lblFiltro)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSelecionar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -90,11 +104,13 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFiltro)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSelecionar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFiltrar)
+                    .addComponent(btnVoltar))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -103,10 +119,10 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
     private void Inicio(){
         if(tipo == 1){
             HospedeDAO dao = new HospedeDAO();
-            jtPesquisa.setModel(new TableModelHospede(dao.listar()));
+            model = (TableModelHospede)new TableModelHospede(dao.listar());
         }else{
             ItemDAO dao = new ItemDAO();
-            jtPesquisa.setModel(new TableModelItem(dao.listar()));
+            model = (TableModelItem)new TableModelItem(dao.listar());
         }
     }
     
@@ -114,11 +130,13 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
          HospedeDAO dao = new HospedeDAO();
          if(tela instanceof TelaReserva){
             TelaReserva t = (TelaReserva) tela;
-            t.setHospede(dao.buscar(retorno));
+            t.setHospede(dao.buscarID(retorno));
          }else{
             TelaConsumacao t = (TelaConsumacao) tela;
-            t.setHospede (dao.buscar(retorno));
+            t.setHospede (dao.buscarID(retorno));
+            t.trocar();
          }
+         this.dispose();
     }
     
     private void retornaItem(int retorno){
@@ -126,26 +144,51 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
          if(tela instanceof TelaConsumacao){
             TelaConsumacao t = (TelaConsumacao) tela;
             t.setItem(dao.buscaId(retorno));
+
          }
+         this.dispose();
     }
     
+    private void Filtrar(String filtro){
+        if(!filtro.equals("")){
+            if(tipo == 1){
+                HospedeDAO dao = new HospedeDAO();
+                model = (TableModelHospede)new TableModelHospede(dao.buscarNome(filtro));
+            }else{
+                ItemDAO dao = new ItemDAO();
+                model = (TableModelItem)new TableModelItem(dao.buscarDescricao(filtro));
+            }
+        }else{
+            Inicio();
+        }
+        jtPesquisa.setModel(model);
+    }
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
         int linha = jtPesquisa.getSelectedRow();
         
         if(tipo == 1){
-            retornaHospede((String)jtPesquisa.getValueAt(linha,1));
+            retornaHospede((String)jtPesquisa.getValueAt(linha,0));
         }else{
-            retornaItem((Integer)jtPesquisa.getValueAt(linha, 1));
+            retornaItem((Integer)jtPesquisa.getValueAt(linha, 0));
         }
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        Filtrar(txtFiltro.getText());
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnSelecionar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable jtPesquisa;
     private javax.swing.JLabel lblFiltro;
+    private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 
 }

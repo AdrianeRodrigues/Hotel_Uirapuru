@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class FabricaDeConexao {
 	
 	private static String usuario = "root";
-	private static String senha = "root";
+	private static String senha = "";
 		
 	public void setUsuario(String usuario) {
 		FabricaDeConexao.usuario = usuario;

@@ -243,7 +243,7 @@ public class Estadia {
 	 * @return Um HashMap com o valor gasto em cada categoria.
 	 */
 	public HashMap<Categoria, Double> calcularValorTotalPorCategoria() {
-		HashMap<Categoria, Double> totais = new HashMap<>();
+		HashMap<Categoria, Double> totais = new HashMap<Categoria, Double>();
 		for (Consumo c : consumos) {
 			for (ItemConsumido i : c.getItensConsumido()) {
 				if (i.getItem().getCategoria() == Categoria.FRIGOBAR)

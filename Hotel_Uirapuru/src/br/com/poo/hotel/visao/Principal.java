@@ -225,7 +225,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemCadastroAcomodacaoActionPerformed
 
     private void itemItemConsumidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemItemConsumidoActionPerformed
-        TelaConsumacao consumo = new TelaConsumacao();
+        TelaConsumacao consumo = new TelaConsumacao(this);
         addDesktop(consumo);
     }//GEN-LAST:event_itemItemConsumidoActionPerformed
     
