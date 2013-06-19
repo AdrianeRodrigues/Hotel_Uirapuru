@@ -54,6 +54,7 @@ public class HospedeDAO implements DAO<Hospede> {
 			return p.execute();
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
