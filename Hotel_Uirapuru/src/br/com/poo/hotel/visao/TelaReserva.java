@@ -329,7 +329,7 @@ public class TelaReserva extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
-        hospede = daoHospede.buscar(txtCPFClt.getText());
+        hospede = daoHospede.buscarID(txtCPFClt.getText());
         if(hospede == null){
             //TODO
         }else{

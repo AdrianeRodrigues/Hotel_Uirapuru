@@ -1,6 +1,10 @@
 package br.com.poo.hotel.main;
 
-import br.com.poo.hotel.visao.Principal;
+import br.com.poo.hotel.fabrica.FabricaDeConexao;
+import br.com.poo.hotel.visao.Login;
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -8,7 +12,14 @@ import br.com.poo.hotel.visao.Principal;
  */
 public class Main {
     public static void main(String [] args){
-        Principal tela = new Principal();
-        tela.setVisible(true);
+        
+        try{
+            Connection conexao = FabricaDeConexao.getConexao();
+            Login tela = new Login();
+            tela.setVisible(true);
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro na conexão do banco!\n"+e);
+        }        
     }
 }

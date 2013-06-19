@@ -51,11 +51,11 @@ public class Hospede extends Pessoa {
 	}
 
 	public boolean setEmail(String email) {
-		if (Verificador.validarEmail(email)) {
+		//if (Verificador.validarEmail(email)) {
 			this.email = email;
 			return true;
-		}
-		return false;
+		//}
+		//return false;
 	}
 
 	public String getRg() {
@@ -71,11 +71,11 @@ public class Hospede extends Pessoa {
 	}
 
 	public boolean setCpf(String cpf) {
-		if (Verificador.validarCPF(cpf)) {
+		//if (Verificador.validarCPF(cpf)) {
 			this.cpf = cpf;
 			return true;
-		}
-		return false;
+		//}
+		//return false;
 	}
 
 	public String getPassaporte() {

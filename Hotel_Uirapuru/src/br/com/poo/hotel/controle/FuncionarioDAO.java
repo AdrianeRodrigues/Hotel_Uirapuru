@@ -164,7 +164,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 	
 		String comandoSql = "SELECT * FROM Funcionario";
 
-		List<Funcionario> funcionarios = new ArrayList<>();
+		List<Funcionario> funcionarios = new ArrayList<Funcionario>();
 		
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {

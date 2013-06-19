@@ -94,6 +94,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
+        
         if(!txtUser.getText().isEmpty() && !pssdSenha.getPassword().toString().isEmpty()){
             JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
             tela = new Principal();
