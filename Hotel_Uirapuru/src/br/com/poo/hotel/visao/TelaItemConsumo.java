@@ -217,7 +217,7 @@ public class TelaItemConsumo extends javax.swing.JInternalFrame {
         if (txtBuscarCodigo.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Digite o CPF!");
         }else{
-            item = dao.buscar(Integer.parseInt(txtBuscarCodigo.getText()));
+            item = null;
             if ( item == null) {
                 //TODO
             }else{
@@ -227,7 +227,7 @@ public class TelaItemConsumo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        boolean resp = dao.remover(Integer.parseInt(txtBuscarCodigo.getText()));
+        boolean resp = false;
         if(resp){
             limpar();
             JOptionPane.showMessageDialog(null, "Item removido com sucesso!");

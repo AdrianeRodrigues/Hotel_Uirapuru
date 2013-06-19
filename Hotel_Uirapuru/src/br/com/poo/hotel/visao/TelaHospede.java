@@ -430,7 +430,7 @@ public class TelaHospede extends javax.swing.JInternalFrame {
         if (txtBuscaCPF.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Digite o CPF!");
         }else{
-            hospede = dao.buscar(Integer.parseInt(txtBuscaCPF.getText()));
+            hospede = null;
             if ( hospede == null) {
                 //TODO
             }else{
@@ -441,7 +441,7 @@ public class TelaHospede extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        boolean resp = dao.remover(Integer.parseInt(txtBuscaCPF.getText()));
+        boolean resp = false;
         if (resp){
             new TelaHospede().limparCampos();
             JOptionPane.showMessageDialog(null, "Hospede removido!");

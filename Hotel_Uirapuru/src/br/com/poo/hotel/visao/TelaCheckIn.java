@@ -4,30 +4,17 @@
  */
 package br.com.poo.hotel.visao;
 
-import br.com.poo.hotel.controle.AcomodacaoDAO;
-import br.com.poo.hotel.controle.HospedeDAO;
-import br.com.poo.hotel.modelo.Acomodacao;
-import br.com.poo.hotel.modelo.CartaoCredito;
-import br.com.poo.hotel.modelo.Hospede;
-import br.com.poo.hotel.modelo.Item;
-
 /**
  *
  * @author adriane
  */
-public class TelaReserva extends javax.swing.JInternalFrame {
+public class TelaCheckIn extends javax.swing.JInternalFrame {
 
-    private Acomodacao acomodacao;
-    private CartaoCredito card;
-    private Hospede hospede;
-    private AcomodacaoDAO daoAcomodacao;
-    private HospedeDAO daoHospede;
-    
-    
-    public TelaReserva() {
+    /**
+     * Creates new form TelaCheckIn
+     */
+    public TelaCheckIn() {
         initComponents();
-        daoAcomodacao = new AcomodacaoDAO();
-        daoHospede = new HospedeDAO();
     }
 
     /**
@@ -39,8 +26,6 @@ public class TelaReserva extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSalvar = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -59,35 +44,14 @@ public class TelaReserva extends javax.swing.JInternalFrame {
         labelNroAgencia = new javax.swing.JLabel();
         ftxtNroAgencia = new javax.swing.JFormattedTextField();
         Acompanhantes = new javax.swing.JPanel();
-        labelNome = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
-        ftxtIdade = new javax.swing.JFormattedTextField();
-        labelIdade = new javax.swing.JLabel();
-        btnAdd = new javax.swing.JButton();
         btnBuscarCliente = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         txtCPFClt = new javax.swing.JTextField();
         labelIDclt = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
-
-        setClosable(true);
-        setIconifiable(true);
-        setTitle("Reserva de Acomodação");
-
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
-
-        btnCancel.setText("Cancelar");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
-            }
-        });
+        btnCancel = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados da reserva:"));
 
@@ -192,45 +156,15 @@ public class TelaReserva extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Cartão", Cartão);
 
-        labelNome.setText("Nome:");
-
-        labelIdade.setText("Idade:");
-
-        btnAdd.setText("Adicionar");
-
         javax.swing.GroupLayout AcompanhantesLayout = new javax.swing.GroupLayout(Acompanhantes);
         Acompanhantes.setLayout(AcompanhantesLayout);
         AcompanhantesLayout.setHorizontalGroup(
             AcompanhantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AcompanhantesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(AcompanhantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AcompanhantesLayout.createSequentialGroup()
-                        .addGroup(AcompanhantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelNome)
-                            .addComponent(labelIdade))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtNome, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(AcompanhantesLayout.createSequentialGroup()
-                        .addComponent(ftxtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+            .addGap(0, 330, Short.MAX_VALUE)
         );
         AcompanhantesLayout.setVerticalGroup(
             AcompanhantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AcompanhantesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelNome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelIdade)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AcompanhantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
-                    .addComponent(ftxtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+            .addGap(0, 127, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Acompanhantes", Acompanhantes);
@@ -299,64 +233,70 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCancel))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(554, Short.MAX_VALUE)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCancel)
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(434, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancel))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(50, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
-        hospede = daoHospede.buscar(txtCPFClt.getText());
-        if(hospede == null){
-            //TODO
-        }else{
-            //TODO
-        }
-        
-    }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    public Hospede getHospede(){
-        return hospede;
-    }
-    public void setHospede(Hospede hospede){
-        this.hospede = hospede;
-    }
-    
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Acompanhantes;
     private javax.swing.JPanel Cartão;
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSalvar;
@@ -364,7 +304,6 @@ public class TelaReserva extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser dateDataSaida;
     private javax.swing.JFormattedTextField ftxtHoraEntrada;
     private javax.swing.JFormattedTextField ftxtHoraSaida;
-    private javax.swing.JFormattedTextField ftxtIdade;
     private javax.swing.JFormattedTextField ftxtNroAgencia;
     private javax.swing.JFormattedTextField ftxtNroCartao;
     private javax.swing.JComboBox jComboBox1;
@@ -379,11 +318,8 @@ public class TelaReserva extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labelDataSaida;
     private javax.swing.JLabel labelHoraSaida;
     private javax.swing.JLabel labelIDclt;
-    private javax.swing.JLabel labelIdade;
-    private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelNroAgencia;
     private javax.swing.JLabel labelNroCartao;
     private javax.swing.JTextField txtCPFClt;
-    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }
