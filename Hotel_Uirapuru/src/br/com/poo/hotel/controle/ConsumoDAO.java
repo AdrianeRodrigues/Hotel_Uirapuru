@@ -9,8 +9,9 @@ public class ConsumoDAO implements DAO<Consumo> {
 
 	@Override
 	public boolean inserir(Consumo arg) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		String comandoSql = "INSERT INTO ";
+		
 	}
 
 	@Override

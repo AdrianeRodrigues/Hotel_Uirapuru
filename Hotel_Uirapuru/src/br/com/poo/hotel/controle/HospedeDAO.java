@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.poo.hotel.dao.DAO;
@@ -115,7 +116,7 @@ public class HospedeDAO implements DAO<Hospede> {
 		}
 	}
 
-	public Hospede buscar(String cpf) {
+	public Hospede buscarID(String cpf) {
 
 		String comandoSql = "SELECT * FROM Hospede WHERE cpf = ?";
 
@@ -156,6 +157,24 @@ public class HospedeDAO implements DAO<Hospede> {
 		return h;
 	}
 
+	public List<Hospede> buscarNome(String nome) {
+		
+		String comandoSql = "SELECT * FROM Hospede WHERE nome LIKE ?";
+		
+		List<Hospede> hospedes = new ArrayList<>();
+		
+		try (Connection c = FabricaDeConexao.getConexao();
+				PreparedStatement p = c.prepareStatement(comandoSql)) {
+			
+			p.setString(1, "%"+nome+"%");
+			
+			ResultSet r = p.executeQuery(); 
+			
+		} catch (SQLException e) {
+		}
+		
+	}
+	
 	@Override
 	public List<Hospede> listar() {
 		return null;
