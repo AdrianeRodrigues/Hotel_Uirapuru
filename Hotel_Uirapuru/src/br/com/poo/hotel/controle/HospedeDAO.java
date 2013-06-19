@@ -50,7 +50,7 @@ public class HospedeDAO implements DAO<Hospede> {
 			p.setString(21, hospede.getTelefone().getNumeroLinha());
 
 			// Inserir chamada a classe CartãoDAO aqui ...
-			
+
 			return p.execute();
 
 		} catch (SQLException e) {
@@ -121,12 +121,12 @@ public class HospedeDAO implements DAO<Hospede> {
 		String comandoSql = "SELECT * FROM Hospede WHERE cpf = ?";
 
 		Hospede h = null;
-		
+
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
-			
+
 			p.setString(1, cpf);
-			
+
 			ResultSet r = p.executeQuery();
 
 			if (r.next()) {
@@ -140,17 +140,17 @@ public class HospedeDAO implements DAO<Hospede> {
 
 				List<CartaoCredito> cartoesCredito = null; //chamar método da classe CartaCreditoDAO
 				List<Estadia> estadias = null; //chamar método da classe EstadiaDAO
-				
+
 				Permissao permissao = r.getString("permissao").equalsIgnoreCase("usuario") ? 
 						Permissao.USUARIO : Permissao.ADMINISTRADOR;
-				
+
 				h = new Hospede(r.getString("nome"), r.getString("login"), 
 						r.getString("senha"), new java.util.Date(r.getDate("data_nascimento").getTime()),
 						endereco, telefone, permissao, r.getString("email"), r.getString("rg"), 
 						r.getString("cpf"), r.getString("passaporte"), r.getString("nome_pai"), 
 						r.getString("nome_mae"), cartoesCredito, estadias);
 			}
-			
+
 		} catch (SQLException e) {
 			return null;
 		}
@@ -158,23 +158,46 @@ public class HospedeDAO implements DAO<Hospede> {
 	}
 
 	public List<Hospede> buscarNome(String nome) {
-		
+
 		String comandoSql = "SELECT * FROM Hospede WHERE nome LIKE ?";
-		
+
 		List<Hospede> hospedes = new ArrayList<>();
-		
+
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
-			
+
 			p.setString(1, "%"+nome+"%");
-			
+
 			ResultSet r = p.executeQuery(); 
-			
+
+			while (r.next()) {
+
+				Endereco endereco = new Endereco(r.getString("logradouro"), r.getString("bairro"), 
+						r.getString("cidade"), r.getString("numero_endereco"),
+						r.getString("complemento"), r.getString("estado"), r.getString("pais"));
+
+				Telefone telefone = new Telefone(r.getString("codigo_area"), r.getString("prefixo"), 
+						r.getString("numero_linha"));
+
+				List<CartaoCredito> cartoesCredito = 
+						new CartaoCreditoDAO().buscarCartaoCliente(r.getString("cpf")); //chamar método da classe CartaCreditoDAO
+				List<Estadia> estadias = null; //chamar método da classe EstadiaDAO
+
+				Permissao permissao = r.getString("permissao").equalsIgnoreCase("usuario") ? 
+						Permissao.USUARIO : Permissao.ADMINISTRADOR;
+
+				hospedes.add(new Hospede(r.getString("nome"), r.getString("login"), 
+						r.getString("senha"), new java.util.Date(r.getDate("data_nascimento").getTime()),
+						endereco, telefone, permissao, r.getString("email"), r.getString("rg"), 
+						r.getString("cpf"), r.getString("passaporte"), r.getString("nome_pai"), 
+						r.getString("nome_mae"), cartoesCredito, estadias));
+			}
 		} catch (SQLException e) {
+			return hospedes;
 		}
-		
+		return hospedes;
 	}
-	
+
 	@Override
 	public List<Hospede> listar() {
 		return null;
