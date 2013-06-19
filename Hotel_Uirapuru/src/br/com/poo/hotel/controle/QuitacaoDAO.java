@@ -14,21 +14,15 @@ public class QuitacaoDAO implements DAO<Quitacao> {
 	}
 
 	@Override
-	public boolean remover(int codigo) {
+	public boolean remover(Quitacao arg) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean alterar(Quitacao arg, int codigo) {
+	public boolean alterar(Quitacao arg) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public Quitacao buscar(int codigo) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

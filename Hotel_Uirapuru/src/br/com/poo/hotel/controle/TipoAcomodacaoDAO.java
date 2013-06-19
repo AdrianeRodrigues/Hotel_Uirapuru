@@ -111,4 +111,28 @@ public class TipoAcomodacaoDAO implements DAO<TipoAcomodacao> {
 		return acomodacaos;
 	}
 
+	public TipoAcomodacao buscarID(int codigo) {
+		
+		String comandoSql = "SELECT * FROM Tipo_Acomodacao WHERE codigo_tipoA=?";
+		
+		TipoAcomodacao tipoAcomodacao = null;
+		
+		try (Connection c = FabricaDeConexao.getConexao();
+				PreparedStatement p = c.prepareStatement(comandoSql)) {
+			
+			ResultSet r = p.executeQuery();
+			
+			while (r.next()) {
+				
+				tipoAcomodacao = new TipoAcomodacao(r.getInt("codigo_tipoA"), r.getString("descricao"), 
+						r.getInt("quantidade"), r.getDouble("preco_diaria"), r.getInt("numero_adultos"), 
+						r.getInt("numero_criancas"));
+			}
+			
+		} catch (SQLException e) {
+			return tipoAcomodacao;
+		}
+		return tipoAcomodacao;
+	}
+
 }

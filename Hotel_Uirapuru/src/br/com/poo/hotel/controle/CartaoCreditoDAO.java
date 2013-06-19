@@ -14,21 +14,15 @@ public class CartaoCreditoDAO implements DAO<CartaoCredito> {
 	}
 
 	@Override
-	public boolean remover(int codigo) {
+	public boolean remover(CartaoCredito arg) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean alterar(CartaoCredito arg, int codigo) {
+	public boolean alterar(CartaoCredito arg) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public CartaoCredito buscar(int codigo) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -36,5 +30,7 @@ public class CartaoCreditoDAO implements DAO<CartaoCredito> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }

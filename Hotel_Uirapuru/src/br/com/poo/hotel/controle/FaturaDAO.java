@@ -14,21 +14,15 @@ public class FaturaDAO implements DAO<Fatura> {
 	}
 
 	@Override
-	public boolean remover(int codigo) {
+	public boolean remover(Fatura arg) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean alterar(Fatura arg, int codigo) {
+	public boolean alterar(Fatura arg) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public Fatura buscar(int codigo) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -36,5 +30,4 @@ public class FaturaDAO implements DAO<Fatura> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
