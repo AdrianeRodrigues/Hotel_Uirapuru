@@ -11,8 +11,9 @@ import java.util.List;
 import br.com.poo.hotel.dao.DAO;
 import br.com.poo.hotel.fabrica.FabricaDeConexao;
 import br.com.poo.hotel.modelo.Acomodacao;
+import br.com.poo.hotel.modelo.Acompanhante;
+import br.com.poo.hotel.modelo.Hospede;
 import br.com.poo.hotel.modelo.Reserva;
-import br.com.poo.hotel.modelo.TipoAcomodacao;
 
 public class ReservaDAO implements DAO<Reserva> {
 
@@ -85,7 +86,7 @@ public class ReservaDAO implements DAO<Reserva> {
 
 	@Override
 	public List<Reserva> listar() {
-		
+
 		String comandoSql = "SELECT * FROM Reserva";
 
 		List<Reserva> reservas = new ArrayList<>();
@@ -98,19 +99,53 @@ public class ReservaDAO implements DAO<Reserva> {
 			while (r.next()) {
 
 				Acomodacao acomodacao = new AcomodacaoDAO().buscarID
-						(r.getInt("numero"), r.getInt("andar"));
-				
-				
-				
+						(r.getInt("codigo_reserva"));
+
+				Hospede hospede = new HospedeDAO().buscarID(r.getString("hospede"));
+
+				List<Acompanhante> acompanhantes = new AcompanhanteDAO().
+						buscarAcompanhanteReserva(r.getInt("codigo_estadia"));
+
 				reservas.add(new Reserva(r.getDate("data_chegada"), 
 						r.getDate("data_saida"), r.getDouble("taxa_multa"), 
-						r.getDouble("desconto"), acomodacao, acompanhantes, hospede))
+						r.getDouble("desconto"), acomodacao, acompanhantes, hospede));
 			}
 
 		} catch (SQLException e) {
 			return reservas;
 		}
 		return reservas;
+	}
+
+	public Reserva buscarID(int codigo) {
+		
+		String comandoSql = "SELECT * FROM Reserva WHERE codigo_reserva=?";
+		
+		Reserva reserva = null;
+		
+		try (Connection c = FabricaDeConexao.getConexao();
+				PreparedStatement p = c.prepareStatement(comandoSql)) {
+			
+			p.setInt(1, codigo);
+			
+			ResultSet r = p.executeQuery();
+			
+			if (r.next()) {
+				new Reserva(r.getDate("data_chegada"), 
+						r.getDate("data_saida"), 
+						r.getDouble("taxa_multa"),
+						r.getDouble("desconto"), 
+						new AcomodacaoDAO().buscarID(r.getInt("codigo_reserva")), 
+						new AcompanhanteDAO().buscarAcompanhanteReserva(r.getInt("codigo_reserva")), 
+						new HospedeDAO().buscarID(r.getString("hospede")),
+						r.getInt("codigo_reserva"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return reserva;
+		}
+		return reserva;
 	}
 
 	/**

@@ -3,8 +3,6 @@ package br.com.poo.hotel.modelo;
 import java.util.Date;
 import java.util.List;
 
-import br.com.poo.hotel.utilitarios.Verificador;
-
 public class Hospede extends Pessoa {
 
 	private String email;

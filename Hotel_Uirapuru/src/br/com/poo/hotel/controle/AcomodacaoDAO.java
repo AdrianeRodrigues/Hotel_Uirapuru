@@ -102,15 +102,17 @@ public class AcomodacaoDAO implements DAO<Acomodacao> {
 		return acomodacoes;
 	}
 
-	public Acomodacao buscarID(int numero, int andar) {
+	public Acomodacao buscarID(int codigo) {
 
-		String comandoSql = "SELECT * FROM Acomodacao WHERE numero=? AND andar=?";
+		String comandoSql = "SELECT * FROM Acomodacao WHERE codigo_reserva=?";
 
 		Acomodacao acomodacao = null;
 
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
 
+			p.setInt(1, codigo);
+			
 			ResultSet r = p.executeQuery();
 
 			while (r.next()) {

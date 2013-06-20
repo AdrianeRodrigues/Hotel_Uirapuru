@@ -3,10 +3,19 @@ package br.com.poo.hotel.modelo;
 public class Acompanhante {
 	private String nome;
 	private int idade;
+	private Reserva reserva;
+	private Estadia estadia;
 
 	public Acompanhante(String nome, int idade) {
-		this.nome = nome;
+		setNome(nome);
 		setIdade(idade);
+	}
+	
+	public Acompanhante(String nome, int idade, 
+			Reserva reserva, Estadia estadia) {
+		this(nome, idade);
+		setReserva(reserva);
+		setEstadia(estadia);
 	}
 
 	public String getNome() {
@@ -27,6 +36,22 @@ public class Acompanhante {
 			return true;
 		}
 		return false;
+	}
+
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
+	}
+
+	public Estadia getEstadia() {
+		return estadia;
+	}
+
+	public void setEstadia(Estadia estadia) {
+		this.estadia = estadia;
 	}
 
 }
