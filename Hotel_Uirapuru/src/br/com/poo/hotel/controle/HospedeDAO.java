@@ -205,8 +205,6 @@ public class HospedeDAO implements DAO<Hospede> {
 
 	@Override
 	public List<Hospede> listar() {
-
-//=======
 		
 		String comandoSql = "SELECT * FROM Hospede";
 		
@@ -217,7 +215,6 @@ public class HospedeDAO implements DAO<Hospede> {
 			
 			ResultSet r = p.executeQuery();
 			
-//>>>>>>> b4e2b4735f2785dc9aac5eaa92418a49e2b47acb
 			while (r.next()) {
 				Endereco endereco = new Endereco(r.getString("logradouro"), r.getString("bairro"), 
 						r.getString("cidade"), r.getString("numero_endereco"),

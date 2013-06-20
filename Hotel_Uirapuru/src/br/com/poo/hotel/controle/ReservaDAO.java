@@ -97,16 +97,20 @@ public class ReservaDAO implements DAO<Reserva> {
 
 			while (r.next()) {
 
-				Acomodacao acomodacao = new AcomodacaoDAO().buscarID(r.getInt("numero"), r);
+				Acomodacao acomodacao = new AcomodacaoDAO().buscarID
+						(r.getInt("numero"), r.getInt("andar"));
 				
-				reservas.add(new Reserva(r.getDate("data_chegada"), r.getDate("data_saida"),
-						r.getDouble("taxa_multa"), r.getDouble("desconto"), acomodacao, acompanhantes, hospede))
+				
+				
+				reservas.add(new Reserva(r.getDate("data_chegada"), 
+						r.getDate("data_saida"), r.getDouble("taxa_multa"), 
+						r.getDouble("desconto"), acomodacao, acompanhantes, hospede))
 			}
 
 		} catch (SQLException e) {
-			return tipoAcomodacao;
+			return reservas;
 		}
-		return tipoAcomodacao;
+		return reservas;
 	}
 
 	/**
