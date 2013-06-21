@@ -9,13 +9,16 @@ import javax.swing.JOptionPane;
  *
  * @author adriane
  */
-public class TelaItemConsumo extends javax.swing.JInternalFrame {
+public class TelaCadastroItem extends javax.swing.JInternalFrame {
 
     private Item item;
     private ItemDAO dao;
-    
-    public TelaItemConsumo() {
+
+    public TelaCadastroItem() {
         initComponents();
+        dao = new ItemDAO();
+        btnRemover.setVisible(false);
+        btnSalvar.setVisible(false);
     }
 
     /**
@@ -29,17 +32,17 @@ public class TelaItemConsumo extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         labelPreco = new javax.swing.JLabel();
-        txtPreco = new javax.swing.JTextField();
         labelDescricao = new javax.swing.JLabel();
         txtDescricao = new javax.swing.JTextField();
         labelCategoria = new javax.swing.JLabel();
         boxCategoria = new javax.swing.JComboBox();
+        ftxtPreco = new javax.swing.JFormattedTextField();
         btnSalvar = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
         labelCodigo = new javax.swing.JLabel();
-        txtBuscarCodigo = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        ftxtBuscaCodigo = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -50,8 +53,6 @@ public class TelaItemConsumo extends javax.swing.JInternalFrame {
 
         labelPreco.setText("Preço:");
 
-        txtPreco.setEnabled(false);
-
         labelDescricao.setText("Descrição:");
 
         txtDescricao.setEnabled(false);
@@ -61,13 +62,15 @@ public class TelaItemConsumo extends javax.swing.JInternalFrame {
         boxCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "FRIGOBAR", "RESTAURANTE", "LAVANDERIA" }));
         boxCategoria.setEnabled(false);
 
+        ftxtPreco.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelCategoria)
@@ -75,24 +78,29 @@ public class TelaItemConsumo extends javax.swing.JInternalFrame {
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelPreco)
-                            .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(labelDescricao)
-                    .addComponent(txtDescricao))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(ftxtPreco)
+                                .addContainerGap())))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(labelDescricao)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtDescricao))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelPreco)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelPreco)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(labelCategoria)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(boxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(boxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ftxtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(12, 12, 12)
                 .addComponent(labelDescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -130,146 +138,162 @@ public class TelaItemConsumo extends javax.swing.JInternalFrame {
             }
         });
 
+        ftxtBuscaCodigo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelCodigo)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(txtBuscarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnRemover)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnCancel))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ftxtBuscaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRemover)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancel)
-                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
                 .addComponent(labelCodigo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnBuscar)
+                    .addComponent(ftxtBuscaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancel)
                     .addComponent(btnRemover))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(!txtBuscarCodigo.getText().isEmpty() && !txtDescricao.getText().isEmpty()){
-            
-            if (boxCategoria.getSelectedItem().equals(Categoria.FRIGOBAR.toString())){
-                
-                item = new Item(Integer.parseInt(txtBuscarCodigo.getText()), 
-                        txtDescricao.getText(), Double.parseDouble(txtPreco.getText()), 
+        if (!ftxtBuscaCodigo.getText().isEmpty() && !txtDescricao.getText().isEmpty()) {
+
+            if (boxCategoria.getSelectedItem().equals(Categoria.FRIGOBAR.toString())) {
+
+                item = new Item(Integer.parseInt(ftxtBuscaCodigo.getText()),
+                        txtDescricao.getText(), Double.parseDouble(ftxtPreco.getText()),
                         Categoria.FRIGOBAR);
                 salvarItem();
-                
-            }else if (boxCategoria.getSelectedItem().equals(Categoria.LAVANDERIA.toString())){
-                
-                item = new Item(Integer.parseInt(txtBuscarCodigo.getText()), 
-                        txtDescricao.getText(), Double.parseDouble(txtPreco.getText()), 
+
+            } else if (boxCategoria.getSelectedItem().equals(Categoria.LAVANDERIA.toString())) {
+
+                item = new Item(Integer.parseInt(ftxtBuscaCodigo.getText()),
+                        txtDescricao.getText(), Double.parseDouble(ftxtPreco.getText()),
                         Categoria.LAVANDERIA);
                 salvarItem();
-                
-            }else if (boxCategoria.getSelectedItem().equals(Categoria.RESTAURANTE.toString())){
-                
-                item = new Item(Integer.parseInt(txtBuscarCodigo.getText()), 
-                        txtDescricao.getText(), Double.parseDouble(txtPreco.getText()), 
+
+            } else if (boxCategoria.getSelectedItem().equals(Categoria.RESTAURANTE.toString())) {
+
+                item = new Item(Integer.parseInt(ftxtBuscaCodigo.getText()),
+                        txtDescricao.getText(), Double.parseDouble(ftxtPreco.getText()),
                         Categoria.RESTAURANTE);
                 salvarItem();
-                
-            }else{
+
+            } else {
                 JOptionPane.showMessageDialog(null, "Selecione a categoria correta para o item!");
             }
-            
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        
+        limpar();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        if (txtBuscarCodigo.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Digite o CPF!");
+        if (ftxtBuscaCodigo.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Digite o código a ser cadastrado!");
         }else{
-            item = null;
-            if ( item == null) {
-                //TODO
-            }else{
-                //TODO
-            }                       
+            item = dao.buscaId(Integer.parseInt(ftxtBuscaCodigo.getText()));
+            if (item == null) {
+                JOptionPane.showMessageDialog(null, "Item não cadastrado!");
+                limpar();
+            } else {
+                JOptionPane.showMessageDialog(null, "Item já cadastrado!");                
+                setCampos();
+                
+            }           
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        boolean resp = false;
-        if(resp){
+        boolean resp = dao.remover(item);
+        if (resp) {
             limpar();
             JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Item não removido!");
         }
     }//GEN-LAST:event_btnRemoverActionPerformed
 
-    public void salvarItem(){
+    public void salvarItem() {
         dao = new ItemDAO();
         boolean resposta = dao.inserir(item);
-            
-        if (resposta){
-           JOptionPane.showMessageDialog(null, "Item cadastrado!");
-           this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(null, "Item não cadastrado!");                       
+
+        if (resposta) {
+            JOptionPane.showMessageDialog(null, "Item cadastrado!");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Item não cadastrado!");
         }
     }
-    
-    public void limpar(){
-        txtBuscarCodigo.setText("");
+
+    public void limpar() {
+        //ftxtBuscaCodigo.setText("");
         txtDescricao.setText("");
-        txtPreco.setText("");
-        txtDescricao.setEditable(false);
-        txtPreco.setEditable(false);
-        boxCategoria.setEnabled(false);
+        ftxtPreco.setText("");
+        txtDescricao.setEnabled(true);
+        ftxtPreco.setEnabled(true);
+        boxCategoria.setEnabled(true);
+        btnSalvar.setVisible(true);
+        btnRemover.setEnabled(false);
     }
-    
+
+    private void setCampos() {
+        //ftxtBuscaCodigo.setText(String.valueOf(item.getCodigo()));
+        txtDescricao.setText(item.getDescricao());
+        ftxtPreco.setText(String.valueOf(item.getPrecoVenda()));
+        txtDescricao.setEnabled(false);
+        ftxtPreco.setEnabled(false);
+        boxCategoria.setEnabled(false);
+        btnSalvar.setVisible(true);
+        btnRemover.setVisible(true);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox boxCategoria;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JFormattedTextField ftxtBuscaCodigo;
+    private javax.swing.JFormattedTextField ftxtPreco;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelCategoria;
     private javax.swing.JLabel labelCodigo;
     private javax.swing.JLabel labelDescricao;
     private javax.swing.JLabel labelPreco;
-    private javax.swing.JTextField txtBuscarCodigo;
     private javax.swing.JTextField txtDescricao;
-    private javax.swing.JTextField txtPreco;
     // End of variables declaration//GEN-END:variables
 }

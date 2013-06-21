@@ -156,7 +156,7 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
                 model = (TableModelHospede)new TableModelHospede(dao.buscarNome(filtro));
             }else{
                 ItemDAO dao = new ItemDAO();
-                model = (TableModelItem)new TableModelItem(dao.buscarDescricao(filtro));
+                model = (TableModelItem)new TableModelItem(dao.listar());
             }
         }else{
             Inicio();

@@ -57,8 +57,9 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 			p.setString(13, funcionario.getTelefone().getPrefixo());
 			p.setString(14, funcionario.getTelefone().getNumeroLinha());
 			p.setString(15, funcionario.getPermissao().name());
-			
-			return p.execute();
+			System.out.println("ahsfuishguiher");
+			p.execute();
+                        return true;
 			
 		} catch (SQLException e) {
 			return false;
@@ -75,7 +76,8 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 			
 			p.setInt(1, funcionario.getCodigo());
 			
-			return p.execute();
+			p.execute();
+                        return true;
 			
 		} catch (SQLException e) {
 			return false;
@@ -117,7 +119,8 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 			p.setString(12, funcionario.getTelefone().getNumeroLinha());
 			p.setInt(13, funcionario.getCodigo());
 			
-			return p.execute();
+			p.execute();
+                        return true;
 			
 		} catch (SQLException e) {
 			return false;
@@ -126,7 +129,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 
 	public Funcionario buscarId(int codigo) {
 		
-		String comandoSql = "SELECT * FROM Funcionario WHERE codigo_funcionario = ?";
+		String comandoSql = "SELECT * FROM funcionario WHERE codigo_funcionario = ?";
 		
 		Funcionario funcionario = null;
 		
@@ -137,9 +140,9 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 			
 			ResultSet r = p.executeQuery();
 			
-			while (r.next()) {
+			if (r.next()) {
 				Endereco endereco = new Endereco(r.getString("logradouro"), r.getString("bairro"),
-						r.getString("cidade"), r.getString("numero"), r.getString("complemento"), 
+						r.getString("cidade"), r.getString("numero_endereco"), r.getString("complemento"), 
 						r.getString("estado"), r.getString("pais"));
 				
 				Telefone telefone = new Telefone(r.getString("codigo_area"), r.getString("prefixo"), 
