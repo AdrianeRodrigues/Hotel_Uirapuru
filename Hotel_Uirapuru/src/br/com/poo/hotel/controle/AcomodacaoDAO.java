@@ -27,10 +27,11 @@ public class AcomodacaoDAO implements DAO<Acomodacao> {
 			p.setInt(2, acomodacao.getAndar());
 			p.setBoolean(3, acomodacao.isOcupado());
 			p.setInt(4, acomodacao.getTipoAcomodacao().getCodigo());
+			p.execute();
 
-			return p.execute();
-
+			return true;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -38,17 +39,17 @@ public class AcomodacaoDAO implements DAO<Acomodacao> {
 	@Override
 	public boolean remover(Acomodacao acomodacao) {
 
-		String comandoSql = "DELETE FROM Acomodacao WHERE numero=? AND andar=?";
+		String comandoSql = "DELETE FROM Acomodacao WHERE codigo_acomodacao=?";
 
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
 
-			p.setInt(1, acomodacao.getNumero());
-			p.setInt(2, acomodacao.getAndar());
-
-			return p.execute();
-
+			p.setInt(1, acomodacao.getCodigo());
+			p.execute();	
+			
+			return true;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 
@@ -58,7 +59,7 @@ public class AcomodacaoDAO implements DAO<Acomodacao> {
 	public boolean alterar(Acomodacao acomodacao) {
 
 		String comandoSql = "UPDATE Acomodacao SET numero=?,andar=?,ocupado=?,tipo_acomodacao=?" +
-				" WHERE numero=? AND andar=?";
+				" WHERE codigo_acomodacao=?";
 
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
@@ -67,12 +68,12 @@ public class AcomodacaoDAO implements DAO<Acomodacao> {
 			p.setInt(2, acomodacao.getAndar());
 			p.setBoolean(3, acomodacao.isOcupado());
 			p.setInt(4, acomodacao.getTipoAcomodacao().getCodigo());
-			p.setInt(5, acomodacao.getNumero());
-			p.setInt(6, acomodacao.getAndar());
+			p.setInt(5, acomodacao.getCodigo());
+			p.execute();
 
-			return p.execute();
-
+			return true;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}		
 	}
@@ -94,17 +95,19 @@ public class AcomodacaoDAO implements DAO<Acomodacao> {
 				TipoAcomodacao tipoAcomodacao = 
 						new TipoAcomodacaoDAO().buscarID(r.getInt("tipo_acomodacao"));
 
-				acomodacoes.add(new Acomodacao(r.getInt("andar"), r.getInt("numero"), tipoAcomodacao));
+				acomodacoes.add(new Acomodacao(r.getInt("codigo_acomodacao"), r.getInt("andar"),
+						r.getInt("numero"), tipoAcomodacao));
 			}
 		} catch (SQLException e) {
-			return acomodacoes;
+			e.printStackTrace();
+			return null;
 		}
 		return acomodacoes;
 	}
 
-	public Acomodacao buscarID(int codigo) {
+	public Acomodacao buscaPorID(int codigo) {
 
-		String comandoSql = "SELECT * FROM Acomodacao WHERE codigo_reserva=?";
+		String comandoSql = "SELECT * FROM Acomodacao WHERE codigo_acomodacao=?";
 
 		Acomodacao acomodacao = null;
 
@@ -112,7 +115,6 @@ public class AcomodacaoDAO implements DAO<Acomodacao> {
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
 
 			p.setInt(1, codigo);
-			
 			ResultSet r = p.executeQuery();
 
 			while (r.next()) {
@@ -120,10 +122,12 @@ public class AcomodacaoDAO implements DAO<Acomodacao> {
 				TipoAcomodacao tipoAcomodacao = 
 						new TipoAcomodacaoDAO().buscarID(r.getInt("tipo_acomodacao"));
 
-				acomodacao = new Acomodacao(r.getInt("andar"), r.getInt("numero"), tipoAcomodacao);
+				acomodacao = new Acomodacao(r.getInt("codigo_acomodacao"), r.getInt("andar"),
+						r.getInt("numero"), tipoAcomodacao);
 			}
 		} catch (SQLException e) {
-			return acomodacao;
+			e.printStackTrace();
+			return null;
 		}
 		return acomodacao;
 	}

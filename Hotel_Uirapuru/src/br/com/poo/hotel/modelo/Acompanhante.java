@@ -6,16 +6,16 @@ public class Acompanhante {
 	private Reserva reserva;
 	private Estadia estadia;
 
-	public Acompanhante(String nome, int idade) {
-		setNome(nome);
-		setIdade(idade);
-	}
-	
 	public Acompanhante(String nome, int idade, 
 			Reserva reserva, Estadia estadia) {
 		this(nome, idade);
 		setReserva(reserva);
 		setEstadia(estadia);
+	}
+	
+	public Acompanhante(String nome, int idade) {
+		setNome(nome);
+		setIdade(idade);
 	}
 
 	public String getNome() {

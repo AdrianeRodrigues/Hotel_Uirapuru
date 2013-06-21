@@ -18,17 +18,21 @@ public class AcompanhanteDAO implements DAO<Acompanhante> {
 	@Override
 	public boolean inserir(Acompanhante acompanhante) {
 
-		String comandoSql = "INSERT INTO Acompanhante (nome, idade) VALUES (?,?)";
+		String comandoSql = "INSERT INTO Acompanhante (nome, idade, estadia, reserva) " +
+				"VALUES (?,?)";
 
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
 
 			p.setString(1, acompanhante.getNome());
 			p.setInt(2, acompanhante.getIdade());
+			p.setInt(3, acompanhante.getEstadia().getCodigo());
+			p.setInt(4, acompanhante.getReserva().getCodigo());
+			p.execute();
 
-			return p.execute();
-
+			return true;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -36,16 +40,17 @@ public class AcompanhanteDAO implements DAO<Acompanhante> {
 	@Override
 	public boolean remover(Acompanhante acompanhante) {
 
-		String comandoSql = "DELETE FROM Acompanhante WHERE nome = ?";
+		String comandoSql = "DELETE FROM Acompanhante WHERE nome=?";
 
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
 
 			p.setString(1, acompanhante.getNome());
+			p.execute();
 
-			return p.execute();
-
+			return true;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -53,17 +58,20 @@ public class AcompanhanteDAO implements DAO<Acompanhante> {
 	@Override
 	public boolean alterar(Acompanhante acompanhante) {
 
-		String comandoSql = "UPDATE Acompanhante SET idade=? WHERE nome=?";
+		String comandoSql = "UPDATE Acompanhante SET idade=?, estadia=?, reserva=? WHERE nome=?";
 
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
 
 			p.setInt(1, acompanhante.getIdade());
+			p.setInt(2, acompanhante.getEstadia().getCodigo());
+			p.setInt(3, acompanhante.getReserva().getCodigo());
 			p.setString(4, acompanhante.getNome());
+			p.execute();
 
-			return p.execute();
-
+			return true;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -89,7 +97,8 @@ public class AcompanhanteDAO implements DAO<Acompanhante> {
 
 
 		} catch (SQLException e) {
-			return acompanhantes;
+			e.printStackTrace();
+			return null;
 		}
 		return acompanhantes;
 	}

@@ -1,12 +1,20 @@
 package br.com.poo.hotel.modelo;
 
 public class Acomodacao {
-
+	private int codigo;
 	private int andar;
 	private int numero;
 	private boolean ocupado;
 	private TipoAcomodacao tipoAcomodacao;
 
+	public Acomodacao(int codigo, int andar, int numero, TipoAcomodacao tipoAcomodacao) {
+		setAndar(andar);
+		setNumero(numero);
+		setTipoAcomodacao(tipoAcomodacao);
+		setCodigo(codigo);
+		ocupado = true;
+	}
+	
 	public Acomodacao(int andar, int numero, TipoAcomodacao tipoAcomodacao) {
 		setAndar(andar);
 		setNumero(numero);
@@ -56,6 +64,14 @@ public class Acomodacao {
 
 	public void setOcupado(boolean ocupado) {
 		this.ocupado = ocupado;
+	}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 }

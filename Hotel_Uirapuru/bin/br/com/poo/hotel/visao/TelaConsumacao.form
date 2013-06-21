@@ -48,12 +48,12 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panelDadosHospede1" min="-2" max="-2" attributes="0"/>
                   <Component id="lanelDadosConsumo" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="11" max="32767" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -84,22 +84,15 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="labelItemConsumo" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="labelIDhospede" min="-2" max="-2" attributes="0"/>
-                                      <Component id="ftxtIDhospede" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="ftxtIDhospede" min="-2" pref="71" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                                   <Component id="txtNomeFunci" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="txtCodItem" min="-2" pref="181" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
@@ -110,22 +103,29 @@
                                               <Component id="labelQuantidade" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="spinnerQuant" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="ftxtValorUni" min="-2" pref="92" max="-2" attributes="0"/>
                                               <Component id="labelValorUni" min="-2" max="-2" attributes="0"/>
+                                              <Component id="ftxtValorUni" min="-2" pref="92" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="dateData" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
-                                              <Component id="labelData" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="labelData" min="-2" max="-2" attributes="0"/>
+                                              <Component id="dateData" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="17" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="labelItemConsumo" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelIDhospede" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -141,30 +141,25 @@
                       <Component id="btnBuscarItem" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="labelData" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="dateData" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="labelQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelValorUni" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="spinnerQuant" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="ftxtValorUni" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="labelQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelValorUni" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelData" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="spinnerQuant" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ftxtValorUni" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="dateData" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Component id="labelIDhospede" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="ftxtIDhospede" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtNomeFunci" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="txtNomeFunci" min="-2" max="-2" attributes="0"/>
+                      <Component id="ftxtIDhospede" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="15" max="32767" attributes="0"/>
               </Group>
@@ -176,8 +171,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Data:"/>
           </Properties>
-        </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="dateData">
         </Component>
         <Component class="javax.swing.JLabel" name="labelItemConsumo">
           <Properties>
@@ -234,6 +227,8 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="dateData">
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="panelDadosHospede1">
@@ -257,9 +252,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="labelIDhospede1" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="ftxtIDhospede1" min="-2" pref="128" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                          <Component id="btnBuscaClt" min="-2" pref="74" max="-2" attributes="0"/>
+                          <Component id="ftxtIDhodpede" min="-2" pref="128" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btnBuscaClt" min="-2" pref="90" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane2" alignment="0" min="-2" pref="248" max="-2" attributes="0"/>
                   </Group>
@@ -273,7 +268,7 @@
                   <Component id="labelIDhospede1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="ftxtIDhospede1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ftxtIDhodpede" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnBuscaClt" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -289,7 +284,7 @@
             <Property name="text" type="java.lang.String" value="ID hospede:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="ftxtIDhospede1">
+        <Component class="javax.swing.JFormattedTextField" name="ftxtIDhodpede">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format format="#0.00" subtype="-1" type="0"/>
@@ -312,7 +307,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="txtAhospede">
+            <Component class="javax.swing.JTextArea" name="txtHospede">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>

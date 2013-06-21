@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 
 public class Estadia {
+	private int codigo;
 	private Date dataChegada;
 	private Date horaChegada;
 	private Date dataSaida;
@@ -23,40 +24,32 @@ public class Estadia {
 	private List<Acompanhante> acompanhantes;
 	private List<Consumo> consumos;
 
-	public Estadia(Date dataChegada, Date horaChegada, Date dataSaidaPrevista, 
-			Hospede hospede, Funcionario funcionario, Acomodacao acomodacao) {
+	
+
+	public Estadia(int codigo, Date dataChegada, Date horaChegada,
+			Date dataSaida, Date horaSaida, Date dataSaidaPrevista,
+			double valorTotal, double valorTelefonemas, double desconto,
+			Acomodacao acomodacao, Hospede hospede, Funcionario funcionario,
+			OpcaoPagamento opcaoPagamento, List<Acompanhante> acompanhantes,
+			List<Consumo> consumos) {
+		setCodigo(codigo);
 		setDataChegada(dataChegada);
 		setHoraChegada(horaChegada);
-		setDataSaidaPrevista(dataSaidaPrevista);
-		setHospede(hospede);
-		setFuncionario(funcionario);
-		setAcomodacao(acomodacao);
-	}
-
-	public Estadia(Date dataChegada, Date horaChegada, Date dataSaidaPrevista, double valorTotal,
-			double valorTelefonemas, double desconto,
-			List<Acompanhante> acompanhantes, OpcaoPagamento opcaoPagamento,
-			Acomodacao acomodacao, List<Consumo> consumo, Hospede hospede, Funcionario funcionario) {
-		
-		this(dataChegada, horaChegada, dataSaidaPrevista, hospede, funcionario, acomodacao);
-		setValorTelefonemas(valorTelefonemas);
-		setDesconto(desconto);
-		setAcompanhantes(acompanhantes);
-		setOpcaoPagamento(opcaoPagamento);
-		setConsumos(consumo);
-	}
-
-	public Estadia(Date dataChegada, Date horaChegada, Date dataSaida,
-			Date horaSaida, Date dataSaidaPrevista, double valorTotal,
-			double valorTelefonemas, double desconto,
-			List<Acompanhante> acompanhantes, OpcaoPagamento opcaoPagamento,
-			Acomodacao acomodacao, List<Consumo> consumo, Hospede hospede, Funcionario funcionario) {
-		
-		this(dataChegada, horaChegada, dataSaidaPrevista, valorTotal, 
-			valorTelefonemas, desconto, acompanhantes, opcaoPagamento, 
-			acomodacao, consumo, hospede, funcionario);
 		setDataSaida(dataSaida);
 		setHoraSaida(horaSaida);
+		setDataSaidaPrevista(dataSaidaPrevista);
+		
+		this.horaSaida = horaSaida;
+		this.dataSaidaPrevista = dataSaidaPrevista;
+		this.valorTotal = valorTotal;
+		this.valorTelefonemas = valorTelefonemas;
+		this.desconto = desconto;
+		this.acomodacao = acomodacao;
+		this.hospede = hospede;
+		this.funcionario = funcionario;
+		this.opcaoPagamento = opcaoPagamento;
+		this.acompanhantes = acompanhantes;
+		this.consumos = consumos;
 	}
 
 	public Date getDataChegada() {
@@ -117,10 +110,6 @@ public class Estadia {
 			return true;
 		}
 		return false;
-	}
-
-	public double getValorTotal() {
-		return valorTotal;
 	}
 
 	public double getValorTelefonemas() {
@@ -217,6 +206,22 @@ public class Estadia {
 			return true;
 		}
 		return false;
+	}
+	
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+	
+	public double getValorTotal() {
+		return valorTotal;
+	}
+	
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 	/**
