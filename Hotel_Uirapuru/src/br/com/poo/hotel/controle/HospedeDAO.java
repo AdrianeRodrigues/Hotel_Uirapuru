@@ -70,7 +70,8 @@ public class HospedeDAO implements DAO<Hospede> {
 
 			p.setString(1, hospede.getCpf());
 
-			return p.execute();
+			p.execute();
+                        return true;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -112,7 +113,8 @@ public class HospedeDAO implements DAO<Hospede> {
 			p.setString(20, hospede.getTelefone().getNumeroLinha());
 			p.setString(21, hospede.getCpf());
 
-			return p.execute();
+			p.execute();
+                        return true;
 
 		} catch (SQLException e) {
 			return false;

@@ -183,7 +183,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroFuncionarioActionPerformed
-        TelaFuncionario cadastroF = new TelaFuncionario();
+        TelaCadastroFuncionario cadastroF = new TelaCadastroFuncionario();
         addDesktop(cadastroF);
     }//GEN-LAST:event_itemCadastroFuncionarioActionPerformed
 
@@ -200,7 +200,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemListarReservasActionPerformed
 
     private void itemCadastroHospede1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroHospede1ActionPerformed
-        TelaHospede cadastroH = new TelaHospede();
+        TelaCadastroHospede cadastroH = new TelaCadastroHospede();
         addDesktop(cadastroH);
     }//GEN-LAST:event_itemCadastroHospede1ActionPerformed
 
@@ -210,7 +210,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemReservaActionPerformed
 
     private void itemCadastrarItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastrarItem1ActionPerformed
-        TelaItemConsumo cadastroI = new TelaItemConsumo();
+        TelaCadastroItem cadastroI = new TelaCadastroItem();
         addDesktop(cadastroI);
     }//GEN-LAST:event_itemCadastrarItem1ActionPerformed
 
