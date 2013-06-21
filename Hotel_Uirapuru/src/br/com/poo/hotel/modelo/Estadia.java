@@ -24,8 +24,6 @@ public class Estadia {
 	private List<Acompanhante> acompanhantes;
 	private List<Consumo> consumos;
 
-	
-
 	public Estadia(int codigo, Date dataChegada, Date horaChegada,
 			Date dataSaida, Date horaSaida, Date dataSaidaPrevista,
 			double valorTotal, double valorTelefonemas, double desconto,

@@ -13,6 +13,12 @@ import br.com.poo.hotel.modelo.Acompanhante;
 import br.com.poo.hotel.modelo.Estadia;
 import br.com.poo.hotel.modelo.Reserva;
 
+/**
+ * 
+ * @author guilherme
+ *
+ */
+
 public class AcompanhanteDAO implements DAO<Acompanhante> {
 
 	@Override

@@ -12,6 +12,11 @@ import br.com.poo.hotel.fabrica.FabricaDeConexao;
 import br.com.poo.hotel.modelo.Acomodacao;
 import br.com.poo.hotel.modelo.TipoAcomodacao;
 
+/**
+ * 
+ * @author guilherme
+ *
+ */
 
 public class AcomodacaoDAO implements DAO<Acomodacao> {
 
