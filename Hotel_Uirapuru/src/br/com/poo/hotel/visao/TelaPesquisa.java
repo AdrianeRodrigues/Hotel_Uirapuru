@@ -128,8 +128,8 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
     
     private void retornaHospede(String retorno){
          HospedeDAO dao = new HospedeDAO();
-         if(tela instanceof TelaReserva){
-            TelaReserva t = (TelaReserva) tela;
+         if(tela instanceof TelaFazerReserva){
+            TelaFazerReserva t = (TelaFazerReserva) tela;
             t.setHospede(dao.buscarID(retorno));
          }else{
             TelaConsumacao t = (TelaConsumacao) tela;

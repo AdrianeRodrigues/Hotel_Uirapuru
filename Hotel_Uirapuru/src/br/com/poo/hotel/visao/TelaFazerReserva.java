@@ -1,33 +1,40 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.poo.hotel.visao;
 
 import br.com.poo.hotel.controle.AcomodacaoDAO;
 import br.com.poo.hotel.controle.HospedeDAO;
+import br.com.poo.hotel.controle.ReservaDAO;
 import br.com.poo.hotel.modelo.Acomodacao;
+import br.com.poo.hotel.modelo.Acompanhante;
 import br.com.poo.hotel.modelo.CartaoCredito;
+import br.com.poo.hotel.modelo.Estadia;
 import br.com.poo.hotel.modelo.Hospede;
 import br.com.poo.hotel.modelo.Item;
+import br.com.poo.hotel.modelo.OpcaoPagamento;
+import br.com.poo.hotel.modelo.Reserva;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author adriane
  */
-public class TelaReserva extends javax.swing.JInternalFrame {
+public class TelaFazerReserva extends javax.swing.JInternalFrame {
 
     private Acomodacao acomodacao;
     private CartaoCredito card;
     private Hospede hospede;
     private AcomodacaoDAO daoAcomodacao;
     private HospedeDAO daoHospede;
+    private Acompanhante acompanhante;    
+    private Principal add;
+    private Reserva reserva;
     
     
-    public TelaReserva() {
+    public TelaFazerReserva(Principal add) {
         initComponents();
         daoAcomodacao = new AcomodacaoDAO();
-        daoHospede = new HospedeDAO();
+        daoHospede = new HospedeDAO(); 
+        reserva = new Reserva(null, null, 0, 0, null, null, null);        
+        this.add = add;
     }
 
     /**
@@ -66,10 +73,11 @@ public class TelaReserva extends javax.swing.JInternalFrame {
         btnAdd = new javax.swing.JButton();
         btnBuscarCliente = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtClt = new javax.swing.JTextArea();
         txtCPFClt = new javax.swing.JTextField();
         labelIDclt = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        boxAcomodacao = new javax.swing.JComboBox();
+        labelAcomodacao = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -110,7 +118,7 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                     .addComponent(dateDataEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3)
                     .addComponent(ftxtHoraEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +130,7 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ftxtHoraEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Saída prevista:"));
@@ -142,7 +150,7 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                     .addComponent(labelDataSaida)
                     .addComponent(labelHoraSaida)
                     .addComponent(ftxtHoraSaida))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +162,7 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                 .addComponent(labelHoraSaida)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ftxtHoraSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados do hospede:"));
@@ -187,7 +195,7 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                 .addComponent(labelNroAgencia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ftxtNroAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cartão", Cartão);
@@ -197,6 +205,11 @@ public class TelaReserva extends javax.swing.JInternalFrame {
         labelIdade.setText("Idade:");
 
         btnAdd.setText("Adicionar");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout AcompanhantesLayout = new javax.swing.GroupLayout(Acompanhantes);
         Acompanhantes.setLayout(AcompanhantesLayout);
@@ -213,7 +226,7 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                     .addComponent(txtNome, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(AcompanhantesLayout.createSequentialGroup()
                         .addComponent(ftxtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -230,7 +243,7 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                 .addGroup(AcompanhantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
                     .addComponent(ftxtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Acompanhantes", Acompanhantes);
@@ -242,14 +255,16 @@ public class TelaReserva extends javax.swing.JInternalFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setEnabled(false);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtClt.setColumns(20);
+        txtClt.setRows(5);
+        txtClt.setEnabled(false);
+        jScrollPane1.setViewportView(txtClt);
 
         labelIDclt.setText("ID Cliente:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        boxAcomodacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        labelAcomodacao.setText("Acomodação:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -257,22 +272,21 @@ public class TelaReserva extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(21, 21, 21)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelIDclt)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(txtCPFClt, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCPFClt, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boxAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelAcomodacao))
                 .addGap(75, 75, 75))
         );
         jPanel3Layout.setVerticalGroup(
@@ -281,13 +295,16 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(labelAcomodacao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(boxAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(labelIDclt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -310,42 +327,81 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancel))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancel))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
-        hospede = daoHospede.buscarID(txtCPFClt.getText());
-        if(hospede == null){
-            //TODO
-        }else{
-            //TODO
-        }
-        
+        TelaPesquisa pesquisa = new TelaPesquisa(this, 1);
+        add.addDesktop(pesquisa);     
+        System.out.println(hospede.getNome());
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
+        if(/*!dateDataEntrada.getDate().toString().isEmpty() && !dateDataSaida.getDate().toString().isEmpty()*/
+                !ftxtHoraEntrada.getText().isEmpty() && !ftxtHoraSaida.getText().isEmpty()
+                && !ftxtNroAgencia.getText().isEmpty() && !ftxtNroCartao.getText().isEmpty()
+                && !txtCPFClt.getText().isEmpty()){
+            acomodacao = new Acomodacao(0, 0, null);
+            reserva.setAcomodacao(acomodacao);
+            reserva.setCodigo(0);
+            reserva.setDataChegada(dateDataEntrada.getDate());
+            reserva.setDataSaida(dateDataSaida.getDate());
+            reserva.setHospede(hospede);            
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // TODO add your handling code here:
+        ftxtHoraEntrada.setText("");
+        ftxtHoraSaida.setText("");
+        ftxtIdade.setText("");
+        ftxtNroAgencia.setText("");
+        ftxtNroCartao.setText("");
+        txtCPFClt.setText("");
+        txtNome.setText("");
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        if (boxAcomodacao.getSelectedItem().toString().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Escolha a acomodação primeiro");
+        }else{
+            if(!txtNome.getText().isEmpty() && !ftxtIdade.getText().isEmpty()){
+                acompanhante = new Acompanhante(txtNome.getText(), Integer.parseInt(ftxtIdade.getText()));
+                
+                boolean resp = false;
+                if (resp) {
+                    JOptionPane.showMessageDialog(null, "Acompanhante adicionado!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Acompanhante não adicionado!");
+                }
+                //TODO
+            }
+            
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    public void trocar(){
+        txtCPFClt.setText(hospede.getCpf());
+        txtClt.setText(hospede.getNome());  
+    }
+    
     public Hospede getHospede(){
         return hospede;
     }
@@ -356,6 +412,7 @@ public class TelaReserva extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Acompanhantes;
     private javax.swing.JPanel Cartão;
+    private javax.swing.JComboBox boxAcomodacao;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnCancel;
@@ -367,7 +424,6 @@ public class TelaReserva extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField ftxtIdade;
     private javax.swing.JFormattedTextField ftxtNroAgencia;
     private javax.swing.JFormattedTextField ftxtNroCartao;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
@@ -375,7 +431,7 @@ public class TelaReserva extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel labelAcomodacao;
     private javax.swing.JLabel labelDataSaida;
     private javax.swing.JLabel labelHoraSaida;
     private javax.swing.JLabel labelIDclt;
@@ -384,6 +440,7 @@ public class TelaReserva extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labelNroAgencia;
     private javax.swing.JLabel labelNroCartao;
     private javax.swing.JTextField txtCPFClt;
+    private javax.swing.JTextArea txtClt;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,5 +1,10 @@
 package br.com.poo.hotel.visao;
 
+import br.com.poo.hotel.fabrica.FabricaDeConexao;
+import br.com.poo.hotel.modelo.Permissao;
+import br.com.poo.hotel.modelo.Pessoa;
+import java.sql.Connection;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -9,11 +14,12 @@ import javax.swing.JOptionPane;
 public class Login extends javax.swing.JFrame {
 
     private Principal tela;
+    private Pessoa pessoa;
     
     
     public Login() {
         //this.status = false;
-        initComponents();
+        initComponents();        
     }
 
     /**
@@ -94,16 +100,19 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
-        
-        if(!txtUser.getText().isEmpty() && !pssdSenha.getPassword().toString().isEmpty()){
+        try (Connection c = FabricaDeConexao.getConexao()){
+            if(!txtUser.getText().isEmpty() && !pssdSenha.getPassword().toString().isEmpty()){
             JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
             tela = new Principal();
             tela.setVisible(true);
             this.dispose();
         }else{
-            JOptionPane.showMessageDialog(null, "Favor preencher todos os campos!");
-            
+            JOptionPane.showMessageDialog(null, "Favor preencher todos os campos!");            
         }
+        }catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco.\nErro "+e);
+        }
+        
     }//GEN-LAST:event_btnEnterActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

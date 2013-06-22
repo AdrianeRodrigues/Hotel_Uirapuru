@@ -249,7 +249,7 @@ public class TelaCadastroItem extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     public void salvarItem() {
-        dao = new ItemDAO();
+        
         boolean resposta = dao.inserir(item);
 
         if (resposta) {
@@ -268,7 +268,7 @@ public class TelaCadastroItem extends javax.swing.JInternalFrame {
         ftxtPreco.setEnabled(true);
         boxCategoria.setEnabled(true);
         btnSalvar.setVisible(true);
-        btnRemover.setEnabled(false);
+        btnRemover.setVisible(false);
     }
 
     private void setCampos() {

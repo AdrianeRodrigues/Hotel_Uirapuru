@@ -205,7 +205,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemCadastroHospede1ActionPerformed
 
     private void itemReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemReservaActionPerformed
-        TelaReserva reservaA = new TelaReserva();
+        TelaFazerReserva reservaA = new TelaFazerReserva(this);
         addDesktop(reservaA);
     }//GEN-LAST:event_itemReservaActionPerformed
 

@@ -17,6 +17,8 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
     private FuncionarioDAO dao;
     private Telefone tel;
     private Endereco end;
+    String login;
+    String senha;
 
     public TelaCadastroFuncionario() {
         initComponents();
@@ -40,10 +42,10 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
         txtNome = new javax.swing.JTextField();
         labelData = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        dateData = new com.toedter.calendar.JDateChooser();
         ftxtCodArea = new javax.swing.JFormattedTextField();
         ftxtPrefixo = new javax.swing.JFormattedTextField();
         ftxtTelefone = new javax.swing.JFormattedTextField();
+        dateData = new com.toedter.calendar.JDateChooser();
         panelEndereco = new javax.swing.JPanel();
         txtLogradouro = new javax.swing.JTextField();
         labelLog = new javax.swing.JLabel();
@@ -80,8 +82,6 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Telefone:");
 
-        dateData.setEnabled(false);
-
         ftxtCodArea.setEnabled(false);
 
         ftxtPrefixo.setEnabled(false);
@@ -100,8 +100,8 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelData)
-                            .addComponent(dateData, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
+                            .addComponent(dateData, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(ftxtCodArea, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -251,7 +251,15 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
             }
         });
 
+        ftxtBuscaId.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        ftxtBuscaId.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -338,13 +346,13 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
             end = new Endereco(txtLogradouro.getText(), txtBairro.getText(), txtCidade.getText(),
                     ftxtNro.getText(), txtComplemento.getText(), txtEstado.getText(), "Brasil");
 
-            tel = new Telefone(ftxtCodArea.getText(), ftxtPrefixo.getText(), ftxtTelefone.getText());
-
-            String login = ftxtBuscaId.getText();
-            String senha = "senha";
+            tel = new Telefone(ftxtCodArea.getText(), ftxtPrefixo.getText(), ftxtTelefone.getText());                         
 
             funcionario = new Funcionario(txtNome.getText(), login, senha, dateData.getDate(),
-                    end, tel, Permissao.ADMINISTRADOR, Integer.parseInt(ftxtBuscaId.getText()));
+                    end, tel, Permissao.ADMINISTRADOR, 0);
+            
+            login = funcionario.getLogin();
+            senha = "senha";
 
             boolean resposta = dao.inserir(funcionario);
 
@@ -364,6 +372,40 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
         limparCampos();
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if (!txtNome.getText().isEmpty() && !txtBairro.getText().isEmpty() && !ftxtBuscaId.getText().isEmpty()
+                && !txtCidade.getText().isEmpty() && !txtComplemento.getText().isEmpty() && !txtEstado.getText().isEmpty()
+                && !txtLogradouro.getText().isEmpty() && !ftxtNro.getText().isEmpty() && !dateData.getDate().toString().isEmpty()
+                && !ftxtCodArea.getText().isEmpty() && !ftxtPrefixo.getText().isEmpty() && !ftxtTelefone.getText().isEmpty()){
+            
+            tel.setCodigoArea(ftxtCodArea.getText());
+            tel.setNumeroLinha(ftxtTelefone.getText());
+            tel.setPrefixo(ftxtPrefixo.getText());
+            
+            end.setBairro(txtBairro.getText());
+            end.setCidade(txtCidade.getText());
+            end.setComplemento(txtComplemento.getText());
+            end.setEstado(txtEstado.getText());
+            end.setLogradouro(txtLogradouro.getText());
+            end.setNumero(ftxtNro.getText());            
+            
+            funcionario.setCodigo(Integer.parseInt(ftxtBuscaId.getText()));
+            funcionario.setDataNascimento(dateData.getDate());
+            funcionario.setNome(txtNome.getText());
+            funcionario.setTelefone(tel);
+            funcionario.setEndereco(end);
+            
+            boolean resp = dao.alterar(funcionario);
+            
+            if(resp){
+                JOptionPane.showMessageDialog(null, "Dados do funcionário alterados com sucesso");
+                limparCampos();
+            }else{
+                JOptionPane.showMessageDialog(null, "Dados do funcionário não foram alterados.\nDados originais persistem!");
+            }
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void limparCampos() {
         txtBairro.setText("");

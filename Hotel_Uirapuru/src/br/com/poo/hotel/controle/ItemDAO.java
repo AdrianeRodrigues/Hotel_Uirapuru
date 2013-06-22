@@ -27,7 +27,8 @@ public class ItemDAO implements DAO<Item> {
 			p.setDouble(3, item.getPrecoVenda());
 			p.setString(4, item.getCategoria().name());
 
-			return p.execute();
+			p.execute();
+                        return true;
 
 		} catch (SQLException e) {
 			return false;
@@ -44,7 +45,8 @@ public class ItemDAO implements DAO<Item> {
 
 			p.setInt(1, item.getCodigo());
 
-			return p.execute();
+			p.execute();
+                        return true;
 
 		} catch (SQLException e) {
 			return false;
@@ -65,7 +67,8 @@ public class ItemDAO implements DAO<Item> {
 			p.setString(3, item.getCategoria().name());
 			p.setInt(4, item.getCodigo());
 			
-			return p.execute();
+			p.execute();
+                        return true;
 			
 		} catch (SQLException e) {
 			return false;
