@@ -1,13 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.poo.hotel.visao;
 
 import br.com.poo.hotel.modelo.Hospede;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -23,7 +18,7 @@ public class TableModelHospede extends AbstractTableModel{
     private List<Hospede> linhas;
 
     public TableModelHospede() {
-        linhas = new ArrayList<Hospede>();
+        linhas = new ArrayList<>();
     }
 
     public TableModelHospede(List<Hospede> itens) {

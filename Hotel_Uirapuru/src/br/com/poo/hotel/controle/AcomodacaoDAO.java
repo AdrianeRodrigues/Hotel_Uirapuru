@@ -23,7 +23,7 @@ public class AcomodacaoDAO implements DAO<Acomodacao> {
 	@Override
 	public boolean inserir(Acomodacao acomodacao) {
 
-		String comandoSql = "INSERT INTO Acomodacao VALUES (?,?,?,?)";
+		String comandoSql = "INSERT INTO Acomodacao(numero, andar, ocupado, tipo_acomodacao) VALUES (?,?,?,?)";
 
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {

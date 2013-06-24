@@ -330,8 +330,9 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         boolean resp = dao.remover(funcionario);
         if (resp) {
-            new TelaCadastroHospede().limparCampos();
+            limparCampos();
             JOptionPane.showMessageDialog(null, "Funcionario removido!");
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Funcionário não removido!");
         }
@@ -360,6 +361,7 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Funcionário cadastrado!");
                 //this.dispose();
                 limparCampos();
+                habilitarCampos();
             } else {
                 JOptionPane.showMessageDialog(null, "Funcionário não cadastrado!");
             }
@@ -401,6 +403,7 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
             if(resp){
                 JOptionPane.showMessageDialog(null, "Dados do funcionário alterados com sucesso");
                 limparCampos();
+                this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Dados do funcionário não foram alterados.\nDados originais persistem!");
             }

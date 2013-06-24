@@ -28,23 +28,23 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="labelNroAcomodacao" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="txtNroAcomodacao" min="-2" pref="204" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnBuscar" min="-2" pref="71" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="btnRemover" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jPanel1" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="ftxtNroAcomodacao" min="-2" pref="149" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnSalvar" min="-2" pref="67" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnBuscar" min="-2" pref="71" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jPanel1" min="-2" pref="293" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="btnRemover" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnSalvar" min="-2" pref="67" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -55,8 +55,8 @@
               <Component id="labelNroAcomodacao" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtNroAcomodacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ftxtNroAcomodacao" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -76,8 +76,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Digite o n&#xfa;mero da acomoda&#xe7;&#xe3;o:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtNroAcomodacao">
     </Component>
     <Component class="javax.swing.JButton" name="btnBuscar">
       <Properties>
@@ -109,12 +107,12 @@
                       <Component id="labelAndar" max="32767" attributes="0"/>
                       <Component id="spinnerAndar" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="ftxtCodigoAcomodacao" min="-2" pref="134" max="-2" attributes="0"/>
                       <Component id="labelCodigo" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtCodigoTipo" min="-2" pref="118" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -128,7 +126,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="spinnerAndar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtCodigoTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ftxtCodigoAcomodacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="15" max="32767" attributes="0"/>
               </Group>
@@ -138,17 +136,20 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="labelAndar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Andar;"/>
+            <Property name="text" type="java.lang.String" value="Andar:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="spinnerAndar">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="ftxtCodigoAcomodacao">
         </Component>
         <Component class="javax.swing.JLabel" name="labelCodigo">
           <Properties>
             <Property name="text" type="java.lang.String" value="C&#xf3;digo do tipo de acomoda&#xe7;&#xe3;o:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtCodigoTipo">
         </Component>
       </SubComponents>
     </Container>
@@ -175,6 +176,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="ftxtNroAcomodacao">
     </Component>
   </SubComponents>
 </Form>

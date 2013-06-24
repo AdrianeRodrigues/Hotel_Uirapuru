@@ -21,10 +21,11 @@ public class TipoAcomodacaoDAO implements DAO<TipoAcomodacao> {
 				"quantidade," +				//2
 				"preco_diaria," +			//3
 				"numero_adultos," +			//4
-				"numero_criancas," +		//5
-				" VALUES (?,?,?,?,?,?)";
+				"numero_criancas " +		//5
+				")VALUES (?,?,?,?,?)";
 
-		try (Connection c = FabricaDeConexao.getConexao();
+		try (Connection 
+                        c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
 
 			p.setString(1, tipoAcomodacao.getDescricao());
@@ -33,10 +34,12 @@ public class TipoAcomodacaoDAO implements DAO<TipoAcomodacao> {
 			p.setInt(4, tipoAcomodacao.getNumeroAdultos());
 			p.setInt(5, tipoAcomodacao.getNumeroCriancas());
 
-			return p.execute();
+			p.execute();
+                        return true;
 
 		} catch (SQLException e) {
-			return false;
+                    e.printStackTrace();
+                    return false;
 		}
 	}
 
@@ -50,7 +53,8 @@ public class TipoAcomodacaoDAO implements DAO<TipoAcomodacao> {
 
 			p.setInt(1, tipoAcomodacao.getCodigo());
 
-			return p.execute();
+			p.execute();
+                        return true;
 
 		} catch (SQLException e) {
 			return false;
@@ -78,9 +82,11 @@ public class TipoAcomodacaoDAO implements DAO<TipoAcomodacao> {
 			p.setInt(5, tipoAcomodacao.getNumeroCriancas());
 			p.setInt(6, tipoAcomodacao.getCodigo());
 			
-			return p.execute();
+			p.execute();
+                        return true;
 			
 		} catch (SQLException e) {
+                    
 			return false;
 		}
 	}
@@ -120,9 +126,10 @@ public class TipoAcomodacaoDAO implements DAO<TipoAcomodacao> {
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
 			
+                            p.setInt(1, codigo);
 			ResultSet r = p.executeQuery();
 			
-			while (r.next()) {
+			if (r.next()) {
 				
 				tipoAcomodacao = new TipoAcomodacao(r.getInt("codigo_tipoA"), r.getString("descricao"), 
 						r.getInt("quantidade"), r.getDouble("preco_diaria"), r.getInt("numero_adultos"), 
@@ -130,6 +137,7 @@ public class TipoAcomodacaoDAO implements DAO<TipoAcomodacao> {
 			}
 			
 		} catch (SQLException e) {
+                    e.printStackTrace();
 			return tipoAcomodacao;
 		}
 		return tipoAcomodacao;

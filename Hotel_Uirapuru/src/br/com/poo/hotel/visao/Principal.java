@@ -215,12 +215,12 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemCadastrarItem1ActionPerformed
 
     private void itemCadastroTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroTipoActionPerformed
-        TelaTipoAcomodacao cadastroT = new TelaTipoAcomodacao();
+        TelaCadastroTipoAcomodacao cadastroT = new TelaCadastroTipoAcomodacao();
         addDesktop(cadastroT);
     }//GEN-LAST:event_itemCadastroTipoActionPerformed
 
     private void itemCadastroAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroAcomodacaoActionPerformed
-        TelaAcomodacao cadastroA = new TelaAcomodacao();
+        TelaCadastroAcomodacao cadastroA = new TelaCadastroAcomodacao();
         addDesktop(cadastroA);
     }//GEN-LAST:event_itemCadastroAcomodacaoActionPerformed
 

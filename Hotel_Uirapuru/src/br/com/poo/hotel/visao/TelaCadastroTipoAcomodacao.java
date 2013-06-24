@@ -1,20 +1,24 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.poo.hotel.visao;
+
+import br.com.poo.hotel.controle.TipoAcomodacaoDAO;
+import br.com.poo.hotel.modelo.TipoAcomodacao;
+import javax.swing.JOptionPane;
+import org.omg.CORBA.TCKind;
 
 /**
  *
  * @author adriane
  */
-public class TelaTipoAcomodacao extends javax.swing.JInternalFrame {
+public class TelaCadastroTipoAcomodacao extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form TelaTipoAcomodacao
-     */
-    public TelaTipoAcomodacao() {
+    private TipoAcomodacaoDAO tipoDAO;
+    private TipoAcomodacao tipo;
+    
+    public TelaCadastroTipoAcomodacao() {
         initComponents();
+        tipoDAO = new TipoAcomodacaoDAO();
+        btnRemover.setVisible(false);
+        btnSalvar.setVisible(false);
     }
 
     /**
@@ -27,22 +31,22 @@ public class TelaTipoAcomodacao extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         labelTipoAcomodacao = new javax.swing.JLabel();
-        txtTipoAcomodacao = new javax.swing.JTextField();
         btntipoAcomodacao = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         labelDescricao = new javax.swing.JLabel();
-        txtDescricao = new javax.swing.JTextField();
         labelQuantidade = new javax.swing.JLabel();
-        spinnerQuantidade = new javax.swing.JSpinner();
+        spinnerNroAcomodacoes = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
-        txtValor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         spinnerCriancas = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        spinnerNroAdultos = new javax.swing.JSpinner();
+        ftxtValorDiaria = new javax.swing.JFormattedTextField();
+        txtDescricao = new javax.swing.JTextField();
         btnRemover = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        ftxtCodigoTipo = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -63,63 +67,75 @@ public class TelaTipoAcomodacao extends javax.swing.JInternalFrame {
 
         labelQuantidade.setText("Quantidade:");
 
+        spinnerNroAcomodacoes.setEnabled(false);
+
         jLabel1.setText("Valor da diária:");
 
         jLabel2.setText("Nº de crianças:");
 
+        spinnerCriancas.setEnabled(false);
+
         jLabel3.setText("Nº de adultos:");
+
+        spinnerNroAdultos.setEnabled(false);
+
+        ftxtValorDiaria.setEnabled(false);
+
+        txtDescricao.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelDescricao)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelQuantidade)
-                            .addComponent(spinnerQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
+                            .addComponent(spinnerNroAcomodacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtValor)))
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(ftxtValorDiaria)
+                                .addGap(2, 2, 2))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(spinnerCriancas, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(spinnerNroAdultos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))))
+                .addGap(0, 102, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(txtDescricao)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addComponent(labelDescricao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelQuantidade)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spinnerQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(spinnerNroAcomodacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ftxtValorDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spinnerCriancas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(spinnerNroAdultos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnRemover.setText("Remover");
@@ -149,20 +165,23 @@ public class TelaTipoAcomodacao extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnRemover)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancel))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(labelTipoAcomodacao)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(txtTipoAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btntipoAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelTipoAcomodacao)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ftxtCodigoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btntipoAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -172,35 +191,85 @@ public class TelaTipoAcomodacao extends javax.swing.JInternalFrame {
                 .addComponent(labelTipoAcomodacao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTipoAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btntipoAcomodacao))
+                    .addComponent(btntipoAcomodacao)
+                    .addComponent(ftxtCodigoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(58, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRemover)
+                    .addComponent(btnCancel)
                     .addComponent(btnSalvar)
-                    .addComponent(btnCancel))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(btnRemover))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btntipoAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntipoAcomodacaoActionPerformed
-        // TODO add your handling code here:
+        if (ftxtCodigoTipo.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Digite o codigo do tipo da acomodação!");
+        }else{
+            tipo = tipoDAO.buscarID(Integer.parseInt(ftxtCodigoTipo.getText()));
+            if (tipo == null){
+                JOptionPane.showMessageDialog(null, "Tipo de acomodação não cadastro!");
+                ftxtValorDiaria.setEnabled(true);
+                txtDescricao.setEnabled(true);
+                spinnerCriancas.setEnabled(true);
+                spinnerNroAdultos.setEnabled(true);
+                spinnerNroAcomodacoes.setEnabled(true);
+                btnSalvar.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(null, "Tipo de acomodação já cadastrada!");
+                ftxtValorDiaria.setText(String.valueOf(tipo.getPrecoDiaria()));
+                txtDescricao.setText(tipo.getDescricao());
+                spinnerCriancas.setValue(tipo.getNumeroCriancas());
+                spinnerNroAdultos.setValue(tipo.getNumeroAdultos());
+                spinnerNroAcomodacoes.setValue(tipo.getQuantidade());
+                ftxtValorDiaria.setEnabled(true);
+                txtDescricao.setEnabled(true);
+                spinnerNroAdultos.setEnabled(true);
+                spinnerCriancas.setEnabled(true);
+                spinnerNroAcomodacoes.setEnabled(true);
+                btnSalvar.setVisible(false);
+                btnRemover.setVisible(true);
+                
+            }
+        }
     }//GEN-LAST:event_btntipoAcomodacaoActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        // TODO add your handling code here:
+        boolean resp = tipoDAO.remover(tipo);
+        if (resp){
+            JOptionPane.showMessageDialog(null, "Remoção feita com sucesso!");
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível remover o tipo de acomodação!");
+        }
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
+        if(ftxtCodigoTipo.getText().isEmpty() && ftxtValorDiaria.getText().isEmpty() && spinnerCriancas.getValue().equals(0)
+           && spinnerNroAcomodacoes.getValue().equals(0) && spinnerNroAdultos.getValue().equals(0) && txtDescricao.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+        }else{            
+            tipo = new TipoAcomodacao(Integer.parseInt(ftxtCodigoTipo.getText()), txtDescricao.getText(), 
+                                        (int) spinnerNroAcomodacoes.getValue(), Double.valueOf((ftxtValorDiaria.getText())), 
+                                        (int) spinnerNroAdultos.getValue(), (int) spinnerCriancas.getValue());
+            boolean resp = tipoDAO.inserir(tipo);
+            
+            if(resp){
+                JOptionPane.showMessageDialog(null, "Tipo de acomodação foi cadastrado com sucesso!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Tipo de acomodação não foi cadastrado!");
+            }
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -208,18 +277,18 @@ public class TelaTipoAcomodacao extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btntipoAcomodacao;
+    private javax.swing.JFormattedTextField ftxtCodigoTipo;
+    private javax.swing.JFormattedTextField ftxtValorDiaria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel labelDescricao;
     private javax.swing.JLabel labelQuantidade;
     private javax.swing.JLabel labelTipoAcomodacao;
     private javax.swing.JSpinner spinnerCriancas;
-    private javax.swing.JSpinner spinnerQuantidade;
+    private javax.swing.JSpinner spinnerNroAcomodacoes;
+    private javax.swing.JSpinner spinnerNroAdultos;
     private javax.swing.JTextField txtDescricao;
-    private javax.swing.JTextField txtTipoAcomodacao;
-    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

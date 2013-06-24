@@ -1,16 +1,13 @@
 package br.com.poo.hotel.visao;
 
-import br.com.poo.hotel.controle.AcomodacaoDAO;
-import br.com.poo.hotel.controle.HospedeDAO;
 import br.com.poo.hotel.controle.ReservaDAO;
 import br.com.poo.hotel.modelo.Acomodacao;
 import br.com.poo.hotel.modelo.Acompanhante;
 import br.com.poo.hotel.modelo.CartaoCredito;
-import br.com.poo.hotel.modelo.Estadia;
 import br.com.poo.hotel.modelo.Hospede;
-import br.com.poo.hotel.modelo.Item;
-import br.com.poo.hotel.modelo.OpcaoPagamento;
 import br.com.poo.hotel.modelo.Reserva;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,20 +18,18 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
 
     private Acomodacao acomodacao;
     private CartaoCredito card;
-    private Hospede hospede;
-    private AcomodacaoDAO daoAcomodacao;
-    private HospedeDAO daoHospede;
+    private Hospede hospede;        
     private Acompanhante acompanhante;    
     private Principal add;
     private Reserva reserva;
-    
+    private ReservaDAO reservaDAO;
+    private List<Acompanhante> listaAcompanhante;    
     
     public TelaFazerReserva(Principal add) {
-        initComponents();
-        daoAcomodacao = new AcomodacaoDAO();
-        daoHospede = new HospedeDAO(); 
-        reserva = new Reserva(null, null, 0, 0, null, null, null);        
-        this.add = add;
+        initComponents();                
+        listaAcompanhante = new ArrayList<>();
+        reservaDAO = new ReservaDAO();      
+        this.add = add;        
     }
 
     /**
@@ -74,10 +69,17 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
         btnBuscarCliente = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtClt = new javax.swing.JTextArea();
-        txtCPFClt = new javax.swing.JTextField();
         labelIDclt = new javax.swing.JLabel();
-        boxAcomodacao = new javax.swing.JComboBox();
-        labelAcomodacao = new javax.swing.JLabel();
+        labelAcomodação = new javax.swing.JLabel();
+        labelDiaria = new javax.swing.JLabel();
+        labelMulta = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        ftxtDesconto = new javax.swing.JFormattedTextField();
+        ftxtDiaria = new javax.swing.JFormattedTextField();
+        ftxtMulta = new javax.swing.JFormattedTextField();
+        btnAcomodacao = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtAcomodacao = new javax.swing.JTextArea();
 
         setClosable(true);
         setIconifiable(true);
@@ -262,9 +264,25 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
 
         labelIDclt.setText("ID Cliente:");
 
-        boxAcomodacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        labelAcomodação.setText("Acomodação:");
 
-        labelAcomodacao.setText("Acomodação:");
+        labelDiaria.setText("Valor da diária:");
+
+        labelMulta.setText("Multa:");
+
+        jLabel2.setText("Desconto:");
+
+        btnAcomodacao.setText("Buscar");
+        btnAcomodacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcomodacaoActionPerformed(evt);
+            }
+        });
+
+        txtAcomodacao.setColumns(20);
+        txtAcomodacao.setRows(5);
+        txtAcomodacao.setText("\n");
+        jScrollPane2.setViewportView(txtAcomodacao);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -279,40 +297,59 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelIDclt)
-                    .addComponent(txtCPFClt, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(boxAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(labelAcomodacao))
-                .addGap(75, 75, 75))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ftxtDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelDiaria))
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ftxtMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelMulta))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ftxtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)))
+                    .addComponent(labelAcomodação)
+                    .addComponent(btnAcomodacao)
+                    .addComponent(btnBuscarCliente)
+                    .addComponent(jScrollPane2))
+                .addGap(183, 183, 183))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(labelAcomodacao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(boxAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(labelIDclt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscarCliente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(labelAcomodação)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAcomodacao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCPFClt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBuscarCliente))
+                            .addComponent(labelDiaria)
+                            .addComponent(labelMulta)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ftxtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ftxtDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ftxtMulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -339,7 +376,7 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -352,16 +389,13 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(/*!dateDataEntrada.getDate().toString().isEmpty() && !dateDataSaida.getDate().toString().isEmpty()*/
+        if(!String.valueOf(dateDataEntrada.getDate()).isEmpty() && !String.valueOf(dateDataEntrada.getDate()).isEmpty() &&
                 !ftxtHoraEntrada.getText().isEmpty() && !ftxtHoraSaida.getText().isEmpty()
                 && !ftxtNroAgencia.getText().isEmpty() && !ftxtNroCartao.getText().isEmpty()
-                && !txtCPFClt.getText().isEmpty()){
-            acomodacao = new Acomodacao(0, 0, null);
-            reserva.setAcomodacao(acomodacao);
-            reserva.setCodigo(0);
-            reserva.setDataChegada(dateDataEntrada.getDate());
-            reserva.setDataSaida(dateDataSaida.getDate());
-            reserva.setHospede(hospede);            
+                && !txtClt.getText().isEmpty()){
+            
+            reserva = new Reserva(dateDataEntrada.getDate(), dateDataSaida.getDate(), Integer.parseInt(ftxtMulta.getText()), 
+                    Integer.parseInt(ftxtDesconto.getText()), acomodacao, null, hospede);
             
         }else{
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
@@ -373,33 +407,40 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
         ftxtHoraSaida.setText("");
         ftxtIdade.setText("");
         ftxtNroAgencia.setText("");
-        ftxtNroCartao.setText("");
-        txtCPFClt.setText("");
+        ftxtNroCartao.setText("");        
         txtNome.setText("");
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        if (boxAcomodacao.getSelectedItem().toString().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Escolha a acomodação primeiro");
-        }else{
-            if(!txtNome.getText().isEmpty() && !ftxtIdade.getText().isEmpty()){
-                acompanhante = new Acompanhante(txtNome.getText(), Integer.parseInt(ftxtIdade.getText()));
-                
-                boolean resp = false;
+
+        if (!txtNome.getText().isEmpty() && !ftxtIdade.getText().isEmpty()) {
+            acompanhante = new Acompanhante(txtNome.getText(), Integer.parseInt(ftxtIdade.getText()));
+
+            if (listaAcompanhante.size() <= acomodacao.getTipoAcomodacao().getNumeroAdultos()
+                    + acomodacao.getTipoAcomodacao().getNumeroCriancas()) {
+                boolean resp = listaAcompanhante.add(acompanhante);
                 if (resp) {
                     JOptionPane.showMessageDialog(null, "Acompanhante adicionado!");
                 } else {
                     JOptionPane.showMessageDialog(null, "Acompanhante não adicionado!");
                 }
-                //TODO
+            } else {
+                JOptionPane.showMessageDialog(null, "Número máximo de acompanhantes foi atingido!");
             }
-            
         }
+
     }//GEN-LAST:event_btnAddActionPerformed
 
-    public void trocar(){
-        txtCPFClt.setText(hospede.getCpf());
-        txtClt.setText(hospede.getNome());  
+    private void btnAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcomodacaoActionPerformed
+        // TODO BUSCAR ACOMODAÇÃO        
+    }//GEN-LAST:event_btnAcomodacaoActionPerformed
+
+    public void trocar(){        
+        txtClt.setText("Nome: "+hospede.getNome()+"\nCPF: "+hospede.getCpf());  
+    }
+    
+    public void trocarAcomodacao(){        
+        txtClt.setText("Código: "+acomodacao.getCodigo()+"\nTipo: "+acomodacao.getTipoAcomodacao());  
     }
     
     public Hospede getHospede(){
@@ -409,37 +450,51 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
         this.hospede = hospede;
     }
     
+    public Acomodacao getAcomodacao(){
+        return acomodacao;
+    }
+    public void setAcomodacao(Acomodacao acomodacao){
+        this.acomodacao = acomodacao;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Acompanhantes;
     private javax.swing.JPanel Cartão;
-    private javax.swing.JComboBox boxAcomodacao;
+    private javax.swing.JButton btnAcomodacao;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSalvar;
     private com.toedter.calendar.JDateChooser dateDataEntrada;
     private com.toedter.calendar.JDateChooser dateDataSaida;
+    private javax.swing.JFormattedTextField ftxtDesconto;
+    private javax.swing.JFormattedTextField ftxtDiaria;
     private javax.swing.JFormattedTextField ftxtHoraEntrada;
     private javax.swing.JFormattedTextField ftxtHoraSaida;
     private javax.swing.JFormattedTextField ftxtIdade;
+    private javax.swing.JFormattedTextField ftxtMulta;
     private javax.swing.JFormattedTextField ftxtNroAgencia;
     private javax.swing.JFormattedTextField ftxtNroCartao;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel labelAcomodacao;
+    private javax.swing.JLabel labelAcomodação;
     private javax.swing.JLabel labelDataSaida;
+    private javax.swing.JLabel labelDiaria;
     private javax.swing.JLabel labelHoraSaida;
     private javax.swing.JLabel labelIDclt;
     private javax.swing.JLabel labelIdade;
+    private javax.swing.JLabel labelMulta;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelNroAgencia;
     private javax.swing.JLabel labelNroCartao;
-    private javax.swing.JTextField txtCPFClt;
+    private javax.swing.JTextArea txtAcomodacao;
     private javax.swing.JTextArea txtClt;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables

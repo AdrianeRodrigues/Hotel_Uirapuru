@@ -2,7 +2,6 @@ package br.com.poo.hotel.visao;
 
 import br.com.poo.hotel.controle.HospedeDAO;
 import br.com.poo.hotel.controle.ItemDAO;
-import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
                    
 /**
