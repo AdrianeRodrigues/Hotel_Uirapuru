@@ -437,6 +437,8 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
     private void btnAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcomodacaoActionPerformed
         TelaPesquisa pesquisa = new TelaPesquisa(this, 3);
         add.addDesktop(pesquisa);       
+        ftxtDiaria.setText(String.valueOf(acomodacao.getTipoAcomodacao().getPrecoDiaria()));
+        ftxtDiaria.setEnabled(false);
     }//GEN-LAST:event_btnAcomodacaoActionPerformed
 
     public void trocar(){        

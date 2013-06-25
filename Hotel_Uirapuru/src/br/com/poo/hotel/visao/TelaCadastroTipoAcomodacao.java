@@ -216,7 +216,7 @@ public class TelaCadastroTipoAcomodacao extends javax.swing.JInternalFrame {
                 limpar();
                 btnSalvar.setVisible(true);
                 btnRemover.setVisible(false);
-                btnSalvar.setVisible(false);      
+                btnAlterar.setVisible(false);      
             }else{
                 JOptionPane.showMessageDialog(null, "Tipo de acomodação já cadastrada!");
                 setar();
@@ -287,7 +287,7 @@ public class TelaCadastroTipoAcomodacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void limpar(){
-        ftxtCodigoTipo.setText("");
+       // ftxtCodigoTipo.setText("");
         ftxtValorDiaria.setText("");
         spinnerCriancas.setValue(0);
         spinnerNroAcomodacoes.setValue(0);
