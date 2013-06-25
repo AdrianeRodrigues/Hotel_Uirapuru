@@ -3,7 +3,6 @@ package br.com.poo.hotel.visao;
 import br.com.poo.hotel.controle.TipoAcomodacaoDAO;
 import br.com.poo.hotel.modelo.TipoAcomodacao;
 import javax.swing.JOptionPane;
-import org.omg.CORBA.TCKind;
 
 /**
  *
@@ -19,6 +18,7 @@ public class TelaCadastroTipoAcomodacao extends javax.swing.JInternalFrame {
         tipoDAO = new TipoAcomodacaoDAO();
         btnRemover.setVisible(false);
         btnSalvar.setVisible(false);
+        btnAlterar.setVisible(false);
     }
 
     /**
@@ -31,7 +31,7 @@ public class TelaCadastroTipoAcomodacao extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         labelTipoAcomodacao = new javax.swing.JLabel();
-        btntipoAcomodacao = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         labelDescricao = new javax.swing.JLabel();
         labelQuantidade = new javax.swing.JLabel();
@@ -47,6 +47,7 @@ public class TelaCadastroTipoAcomodacao extends javax.swing.JInternalFrame {
         btnSalvar = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         ftxtCodigoTipo = new javax.swing.JFormattedTextField();
+        btnAlterar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -54,10 +55,10 @@ public class TelaCadastroTipoAcomodacao extends javax.swing.JInternalFrame {
 
         labelTipoAcomodacao.setText("Digite o codigo do tipo de acomodação:");
 
-        btntipoAcomodacao.setText("Buscar");
-        btntipoAcomodacao.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btntipoAcomodacaoActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -67,21 +68,11 @@ public class TelaCadastroTipoAcomodacao extends javax.swing.JInternalFrame {
 
         labelQuantidade.setText("Quantidade:");
 
-        spinnerNroAcomodacoes.setEnabled(false);
-
         jLabel1.setText("Valor da diária:");
 
         jLabel2.setText("Nº de crianças:");
 
-        spinnerCriancas.setEnabled(false);
-
         jLabel3.setText("Nº de adultos:");
-
-        spinnerNroAdultos.setEnabled(false);
-
-        ftxtValorDiaria.setEnabled(false);
-
-        txtDescricao.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -159,6 +150,13 @@ public class TelaCadastroTipoAcomodacao extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,22 +165,23 @@ public class TelaCadastroTipoAcomodacao extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnRemover)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelTipoAcomodacao)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(ftxtCodigoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btntipoAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnAlterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRemover)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,60 +190,49 @@ public class TelaCadastroTipoAcomodacao extends javax.swing.JInternalFrame {
                 .addComponent(labelTipoAcomodacao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btntipoAcomodacao)
+                    .addComponent(btnBuscar)
                     .addComponent(ftxtCodigoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnSalvar)
-                    .addComponent(btnRemover))
+                    .addComponent(btnRemover)
+                    .addComponent(btnAlterar))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btntipoAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntipoAcomodacaoActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if (ftxtCodigoTipo.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Digite o codigo do tipo da acomodação!");
         }else{
             tipo = tipoDAO.buscarID(Integer.parseInt(ftxtCodigoTipo.getText()));
             if (tipo == null){
                 JOptionPane.showMessageDialog(null, "Tipo de acomodação não cadastro!");
-                ftxtValorDiaria.setEnabled(true);
-                txtDescricao.setEnabled(true);
-                spinnerCriancas.setEnabled(true);
-                spinnerNroAdultos.setEnabled(true);
-                spinnerNroAcomodacoes.setEnabled(true);
+                limpar();
                 btnSalvar.setVisible(true);
+                btnRemover.setVisible(false);
+                btnSalvar.setVisible(false);      
             }else{
                 JOptionPane.showMessageDialog(null, "Tipo de acomodação já cadastrada!");
-                ftxtValorDiaria.setText(String.valueOf(tipo.getPrecoDiaria()));
-                txtDescricao.setText(tipo.getDescricao());
-                spinnerCriancas.setValue(tipo.getNumeroCriancas());
-                spinnerNroAdultos.setValue(tipo.getNumeroAdultos());
-                spinnerNroAcomodacoes.setValue(tipo.getQuantidade());
-                ftxtValorDiaria.setEnabled(true);
-                txtDescricao.setEnabled(true);
-                spinnerNroAdultos.setEnabled(true);
-                spinnerCriancas.setEnabled(true);
-                spinnerNroAcomodacoes.setEnabled(true);
-                btnSalvar.setVisible(false);
+                setar();
                 btnRemover.setVisible(true);
-                
+                btnSalvar.setVisible(false);
+                btnAlterar.setVisible(true);
             }
         }
-    }//GEN-LAST:event_btntipoAcomodacaoActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         boolean resp = tipoDAO.remover(tipo);
         if (resp){
             JOptionPane.showMessageDialog(null, "Remoção feita com sucesso!");
-            this.dispose();
+            limpar(); 
+            
         }else{
             JOptionPane.showMessageDialog(null, "Não foi possível remover o tipo de acomodação!");
         }
@@ -262,6 +250,7 @@ public class TelaCadastroTipoAcomodacao extends javax.swing.JInternalFrame {
             
             if(resp){
                 JOptionPane.showMessageDialog(null, "Tipo de acomodação foi cadastrado com sucesso!");
+                limpar();
             }else{
                 JOptionPane.showMessageDialog(null, "Tipo de acomodação não foi cadastrado!");
             }
@@ -272,11 +261,56 @@ public class TelaCadastroTipoAcomodacao extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if(ftxtCodigoTipo.getText().isEmpty() && ftxtValorDiaria.getText().isEmpty() && spinnerCriancas.getValue().equals(0)
+           && spinnerNroAcomodacoes.getValue().equals(0) && spinnerNroAdultos.getValue().equals(0) && txtDescricao.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+        }else{ 
+            tipo.setCodigo(Integer.parseInt(ftxtCodigoTipo.getText()));
+            tipo.setDescricao(txtDescricao.getText());
+            tipo.setNumeroAdultos((int) spinnerNroAdultos.getValue());
+            tipo.setNumeroCriancas((int) spinnerCriancas.getValue());
+            tipo.setPrecoDiaria(Double.parseDouble(ftxtValorDiaria.getText()));
+            tipo.setQuantidade((int) spinnerNroAcomodacoes.getValue());
+            
+            boolean resp = tipoDAO.alterar(tipo);
+            if (resp){
+                JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
+                limpar();
+                btnAlterar.setVisible(false);
+                btnRemover.setVisible(false);
+                btnSalvar.setVisible(false);
+            }else{
+                JOptionPane.showMessageDialog(null, "Dados não alterados!");
+            }
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void limpar(){
+        ftxtCodigoTipo.setText("");
+        ftxtValorDiaria.setText("");
+        spinnerCriancas.setValue(0);
+        spinnerNroAcomodacoes.setValue(0);
+        spinnerNroAdultos.setValue(0);
+        txtDescricao.setText("");
+        
+    }
+    
+    private void setar(){
+        ftxtCodigoTipo.setText(String.valueOf(tipo.getCodigo()));
+        ftxtValorDiaria.setText(String.valueOf(tipo.getPrecoDiaria()));
+        spinnerCriancas.setValue(tipo.getNumeroCriancas());
+        spinnerNroAcomodacoes.setValue(tipo.getQuantidade());
+        spinnerNroAdultos.setValue(tipo.getNumeroAdultos());
+        txtDescricao.setText(tipo.getDescricao());
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JButton btntipoAcomodacao;
     private javax.swing.JFormattedTextField ftxtCodigoTipo;
     private javax.swing.JFormattedTextField ftxtValorDiaria;
     private javax.swing.JLabel jLabel1;

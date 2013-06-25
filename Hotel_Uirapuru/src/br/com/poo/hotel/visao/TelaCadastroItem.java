@@ -19,6 +19,7 @@ public class TelaCadastroItem extends javax.swing.JInternalFrame {
         dao = new ItemDAO();
         btnRemover.setVisible(false);
         btnSalvar.setVisible(false);
+        btnAlterar.setVisible(false);
     }
 
     /**
@@ -43,6 +44,7 @@ public class TelaCadastroItem extends javax.swing.JInternalFrame {
         labelCodigo = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
         ftxtBuscaCodigo = new javax.swing.JFormattedTextField();
+        btnAlterar = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -55,14 +57,9 @@ public class TelaCadastroItem extends javax.swing.JInternalFrame {
 
         labelDescricao.setText("Descrição:");
 
-        txtDescricao.setEnabled(false);
-
         labelCategoria.setText("Categoria:");
 
         boxCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "FRIGOBAR", "RESTAURANTE", "LAVANDERIA" }));
-        boxCategoria.setEnabled(false);
-
-        ftxtPreco.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -79,7 +76,7 @@ public class TelaCadastroItem extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelPreco)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(ftxtPreco)
+                                .addComponent(ftxtPreco, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                                 .addContainerGap())))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,27 +137,39 @@ public class TelaCadastroItem extends javax.swing.JInternalFrame {
 
         ftxtBuscaCodigo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
 
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelCodigo)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnRemover)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnCancel))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnAlterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addComponent(btnRemover)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCodigo)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(ftxtBuscaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(16, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -178,8 +187,9 @@ public class TelaCadastroItem extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancel)
-                    .addComponent(btnRemover))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(btnRemover)
+                    .addComponent(btnAlterar))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -230,9 +240,15 @@ public class TelaCadastroItem extends javax.swing.JInternalFrame {
             if (item == null) {
                 JOptionPane.showMessageDialog(null, "Item não cadastrado!");
                 limpar();
+                btnRemover.setVisible(false);
+                btnSalvar.setVisible(true);
+                btnAlterar.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Item já cadastrado!");                
                 setCampos();
+                btnRemover.setVisible(true);
+                btnSalvar.setVisible(false);
+                btnAlterar.setVisible(true);
                 
             }           
         }
@@ -243,10 +259,42 @@ public class TelaCadastroItem extends javax.swing.JInternalFrame {
         if (resp) {
             limpar();
             JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
+            btnAlterar.setVisible(false);
+            btnRemover.setVisible(false);
+            btnSalvar.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Item não removido!");
         }
     }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if (txtDescricao.getText().isEmpty() && ftxtBuscaCodigo.getText().isEmpty() && 
+                ftxtPreco.getText().isEmpty() && boxCategoria.getSelectedItem() == ""){
+            JOptionPane.showMessageDialog(null, "Todos os campos devem estar devidamente preenchidos!");
+        }else{
+            item.setDescricao(txtDescricao.getText());
+            item.setPrecoVenda(Double.parseDouble(ftxtPreco.getText()));
+            
+            //verificar item do combox selecionado para setar na classe
+            if (boxCategoria.getSelectedItem().equals(Categoria.FRIGOBAR.toString())) {
+                item.setCategoria(Categoria.FRIGOBAR);
+            } else if (boxCategoria.getSelectedItem().equals(Categoria.LAVANDERIA.toString())) {
+                item.setCategoria(Categoria.LAVANDERIA);
+            } else if (boxCategoria.getSelectedItem().equals(Categoria.RESTAURANTE.toString())) {
+                item.setCategoria(Categoria.RESTAURANTE);
+            }
+            
+            item.setCodigo(Integer.parseInt(ftxtBuscaCodigo.getText()));
+            boolean resp = dao.alterar(item);
+            
+            if(resp){
+                JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
+                limpar();
+            }else{
+                JOptionPane.showMessageDialog(null, "Dados não alterados!");
+            }
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     public void salvarItem() {
         
@@ -254,6 +302,7 @@ public class TelaCadastroItem extends javax.swing.JInternalFrame {
 
         if (resposta) {
             JOptionPane.showMessageDialog(null, "Item cadastrado!");
+            limpar();
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Item não cadastrado!");
@@ -261,28 +310,20 @@ public class TelaCadastroItem extends javax.swing.JInternalFrame {
     }
 
     public void limpar() {
-        //ftxtBuscaCodigo.setText("");
+        ftxtBuscaCodigo.setText("");
         txtDescricao.setText("");
         ftxtPreco.setText("");
-        txtDescricao.setEnabled(true);
-        ftxtPreco.setEnabled(true);
-        boxCategoria.setEnabled(true);
-        btnSalvar.setVisible(true);
-        btnRemover.setVisible(false);
     }
 
     private void setCampos() {
         //ftxtBuscaCodigo.setText(String.valueOf(item.getCodigo()));
         txtDescricao.setText(item.getDescricao());
         ftxtPreco.setText(String.valueOf(item.getPrecoVenda()));
-        txtDescricao.setEnabled(false);
-        ftxtPreco.setEnabled(false);
-        boxCategoria.setEnabled(false);
-        btnSalvar.setVisible(true);
-        btnRemover.setVisible(true);
+        boxCategoria.setSelectedItem(item.getCategoria().toString());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox boxCategoria;
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRemover;

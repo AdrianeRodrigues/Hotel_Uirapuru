@@ -57,6 +57,7 @@ public class TipoAcomodacaoDAO implements DAO<TipoAcomodacao> {
                         return true;
 
 		} catch (SQLException e) {
+                    e.printStackTrace();
 			return false;
 		}
 	}
@@ -86,7 +87,7 @@ public class TipoAcomodacaoDAO implements DAO<TipoAcomodacao> {
                         return true;
 			
 		} catch (SQLException e) {
-                    
+                    e.printStackTrace();
 			return false;
 		}
 	}

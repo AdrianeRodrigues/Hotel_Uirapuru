@@ -21,7 +21,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 	public boolean inserir(Funcionario funcionario) {
 		
 		String comandoSql = 
-				"INSERT INTO Funcionario (" +
+				"INSERT INTO Funcionario (" +                                
 				"login, " +					//1
 				"senha, " +					//2
 				"nome, " +					//3
@@ -57,11 +57,12 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 			p.setString(13, funcionario.getTelefone().getPrefixo());
 			p.setString(14, funcionario.getTelefone().getNumeroLinha());
 			p.setString(15, funcionario.getPermissao().name());
-			System.out.println("ahsfuishguiher");
+			
 			p.execute();
                         return true;
 			
 		} catch (SQLException e) {
+                    e.printStackTrace();
 			return false;
 		}
 	}
@@ -87,7 +88,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 	@Override
 	public boolean alterar(Funcionario funcionario) {
 
-		String comandoSql = "UPDATE " +
+		String comandoSql = "UPDATE funcionario " +
 				"SET nome=?," + 					//1
 				"data_nascimento=?," + 				//2
 				"logradouro=?," + 					//3
@@ -104,7 +105,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
-			
+			//System.out.println("entrou no try antes do p.set alguma coisa!");
 			p.setString(1, funcionario.getNome());
 			p.setDate(2, new Date(funcionario.getDataNascimento().getTime()));
 			p.setString(3, funcionario.getEndereco().getLogradouro());
@@ -119,10 +120,12 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 			p.setString(12, funcionario.getTelefone().getNumeroLinha());
 			p.setInt(13, funcionario.getCodigo());
 			
+                        System.out.println("aqui é antes do p.execute!");
 			p.execute();
                         return true;
 			
 		} catch (SQLException e) {
+                    e.printStackTrace();
 			return false;
 		}
 	}

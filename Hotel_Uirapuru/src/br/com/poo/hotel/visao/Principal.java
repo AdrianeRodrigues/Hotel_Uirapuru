@@ -1,7 +1,12 @@
 package br.com.poo.hotel.visao;
 
+import br.com.poo.hotel.controle.ReservaDAO;
+import br.com.poo.hotel.modelo.Reserva;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,7 +38,7 @@ public class Principal extends javax.swing.JFrame {
         menuSaida = new javax.swing.JMenu();
         itemRegistrarSaida = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        itemFaturamentoPeriodo = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         menuReservas = new javax.swing.JMenu();
         itemListarReservas = new javax.swing.JMenuItem();
@@ -95,8 +100,13 @@ public class Principal extends javax.swing.JFrame {
 
         menuRelatorios.setText("Relatórios");
 
-        jMenuItem1.setText("Faturamento por período");
-        menuRelatorios.add(jMenuItem1);
+        itemFaturamentoPeriodo.setText("Faturamento por período");
+        itemFaturamentoPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemFaturamentoPeriodoActionPerformed(evt);
+            }
+        });
+        menuRelatorios.add(itemFaturamentoPeriodo);
 
         jMenuItem2.setText("Faturas em atraso");
         menuRelatorios.add(jMenuItem2);
@@ -130,6 +140,11 @@ public class Principal extends javax.swing.JFrame {
         menuReservas.add(itemReserva);
 
         itemListarHospedes.setText("Listar hospedes");
+        itemListarHospedes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemListarHospedesActionPerformed(evt);
+            }
+        });
         menuReservas.add(itemListarHospedes);
 
         nenuBarPrin.add(menuReservas);
@@ -196,7 +211,44 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemRegistrarSaidaActionPerformed
 
     private void itemListarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemListarReservasActionPerformed
-        //TODO
+                                                        
+        ReservaDAO r = new ReservaDAO();
+        StringBuilder reservas = new StringBuilder();
+        reservas.append("\tReservas Pendentes: \n");
+        reservas.append("----------------------\n");
+        List<Reserva> l = r.listar();
+         System.out.println(l);
+        if(!l.isEmpty()){
+            System.out.println("Entrou");
+            for(Reserva objLista:l){
+                System.out.println("Entrou no for");
+                if(objLista.getDataChegada().after(new Date())){
+                    reservas.append("Codigo: ");
+                    reservas.append(objLista.getCodigo());
+                    reservas.append("\n");
+                    reservas.append("Nome do Hospede: ");
+                    reservas.append(objLista.getHospede().getNome());
+                    reservas.append("\n");
+                    reservas.append("CPF do Hospede: ");
+                    reservas.append(objLista.getHospede().getCpf());
+                    reservas.append("\n");
+                    reservas.append("Numero da Acomodaçao: ");
+                    reservas.append(objLista.getAcomodacao().getNumero());
+                    reservas.append("\n");
+                    reservas.append("Data da Chegada: ");
+                    reservas.append(objLista.getDataChegada());
+                    reservas.append("\n");
+                    reservas.append("Data de Saida: ");
+                    reservas.append(objLista.getDataSaida());
+                    reservas.append("\n\n");
+                }
+            }
+            TelaRelatorio window = new TelaRelatorio(reservas);
+            addDesktop(window);
+        }else{
+            JOptionPane.showMessageDialog(this, "Nenhuma reserva cadastrada!");
+        }
+
     }//GEN-LAST:event_itemListarReservasActionPerformed
 
     private void itemCadastroHospede1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCadastroHospede1ActionPerformed
@@ -228,6 +280,16 @@ public class Principal extends javax.swing.JFrame {
         TelaConsumacao consumo = new TelaConsumacao(this);
         addDesktop(consumo);
     }//GEN-LAST:event_itemItemConsumidoActionPerformed
+
+    private void itemListarHospedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemListarHospedesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemListarHospedesActionPerformed
+
+    private void itemFaturamentoPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFaturamentoPeriodoActionPerformed
+        ReservaDAO dao = new ReservaDAO();
+        TelaRelatorio telaFaturamento = new TelaRelatorio();
+        
+    }//GEN-LAST:event_itemFaturamentoPeriodoActionPerformed
     
     public void addDesktop(JInternalFrame frame){
         desktopPrin.add(frame);
@@ -241,6 +303,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemCadastroFuncionario;
     private javax.swing.JMenuItem itemCadastroHospede1;
     private javax.swing.JMenuItem itemCadastroTipo;
+    private javax.swing.JMenuItem itemFaturamentoPeriodo;
     private javax.swing.JMenuItem itemItemConsumido;
     private javax.swing.JMenuItem itemListarHospedes;
     private javax.swing.JMenuItem itemListarReservas;
@@ -249,7 +312,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemReserva;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu menuCadastro1;
     private javax.swing.JMenu menuEntrada;

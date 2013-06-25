@@ -25,7 +25,7 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
         dao = new FuncionarioDAO();
         btnAlterar.setVisible(false);
         btnRemover.setVisible(false);
-        btnSalvar.setVisible(false);
+        btnSalvar.setVisible(false);        
     }
 
     /**
@@ -251,7 +251,7 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
             }
         });
 
-        ftxtBuscaId.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        ftxtBuscaId.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
         ftxtBuscaId.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         btnAlterar.setText("Alterar");
@@ -306,7 +306,7 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
                     .addComponent(btnSalvar)
                     .addComponent(btnCancel)
                     .addComponent(btnAlterar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -320,9 +320,16 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
             if (funcionario == null) {
                 JOptionPane.showMessageDialog(null, "Funcionáro não cadastrado!");
                 habilitarCampos();
+                btnSalvar.setVisible(true);
+                btnAlterar.setVisible(false);
+                btnRemover.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Funcionário já cadastrado!");
+                habilitarCampos();
                 setarCampos();
+                btnSalvar.setVisible(false);
+                btnAlterar.setVisible(true);
+                btnRemover.setVisible(true);
             }
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -332,7 +339,7 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
         if (resp) {
             limparCampos();
             JOptionPane.showMessageDialog(null, "Funcionario removido!");
-            this.dispose();
+            
         } else {
             JOptionPane.showMessageDialog(null, "Funcionário não removido!");
         }
@@ -342,8 +349,11 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
         if (!txtNome.getText().isEmpty() && !txtBairro.getText().isEmpty() && !ftxtBuscaId.getText().isEmpty()
                 && !txtCidade.getText().isEmpty() && !txtComplemento.getText().isEmpty() && !txtEstado.getText().isEmpty()
                 && !txtLogradouro.getText().isEmpty() && !ftxtNro.getText().isEmpty() && !dateData.getDate().toString().isEmpty()
-                && !ftxtCodArea.getText().isEmpty() && !ftxtPrefixo.getText().isEmpty() && !ftxtTelefone.getText().isEmpty()) {
-
+                && !ftxtCodArea.getText().isEmpty() && !ftxtPrefixo.getText().isEmpty() && !ftxtTelefone.getText().isEmpty()) { 
+            
+            login = "admin";
+            senha = "senha";
+            
             end = new Endereco(txtLogradouro.getText(), txtBairro.getText(), txtCidade.getText(),
                     ftxtNro.getText(), txtComplemento.getText(), txtEstado.getText(), "Brasil");
 
@@ -352,8 +362,7 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
             funcionario = new Funcionario(txtNome.getText(), login, senha, dateData.getDate(),
                     end, tel, Permissao.ADMINISTRADOR, 0);
             
-            login = funcionario.getLogin();
-            senha = "senha";
+            
 
             boolean resposta = dao.inserir(funcionario);
 
@@ -362,6 +371,8 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
                 //this.dispose();
                 limparCampos();
                 habilitarCampos();
+                btnAlterar.setVisible(false);
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Funcionário não cadastrado!");
             }
@@ -376,25 +387,26 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        //tel = new Telefone("", "", "");
+        end = new Endereco("", "", "", "", "", "", "");
         if (!txtNome.getText().isEmpty() && !txtBairro.getText().isEmpty() && !ftxtBuscaId.getText().isEmpty()
                 && !txtCidade.getText().isEmpty() && !txtComplemento.getText().isEmpty() && !txtEstado.getText().isEmpty()
                 && !txtLogradouro.getText().isEmpty() && !ftxtNro.getText().isEmpty() && !dateData.getDate().toString().isEmpty()
-                && !ftxtCodArea.getText().isEmpty() && !ftxtPrefixo.getText().isEmpty() && !ftxtTelefone.getText().isEmpty()){
+                && !ftxtCodArea.getText().isEmpty() && !ftxtPrefixo.getText().isEmpty() && !ftxtTelefone.getText().isEmpty()){                         
             
-            tel.setCodigoArea(ftxtCodArea.getText());
-            tel.setNumeroLinha(ftxtTelefone.getText());
-            tel.setPrefixo(ftxtPrefixo.getText());
+            funcionario.setCodigo(Integer.parseInt(ftxtBuscaId.getText()));
+            funcionario.setDataNascimento(dateData.getDate());
+            funcionario.setNome(txtNome.getText());
+           
+             tel = new Telefone(ftxtCodArea.getText(), ftxtPrefixo.getText(), ftxtTelefone.getText());   
             
             end.setBairro(txtBairro.getText());
             end.setCidade(txtCidade.getText());
             end.setComplemento(txtComplemento.getText());
             end.setEstado(txtEstado.getText());
             end.setLogradouro(txtLogradouro.getText());
-            end.setNumero(ftxtNro.getText());            
+            end.setNumero(ftxtNro.getText());         
             
-            funcionario.setCodigo(Integer.parseInt(ftxtBuscaId.getText()));
-            funcionario.setDataNascimento(dateData.getDate());
-            funcionario.setNome(txtNome.getText());
             funcionario.setTelefone(tel);
             funcionario.setEndereco(end);
             
@@ -402,6 +414,7 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
             
             if(resp){
                 JOptionPane.showMessageDialog(null, "Dados do funcionário alterados com sucesso");
+                System.out.println("tel "+ ftxtCodArea.getText() + " "+ ftxtPrefixo.getText()+" "+ftxtTelefone.getText());
                 limparCampos();
                 this.dispose();
             }else{
@@ -436,10 +449,7 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
         ftxtNro.setText(funcionario.getEndereco().getNumero());
         ftxtPrefixo.setText(funcionario.getTelefone().getPrefixo());
         ftxtTelefone.setText(funcionario.getTelefone().getNumeroLinha());
-        dateData.setDate(funcionario.getDataNascimento());
-        btnAlterar.setVisible(true);
-        btnRemover.setVisible(true);
-        btnSalvar.setVisible(false);
+        dateData.setDate(funcionario.getDataNascimento());        
     }
 
     private void habilitarCampos() {
@@ -453,10 +463,7 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
         txtEstado.setEnabled(true);
         txtLogradouro.setEnabled(true);
         txtNome.setEnabled(true);
-        dateData.setEnabled(true);
-        btnSalvar.setVisible(true);
-        btnAlterar.setVisible(false);
-        btnRemover.setVisible(false);
+        dateData.setEnabled(true);       
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

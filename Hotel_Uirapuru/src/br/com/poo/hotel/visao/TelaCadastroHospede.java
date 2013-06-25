@@ -327,6 +327,11 @@ public class TelaCadastroHospede extends javax.swing.JInternalFrame {
         });
 
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -377,7 +382,7 @@ public class TelaCadastroHospede extends javax.swing.JInternalFrame {
                             .addComponent(btnRemover)
                             .addComponent(btnAlterar)))
                     .addComponent(panelDadoPessoal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -441,6 +446,7 @@ public class TelaCadastroHospede extends javax.swing.JInternalFrame {
                 //HabilitarCampos();
                 btnRemover.setVisible(false);
                 btnSalvar.setVisible(true);
+                btnAlterar.setVisible(false);
                 
             } else {
                 JOptionPane.showMessageDialog(null, "CPF já cadastrado!");
@@ -459,10 +465,50 @@ public class TelaCadastroHospede extends javax.swing.JInternalFrame {
         if (resp) {
             new TelaCadastroHospede().limparCampos();
             JOptionPane.showMessageDialog(null, "Hospede removido!");
+            limparCampos();
+            btnAlterar.setVisible(false);
+            btnRemover.setVisible(false);
+            btnSalvar.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Hospede não removido!");
         }
     }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        end = new Endereco("", "", "", "", "", "", "");
+        if (!txtNome.getText().isEmpty() && !txtBairro.getText().isEmpty() && !ftxtCPF.getText().isEmpty()
+                && !txtCidade.getText().isEmpty() && !txtComp.getText().isEmpty() && !txtEstado.getText().isEmpty()
+                && !txtLogradouro.getText().isEmpty() && !ftxtNro.getText().isEmpty() && !dateData.getDate().toString().isEmpty()
+                && !ftxtCodArea.getText().isEmpty() && !ftxtPrefixo.getText().isEmpty() && !ftxtTelefone.getText().isEmpty()){                         
+            
+            hospede.setCpf(ftxtCPF.getText());
+            hospede.setDataNascimento(dateData.getDate());
+            hospede.setNome(txtNome.getText());
+           
+             tel = new Telefone(ftxtCodArea.getText(), ftxtPrefixo.getText(), ftxtTelefone.getText());   
+            
+            end.setBairro(txtBairro.getText());
+            end.setCidade(txtCidade.getText());
+            end.setComplemento(txtComp.getText());
+            end.setEstado(txtEstado.getText());
+            end.setLogradouro(txtLogradouro.getText());
+            end.setNumero(ftxtNro.getText());         
+            
+            hospede.setTelefone(tel);
+            hospede.setEndereco(end);
+            
+            boolean resp = dao.alterar(hospede);
+            
+            if(resp){
+                JOptionPane.showMessageDialog(null, "Dados do hospede alterados com sucesso!");
+                //System.out.println("tel "+ ftxtCodArea.getText() + " "+ ftxtPrefixo.getText()+" "+ftxtTelefone.getText());
+                limparCampos();
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Dados do hospede não foram alterados!");
+            }
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     public void HabilitarCampos() {
         ftxtCPF.setEnabled(true);

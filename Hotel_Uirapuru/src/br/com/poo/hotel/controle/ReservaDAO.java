@@ -20,21 +20,24 @@ public class ReservaDAO implements DAO<Reserva> {
 	@Override
 	public boolean inserir(Reserva reserva) {
 
-		String comandoSql = "INSERT INTO Reserva VALUES (?,?,?,?,?,?)";
+		String comandoSql = "INSERT INTO Reserva (codigo_reserva, data_chegada, data_saida, taxa_multa, desconto, hospede, acomodacao) "
+                        + "VALUES (?,?,?,?,?,?,?)";
 
 		try (Connection c = FabricaDeConexao.getConexao();
 				PreparedStatement p = c.prepareStatement(comandoSql)) {
 
-			p.setInt(1, reserva.getCodigo());
+			p.setString(1, String.valueOf(reserva.getCodigo()));
 			p.setDate(2, new Date(reserva.getDataChegada().getTime()));
 			p.setDate(3, new Date(reserva.getDataSaida().getTime()));
 			p.setDouble(4, reserva.getTaxaMulta());
 			p.setDouble(5, reserva.getDesconto());
 			p.setString(6, reserva.getHospede().getCpf());
-
-			return p.execute();
+                        p.setString(7, String.valueOf(reserva.getAcomodacao().getCodigo()));
+			p.execute();
+                        return true;
 
 		} catch (SQLException e) {
+                    e.printStackTrace();
 			return false;
 		}
 	}
@@ -77,8 +80,9 @@ public class ReservaDAO implements DAO<Reserva> {
 			p.setString(5, reserva.getHospede().getCpf());
 			p.setInt(6, reserva.getCodigo());
 
-			return p.execute();
-
+			p.execute();
+                        return true;
+                        
 		} catch (SQLException e) {
 			return false;
 		}
@@ -98,7 +102,7 @@ public class ReservaDAO implements DAO<Reserva> {
 
 			while (r.next()) {
 
-				Acomodacao acomodacao = new AcomodacaoDAO().buscarID
+				Acomodacao acomodacao = new AcomodacaoDAO().buscaPorID
 						(r.getInt("codigo_reserva"));
 
 				Hospede hospede = new HospedeDAO().buscarID(r.getString("hospede"));
@@ -135,7 +139,7 @@ public class ReservaDAO implements DAO<Reserva> {
 						r.getDate("data_saida"), 
 						r.getDouble("taxa_multa"),
 						r.getDouble("desconto"), 
-						new AcomodacaoDAO().buscarID(r.getInt("codigo_reserva")), 
+						new AcomodacaoDAO().buscaPorID(r.getInt("codigo_reserva")), 
 						new AcompanhanteDAO().buscarAcompanhanteReserva(r.getInt("codigo_reserva")), 
 						new HospedeDAO().buscarID(r.getString("hospede")),
 						r.getInt("codigo_reserva"));

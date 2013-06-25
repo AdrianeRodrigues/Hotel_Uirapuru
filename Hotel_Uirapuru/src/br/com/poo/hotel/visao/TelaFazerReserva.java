@@ -29,7 +29,7 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
         initComponents();                
         listaAcompanhante = new ArrayList<>();
         reservaDAO = new ReservaDAO();      
-        this.add = add;        
+        this.add = add;                
     }
 
     /**
@@ -362,7 +362,7 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancel))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -376,7 +376,7 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancel))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -385,7 +385,6 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         TelaPesquisa pesquisa = new TelaPesquisa(this, 1);
         add.addDesktop(pesquisa);     
-        System.out.println(hospede.getNome());
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -396,7 +395,12 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
             
             reserva = new Reserva(dateDataEntrada.getDate(), dateDataSaida.getDate(), Integer.parseInt(ftxtMulta.getText()), 
                     Integer.parseInt(ftxtDesconto.getText()), acomodacao, null, hospede);
-            
+            boolean resp = reservaDAO.inserir(reserva);
+            if(resp){
+                JOptionPane.showMessageDialog(null, "Reserva feita com sucesso!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Reserva não foi feita!");
+            }
         }else{
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
         }
@@ -416,8 +420,8 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
         if (!txtNome.getText().isEmpty() && !ftxtIdade.getText().isEmpty()) {
             acompanhante = new Acompanhante(txtNome.getText(), Integer.parseInt(ftxtIdade.getText()));
 
-            if (listaAcompanhante.size() <= acomodacao.getTipoAcomodacao().getNumeroAdultos()
-                    + acomodacao.getTipoAcomodacao().getNumeroCriancas()) {
+            /*if (listaAcompanhante.size() <= acomodacao.getTipoAcomodacao().getNumeroAdultos()
+                    + acomodacao.getTipoAcomodacao().getNumeroCriancas()) {*/
                 boolean resp = listaAcompanhante.add(acompanhante);
                 if (resp) {
                     JOptionPane.showMessageDialog(null, "Acompanhante adicionado!");
@@ -427,12 +431,12 @@ public class TelaFazerReserva extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Número máximo de acompanhantes foi atingido!");
             }
-        }
-
+        //}
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcomodacaoActionPerformed
-        // TODO BUSCAR ACOMODAÇÃO        
+        TelaPesquisa pesquisa = new TelaPesquisa(this, 3);
+        add.addDesktop(pesquisa);       
     }//GEN-LAST:event_btnAcomodacaoActionPerformed
 
     public void trocar(){        

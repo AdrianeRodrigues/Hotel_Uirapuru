@@ -56,7 +56,7 @@ public class ItemDAO implements DAO<Item> {
 	@Override
 	public boolean alterar(Item item) {
 		
-		String comandoSql = "UPDATE Item SET descricao=?" +
+		String comandoSql = "UPDATE Item SET descricao=?, " +
 				"preco_venda=?,categoria=? WHERE codigo_item=?";
 		
 		try (Connection c = FabricaDeConexao.getConexao();
@@ -71,6 +71,7 @@ public class ItemDAO implements DAO<Item> {
                         return true;
 			
 		} catch (SQLException e) {
+                    e.printStackTrace();
 			return false;
 		}		
 	}

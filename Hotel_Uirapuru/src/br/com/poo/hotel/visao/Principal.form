@@ -62,10 +62,13 @@
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="itemFaturamentoPeriodo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Faturamento por per&#xed;odo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemFaturamentoPeriodoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
@@ -107,6 +110,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Listar hospedes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemListarHospedesActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

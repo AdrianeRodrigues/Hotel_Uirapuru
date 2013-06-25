@@ -1,7 +1,12 @@
 package br.com.poo.hotel.visao;
 
+import br.com.poo.hotel.controle.AcomodacaoDAO;
 import br.com.poo.hotel.controle.HospedeDAO;
 import br.com.poo.hotel.controle.ItemDAO;
+import br.com.poo.hotel.modelo.Hospede;
+import br.com.poo.hotel.modelo.Item;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
                    
 /**
@@ -15,14 +20,12 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
     private TableModel model;
     
     
-    /**
-     * Creates new form TelaPesquisa
-     */
+    
     public TelaPesquisa(Object obj, int tipo) {
         this.tipo = tipo;
         tela = obj;
+        initComponents();
         Inicio();
-        initComponents();      
     }
     
     /**
@@ -45,7 +48,6 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
 
-        jtPesquisa.setModel(model);
         jScrollPane2.setViewportView(jtPesquisa);
 
         lblFiltro.setText("Filtro:");
@@ -76,31 +78,30 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(lblFiltro)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSelecionar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))))
+                        .addGap(22, 22, 22)
+                        .addComponent(lblFiltro)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSelecionar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(40, 40, 40)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFiltro)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -109,7 +110,7 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFiltrar)
                     .addComponent(btnVoltar))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -117,12 +118,35 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
     
     private void Inicio(){
         if(tipo == 1){
+            List<Hospede> h;
             HospedeDAO dao = new HospedeDAO();
-            model = (TableModelHospede)new TableModelHospede(dao.listar());
+            h = dao.listar();
+            if(!h.isEmpty()){
+                jtPesquisa.setModel(new TableModelHospede(h));
+            }else{
+                //JOptionPane.showMessageDialog(this,"Não possui nenhum Hóspede cadastrado");
+                this.dispose();
+            }
         }else{
-            ItemDAO dao = new ItemDAO();
-            model = (TableModelItem)new TableModelItem(dao.listar());
+            if(tipo == 2){
+                List<Item> i;
+                ItemDAO dao = new ItemDAO();
+                i = dao.listar();
+                jtPesquisa.setModel(new TableModelItem(dao.listar()));
+            }else{
+                AcomodacaoDAO dao = new AcomodacaoDAO();
+                jtPesquisa.setModel(new TableModelAcomodacao(dao.listar()));
+                btnFiltrar.setVisible(false);
+                txtFiltro.setVisible(false);     
+            }
         }
+    }
+    
+     private void retornaAcomodacao(int retorno){
+         AcomodacaoDAO dao = new AcomodacaoDAO();            
+         TelaFazerReserva t = (TelaFazerReserva) tela;
+         t.setAcomodacao(dao.buscaPorID(retorno));
+         this.dispose();   
     }
     
     private void retornaHospede(String retorno){
@@ -130,6 +154,7 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
          if(tela instanceof TelaFazerReserva){
             TelaFazerReserva t = (TelaFazerReserva) tela;
             t.setHospede(dao.buscarID(retorno));
+            t.trocar();
          }else{
             TelaConsumacao t = (TelaConsumacao) tela;
             t.setHospede (dao.buscarID(retorno));
@@ -139,12 +164,9 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
     }
     
     private void retornaItem(int retorno){
-         ItemDAO dao = new ItemDAO();
-         if(tela instanceof TelaConsumacao){
-            TelaConsumacao t = (TelaConsumacao) tela;
-            t.setItem(dao.buscaId(retorno));
-
-         }
+         ItemDAO dao = new ItemDAO();            
+         TelaConsumacao t = (TelaConsumacao) tela;
+         t.setItem(dao.buscaId(retorno));
          this.dispose();
     }
     
@@ -168,7 +190,11 @@ public class TelaPesquisa extends javax.swing.JInternalFrame {
         if(tipo == 1){
             retornaHospede((String)jtPesquisa.getValueAt(linha,0));
         }else{
-            retornaItem((Integer)jtPesquisa.getValueAt(linha, 0));
+            if(tipo == 2){
+                retornaItem((Integer)jtPesquisa.getValueAt(linha, 0));
+            }else{
+                retornaAcomodacao((Integer)jtPesquisa.getValueAt(linha, 0));
+            }
         }
     }//GEN-LAST:event_btnSelecionarActionPerformed
 

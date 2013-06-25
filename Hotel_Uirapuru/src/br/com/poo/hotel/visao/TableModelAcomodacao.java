@@ -1,6 +1,7 @@
 package br.com.poo.hotel.visao;
 
-import br.com.poo.hotel.modelo.Hospede;
+import br.com.poo.hotel.modelo.Acomodacao;
+import br.com.poo.hotel.modelo.TipoAcomodacao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -9,23 +10,25 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Schick
  */
-public class TableModelHospede extends AbstractTableModel{
+public class TableModelAcomodacao extends AbstractTableModel{
     
-    private String[] colunas = {"CPF","Nome"};
+    private String[] colunas = {"Codigo","Andar","Numero","Ocupado","Tipo de Acomodaçao"};
 
-    private Class[] classeColuna = new Class[]{String.class, String.class};
+    private Class[] classeColuna = new Class[]{int.class, int.class, int.class,
+    boolean.class, String.class};
 
-    private List<Hospede> linhas;
+    private List<Acomodacao> linhas;
 
-    public TableModelHospede() {
-        linhas = new ArrayList<>();
+    public TableModelAcomodacao() {
+        linhas = new ArrayList<Acomodacao>();
     }
 
-    public TableModelHospede(List<Hospede> itens) {
+    public TableModelAcomodacao(List<Acomodacao> acomodacoes) {
         this();
-        if(itens != null){
-            for(Hospede objLista: itens){
+        if(acomodacoes != null){
+            for(Acomodacao objLista: acomodacoes){
                 linhas.add(objLista);
+                
             }
         }
     }
@@ -56,15 +59,21 @@ public class TableModelHospede extends AbstractTableModel{
     }
 
     @Override
-    public String getValueAt(int rowIndex, int columnIndex) {//Retorna o valor contido da célula
-        Hospede hospede = linhas.get(rowIndex);
+    public Object getValueAt(int rowIndex, int columnIndex) {//Retorna o valor contido da célula
+        Acomodacao acomodacao = linhas.get(rowIndex);
         switch(columnIndex) {
             case 0: 
-                return hospede.getCpf();
+                return (Integer)acomodacao.getCodigo();
             case 1:
-                return hospede.getNome();
+                return (Integer)acomodacao.getAndar();
+            case 2:
+                return (Integer)acomodacao.getNumero();
+            case 3:
+                return (Boolean)acomodacao.isOcupado();
+            case 4:
+                return (TipoAcomodacao)acomodacao.getTipoAcomodacao();
             default:
-                return "";
+                return null;
         }
     }
 
